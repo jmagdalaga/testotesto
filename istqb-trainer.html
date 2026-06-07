@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISTQB CTFL v4.0.1 — Complete Trainer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0c10;--surface:#111318;--surface2:#181c24;--border:#252a36;
+  --accent:#4af0a8;--accent2:#38bdf8;--accent3:#f59e0b;--warn:#f87171;
+  --purple:#a78bfa;--text:#e8eaf0;--muted:#7a8099;
+  --card-glow:0 0 40px rgba(74,240,168,0.06);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.7;}
+
+/* HEADER */
+header{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 28px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:100;}
+.badge{background:var(--accent);color:#0a0c10;font-family:'Syne',sans-serif;font-weight:800;font-size:11px;letter-spacing:.1em;padding:3px 9px;border-radius:4px;text-transform:uppercase;white-space:nowrap;}
+header h1{font-family:'Syne',sans-serif;font-weight:700;font-size:17px;}
+.header-right{margin-left:auto;display:flex;align-items:center;gap:16px;}
+.progress-text{font-size:12px;color:var(--muted);}
+.progress-mini{width:80px;height:4px;background:var(--border);border-radius:99px;overflow:hidden;}
+.progress-mini-fill{height:100%;background:var(--accent);border-radius:99px;transition:width .4s;}
+
+/* LAYOUT */
+.layout{display:grid;grid-template-columns:270px 1fr;min-height:calc(100vh - 57px);}
+
+/* SIDEBAR */
+aside{background:var(--surface);border-right:1px solid var(--border);position:sticky;top:57px;height:calc(100vh - 57px);overflow-y:auto;display:flex;flex-direction:column;}
+.chapter-group{border-bottom:1px solid var(--border);}
+.chapter-header{display:flex;align-items:center;gap:10px;padding:11px 18px;cursor:pointer;font-size:12px;font-weight:700;font-family:'Syne',sans-serif;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);background:var(--surface);transition:background .2s;user-select:none;}
+.chapter-header:hover{background:var(--surface2);}
+.chapter-header.open{color:var(--text);}
+.chapter-dot{width:8px;height:8px;border-radius:50%;background:var(--border);flex-shrink:0;transition:background .2s;}
+.chapter-header.open .chapter-dot{background:var(--accent);}
+.chapter-items{display:none;}
+.chapter-items.open{display:block;}
+.nav-item{display:flex;align-items:center;gap:9px;padding:8px 18px 8px 32px;cursor:pointer;transition:all .2s;border-left:3px solid transparent;font-size:13px;color:var(--muted);}
+.nav-item:hover{background:var(--surface2);color:var(--text);}
+.nav-item.active{border-left-color:var(--accent);background:rgba(74,240,168,0.06);color:var(--accent);font-weight:500;}
+.nav-item .num{font-size:10px;background:var(--surface2);border-radius:3px;padding:1px 5px;font-family:'Syne',sans-serif;font-weight:700;min-width:30px;text-align:center;flex-shrink:0;}
+.nav-item.active .num{background:rgba(74,240,168,0.15);color:var(--accent);}
+
+/* MAIN */
+main{padding:36px 44px;max-width:900px;}
+.section{display:none;animation:fadeIn .3s ease;}
+.section.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* TYPOGRAPHY */
+.section-tag{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);font-weight:700;font-family:'Syne',sans-serif;margin-bottom:6px;}
+h2{font-family:'Syne',sans-serif;font-weight:800;font-size:28px;color:var(--text);line-height:1.2;margin-bottom:8px;}
+h3{font-family:'Syne',sans-serif;font-weight:700;font-size:17px;color:var(--text);margin-bottom:10px;}
+.intro-text{font-size:15px;color:var(--muted);margin-bottom:28px;max-width:640px;}
+p{font-size:14px;color:var(--muted);margin-bottom:8px;}
+p:last-child{margin-bottom:0;}
+strong{color:var(--text);font-weight:600;}
+
+/* ANALOGY */
+.analogy{background:linear-gradient(135deg,rgba(74,240,168,.08),rgba(56,189,248,.06));border:1px solid rgba(74,240,168,.2);border-radius:12px;padding:18px 22px;margin-bottom:22px;position:relative;overflow:hidden;}
+.analogy::before{content:'💡';position:absolute;right:18px;top:14px;font-size:26px;opacity:.35;}
+.analogy-label{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:5px;}
+
+/* CARDS */
+.cards-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;}
+.cards-grid.three{grid-template-columns:1fr 1fr 1fr;}
+.card{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:16px 18px;transition:border-color .2s,box-shadow .2s;}
+.card:hover{border-color:rgba(74,240,168,.3);box-shadow:var(--card-glow);}
+.card-icon{font-size:20px;margin-bottom:7px;}
+.card h4{font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:var(--text);margin-bottom:5px;}
+.card p{font-size:12px;color:var(--muted);line-height:1.6;margin:0;}
+
+/* INFO BLOCK */
+.info-block{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:18px 22px;margin-bottom:18px;}
+.info-block.blue{border-color:rgba(56,189,248,.25);background:rgba(56,189,248,.05);}
+.info-block.yellow{border-color:rgba(245,158,11,.25);background:rgba(245,158,11,.05);}
+.info-block.red{border-color:rgba(248,113,113,.25);background:rgba(248,113,113,.05);}
+.info-block.purple{border-color:rgba(167,139,250,.25);background:rgba(167,139,250,.05);}
+
+/* FLOW */
+.flow{display:flex;flex-direction:column;gap:0;margin-bottom:24px;}
+.flow-step{display:flex;align-items:flex-start;gap:14px;position:relative;}
+.flow-step::before{content:'';position:absolute;left:17px;top:36px;width:2px;height:calc(100% - 6px);background:linear-gradient(to bottom,var(--accent2),transparent);}
+.flow-step:last-child::before{display:none;}
+.flow-dot{width:36px;height:36px;border-radius:50%;background:rgba(56,189,248,.12);border:2px solid var(--accent2);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;margin-top:4px;}
+.flow-content{padding-bottom:20px;flex:1;}
+.flow-content h4{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;color:var(--accent2);margin-bottom:3px;}
+.flow-content p{font-size:13px;color:var(--muted);margin:0;}
+
+/* PRINCIPLE */
+.principle{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--border);}
+.principle:last-child{border-bottom:none;}
+.principle-num{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;color:var(--accent);min-width:32px;line-height:1;padding-top:2px;}
+.principle-body h4{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;color:var(--text);margin-bottom:3px;}
+.principle-body p{font-size:13px;color:var(--muted);margin:0 0 4px;}
+.real-world{display:inline-block;margin-top:4px;font-size:11px;color:var(--accent3);background:rgba(245,158,11,.1);border-radius:4px;padding:2px 7px;}
+
+/* TABLE */
+.compare{width:100%;border-collapse:collapse;margin-bottom:22px;font-size:13px;}
+.compare th{background:var(--surface2);font-family:'Syne',sans-serif;font-weight:700;font-size:12px;padding:10px 14px;text-align:left;border-bottom:2px solid var(--border);color:var(--muted);text-transform:uppercase;letter-spacing:.06em;}
+.compare td{padding:10px 14px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:top;font-size:13px;}
+.compare tr:last-child td{border-bottom:none;}
+.compare tr:hover td{background:rgba(255,255,255,.02);}
+.tag-g{color:var(--accent);font-weight:600;}
+.tag-b{color:var(--accent2);font-weight:600;}
+.tag-y{color:var(--accent3);font-weight:600;}
+.tag-r{color:var(--warn);font-weight:600;}
+.tag-p{color:var(--purple);font-weight:600;}
+
+/* TERM LIST */
+.term-list{display:flex;flex-direction:column;gap:8px;margin-bottom:22px;}
+.term{display:flex;gap:10px;align-items:flex-start;padding:10px 14px;background:var(--surface2);border-radius:8px;border:1px solid var(--border);}
+.term-name{font-family:'Syne',sans-serif;font-weight:700;font-size:12px;color:var(--accent3);min-width:150px;flex-shrink:0;}
+.term-def{font-size:12px;color:var(--muted);}
+
+/* QUIZ */
+.quiz-card{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:14px;}
+.quiz-q{font-size:14px;font-weight:500;color:var(--text);margin-bottom:14px;line-height:1.6;}
+.quiz-options{display:flex;flex-direction:column;gap:7px;}
+.quiz-opt{background:var(--surface);border:1px solid var(--border);border-radius:7px;padding:9px 13px;cursor:pointer;font-size:13px;color:var(--muted);transition:all .2s;text-align:left;font-family:'DM Sans',sans-serif;}
+.quiz-opt:hover:not(:disabled){border-color:var(--accent2);color:var(--text);}
+.quiz-opt.correct{border-color:var(--accent);background:rgba(74,240,168,.1);color:var(--accent);}
+.quiz-opt.wrong{border-color:var(--warn);background:rgba(248,113,113,.1);color:var(--warn);}
+.quiz-feedback{display:none;margin-top:10px;padding:10px 13px;border-radius:7px;font-size:12px;line-height:1.6;}
+.quiz-feedback.show{display:block;}
+.quiz-feedback.ok{background:rgba(74,240,168,.08);color:var(--accent);border:1px solid rgba(74,240,168,.2);}
+.quiz-feedback.nope{background:rgba(248,113,113,.08);color:var(--warn);border:1px solid rgba(248,113,113,.2);}
+
+/* DIVIDER */
+.divider{height:1px;background:var(--border);margin:26px 0;}
+
+/* CHAPTER INTRO BANNER */
+.chapter-banner{background:linear-gradient(135deg,rgba(74,240,168,.1),rgba(56,189,248,.08));border:1px solid rgba(74,240,168,.2);border-radius:14px;padding:24px 28px;margin-bottom:28px;}
+.chapter-banner .ch-num{font-family:'Syne',sans-serif;font-weight:800;font-size:13px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px;}
+.chapter-banner h2{font-size:24px;margin-bottom:8px;}
+.chapter-banner p{font-size:14px;color:var(--muted);}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:var(--surface);}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:99px;}
+
+/* SCORE BANNER */
+.score-banner{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:20px 24px;margin-bottom:20px;display:flex;align-items:center;gap:20px;}
+.score-num{font-family:'Syne',sans-serif;font-weight:800;font-size:42px;color:var(--accent);}
+.score-label{font-size:14px;color:var(--muted);}
+.score-label strong{display:block;font-size:18px;color:var(--text);}
+
+@media(max-width:768px){.layout{grid-template-columns:1fr;}aside{display:none;}main{padding:20px 16px;}.cards-grid,.cards-grid.three{grid-template-columns:1fr;}h2{font-size:22px;}}
+</style>
+</head>
+<body>
+
+<header>
+  <span class="badge">ISTQB</span>
+  <h1>CTFL v4.0.1 — Complete Foundation Trainer</h1>
+  <div class="header-right">
+    <span class="progress-text" id="progressText">0% complete</span>
+    <div class="progress-mini"><div class="progress-mini-fill" id="progressFill" style="width:0%"></div></div>
+  </div>
+</header>
+
+<div class="layout">
+<aside id="sidebar"></aside>
+<main id="main"></main>
+</div>
+
+<script>
+// ─────────────────────────────────────────────
+// DATA
+// ─────────────────────────────────────────────
+const chapters = [
+{
+  id:'ch1', title:'Ch 1 · Fundamentals of Testing', color:'#4af0a8',
+  sections:[
+    { id:'1_1', num:'1.1', title:'What is Testing?', content:`
+<div class="section-tag">Section 1.1</div>
+<h2>What is Software Testing?</h2>
+<p class="intro-text">Let's start from scratch. Imagine you're a chef — you taste the dish before serving it to a customer. That's testing in a nutshell. In software, we "taste" the product before it reaches users.</p>
+<div class="analogy"><div class="analogy-label">Real-World Analogy</div><p>Think of software testing like a <strong>car inspection before buying</strong>. You don't just look at the outside — you check the engine, test the brakes, take it for a test drive, and make sure it fits your lifestyle. That's verification (works as promised) AND validation (meets your actual needs).</p></div>
+<div class="info-block"><h3>The Simple Definition</h3><p>Software testing is a <strong>set of activities to discover defects and evaluate the quality</strong> of software. The software being tested is called the <strong>test object</strong>.</p><p>🚫 <strong>Misconception #1:</strong> Testing = just clicking around and running the app. <em>Wrong!</em> It includes planning, designing test cases, reviewing documents, and analyzing results.</p><p>🚫 <strong>Misconception #2:</strong> Testing only checks requirements are met (verification). <em>Nope!</em> It also checks if the software solves real user problems (validation).</p></div>
+<div class="cards-grid"><div class="card"><div class="card-icon">🔍</div><h4>Verification</h4><p>"Did we build the product <em>right</em>?" — Does it match the specs?</p></div><div class="card"><div class="card-icon">✅</div><h4>Validation</h4><p>"Did we build the <em>right</em> product?" — Does it solve the real user problem?</p></div><div class="card"><div class="card-icon">⚡</div><h4>Dynamic Testing</h4><p>You <em>run</em> the software to test it. Like pressing a button to see if it works.</p></div><div class="card"><div class="card-icon">📄</div><h4>Static Testing</h4><p>Test <em>without</em> running software — reviewing documents, code, or specs for issues.</p></div></div>
+<div class="info-block blue"><h3>🧠 Easy Memory Trick</h3><p><strong>Static</strong> = reading a recipe and checking for mistakes (no cooking needed).<br><strong>Dynamic</strong> = actually cooking and tasting the dish.</p></div>`
+    },
+    { id:'1_2', num:'1.1.1', title:'Test Objectives', content:`
+<div class="section-tag">Section 1.1.1</div>
+<h2>Test Objectives</h2>
+<p class="intro-text">Why do we test? It's not just "to find bugs." There are many goals depending on the situation.</p>
+<div class="analogy"><div class="analogy-label">Analogy</div><p>Think of objectives like <strong>reasons a doctor runs tests</strong>. Sometimes to find disease, sometimes to confirm a treatment worked, sometimes to give peace of mind. Same patient, different goals each visit.</p></div>
+<div class="cards-grid"><div class="card"><div class="card-icon">🔎</div><h4>Find Defects</h4><p>Cause failures intentionally to uncover hidden bugs.</p></div><div class="card"><div class="card-icon">📊</div><h4>Assess Quality</h4><p>Measure how good or risky the software is at any point.</p></div><div class="card"><div class="card-icon">✅</div><h4>Verify Requirements</h4><p>Confirm all specified features work as written.</p></div><div class="card"><div class="card-icon">⚖️</div><h4>Meet Legal Needs</h4><p>Prove compliance with regulations, contracts, standards.</p></div><div class="card"><div class="card-icon">🛡️</div><h4>Reduce Risk</h4><p>Lower the chance of failures in real-world use.</p></div><div class="card"><div class="card-icon">💬</div><h4>Inform Decisions</h4><p>Give stakeholders data to decide: "Is this ready to ship?"</p></div><div class="card"><div class="card-icon">💪</div><h4>Build Confidence</h4><p>Give team and users confidence the product is reliable.</p></div><div class="card"><div class="card-icon">📋</div><h4>Evaluate Work Products</h4><p>Review requirements, designs, user stories — not just code.</p></div></div>
+<div class="info-block yellow"><h3>📌 Exam Tip</h3><p>Objectives are <strong>context-dependent</strong>. A startup beta app has different objectives than hospital medical software. Always match your objectives to the real situation.</p></div>`
+    },
+    { id:'1_3', num:'1.1.2', title:'Testing & Debugging', content:`
+<div class="section-tag">Section 1.1.2</div>
+<h2>Testing vs. Debugging</h2>
+<p class="intro-text">These two are often confused. They're related but completely different activities.</p>
+<div class="analogy"><div class="analogy-label">Analogy</div><p><strong>Testing</strong> = a doctor running lab tests to detect a disease.<br><strong>Debugging</strong> = the surgeon removing the tumor. A doctor doesn't have to be the surgeon — and vice versa.</p></div>
+<table class="compare"><thead><tr><th>Testing</th><th>Debugging</th></tr></thead><tbody><tr><td>Done by <span class="tag-g">Testers</span></td><td>Done by <span class="tag-b">Developers</span></td></tr><tr><td>Finds that something is wrong (the <em>failure</em>)</td><td>Finds <em>why</em> it's wrong and fixes it</td></tr><tr><td>A <strong>testing</strong> activity</td><td>A <strong>non-testing</strong> activity</td></tr><tr><td>Shows symptoms</td><td>Diagnoses root cause, applies fix</td></tr></tbody></table>
+<div class="flow"><div class="flow-step"><div class="flow-dot">🧪</div><div class="flow-content"><h4>1. Tester executes test → Failure observed</h4><p>Software behaves unexpectedly. Something is wrong.</p></div></div><div class="flow-step"><div class="flow-dot">🔬</div><div class="flow-content"><h4>2. Developer Debugs → Finds & Fixes the Defect</h4><p>Reproduces, diagnoses root cause, fixes the code.</p></div></div><div class="flow-step"><div class="flow-dot">✅</div><div class="flow-content"><h4>3. Confirmation Testing</h4><p>Tester re-runs the test to confirm the fix worked. Ideally the <em>same tester</em>.</p></div></div><div class="flow-step"><div class="flow-dot">🔄</div><div class="flow-content"><h4>4. Regression Testing</h4><p>Tester checks that the fix didn't break something else.</p></div></div></div>
+<div class="info-block"><h3>📌 Static Testing is Different</h3><p>Static testing directly finds defects in documents/code — no failure occurs. So debugging after static testing means just removing the defect. No reproduction needed.</p></div>`
+    },
+    { id:'1_4', num:'1.2', title:'Why Testing is Necessary', content:`
+<div class="section-tag">Section 1.2</div>
+<h2>Why is Testing Necessary?</h2>
+<p class="intro-text">Some people think testing is optional or a waste of time. Here's why they're dangerously wrong.</p>
+<div class="analogy"><div class="analogy-label">Analogy</div><p>Would you board a plane never tested? Take medicine that skipped clinical trials? Software failures have cost lives, billions of dollars, and reputations. The Ariane 5 rocket exploded due to a software bug. A faulty medical device gave wrong radiation doses. Testing saves lives.</p></div>
+<div class="cards-grid"><div class="card"><div class="card-icon">💰</div><h4>Cost-Effective Defect Detection</h4><p>Finding a bug in requirements costs ~$1 to fix. Finding it after release can cost ~$100+. Fix early.</p></div><div class="card"><div class="card-icon">📈</div><h4>Project Decision Making</h4><p>Test results help managers decide: "Is this good enough to release?" — based on real data, not guesses.</p></div><div class="card"><div class="card-icon">👥</div><h4>Represents the User</h4><p>Testers speak for users who can't be in the room. They ensure user needs are considered during development.</p></div><div class="card"><div class="card-icon">📜</div><h4>Legal & Regulatory Compliance</h4><p>Banking, healthcare, aviation — legally require testing before deployment. No test, no go-live.</p></div></div>`
+    },
+    { id:'1_5', num:'1.2.2', title:'Testing vs. QA', content:`
+<div class="section-tag">Section 1.2.2</div>
+<h2>Testing vs. Quality Assurance (QA)</h2>
+<p class="intro-text">Even senior engineers mix these up. Here's the clear distinction the ISTQB expects you to know.</p>
+<div class="analogy"><div class="analogy-label">Analogy</div><p><strong>QA</strong> = setting up a great kitchen: proper hygiene rules, trained chefs, quality ingredient policies. <strong>Testing</strong> = tasting every dish before it goes to the customer. QA prevents bad food; testing catches it.</p></div>
+<table class="compare"><thead><tr><th></th><th>Testing</th><th>QA</th></tr></thead><tbody><tr><td>Focus</td><td><span class="tag-g">Product</span></td><td><span class="tag-b">Process</span></td></tr><tr><td>Approach</td><td>Corrective — finds & fixes defects</td><td>Preventive — improves how we work</td></tr><tr><td>Goal</td><td>Find defects in <em>this</em> software</td><td>Build processes that prevent defects in <em>all</em> software</td></tr><tr><td>Responsibility</td><td>Mainly the test team</td><td><strong>Everyone</strong> on the project</td></tr><tr><td>Type</td><td>A form of Quality Control (QC)</td><td>A superset that includes QC + testing</td></tr></tbody></table>
+<div class="info-block yellow"><h3>📌 Exam Tip</h3><p>Testing is a subset of Quality Control (QC). QA is broader. Remember: <strong>QA = process + everyone's job. Testing = product + test team's job.</strong> Test results are used by both — testing uses them to fix defects, QA uses them to improve processes.</p></div>`
+    },
+    { id:'1_6', num:'1.2.3', title:'Errors, Defects & Failures', content:`
+<div class="section-tag">Section 1.2.3</div>
+<h2>Errors, Defects, Failures & Root Causes</h2>
+<p class="intro-text">These 4 terms form a chain. The exam loves testing if you can tell them apart.</p>
+<div class="analogy"><div class="analogy-label">Analogy — The Cooking Chain</div><p>Chef misreads recipe (<strong>error</strong>) → adds salt instead of sugar (<strong>defect</strong> in the dish) → customer spits it out (<strong>failure</strong>). Root cause? The recipe was written in confusing handwriting.</p></div>
+<div class="flow"><div class="flow-step"><div class="flow-dot">🧑</div><div class="flow-content"><h4>Error (Mistake)</h4><p>A <strong>human action</strong> that produces a wrong result. Caused by: time pressure, complexity, fatigue, lack of training.</p></div></div><div class="flow-step"><div class="flow-dot">🐛</div><div class="flow-content"><h4>Defect (Bug / Fault)</h4><p>The <strong>imperfection in the work product</strong> caused by the error. It sits there waiting to be triggered.</p></div></div><div class="flow-step"><div class="flow-dot">💥</div><div class="flow-content"><h4>Failure</h4><p>The defect causes <strong>visible bad behavior</strong> when executed. Not all defects cause failures — some are never triggered.</p></div></div><div class="flow-step"><div class="flow-dot">🌱</div><div class="flow-content"><h4>Root Cause</h4><p>The <strong>fundamental reason</strong> the error happened. Addressing this prevents future similar problems.</p></div></div></div>
+<div class="info-block red"><h3>⚠️ Important Nuance</h3><p>Failures can also be caused by <strong>environmental conditions</strong> — radiation, electromagnetic fields affecting firmware. Not every failure = someone wrote bad code.</p><p>Also: <strong>not every defect causes a failure</strong>. Some only trigger under very specific conditions.</p></div>`
+    },
+    { id:'1_7', num:'1.3', title:'7 Testing Principles', content:`
+<div class="section-tag">Section 1.3</div>
+<h2>The 7 Testing Principles</h2>
+<p class="intro-text">These are the "laws" of software testing. Memorize them. Understand them. The exam will test all 7.</p>
+<div class="principle"><div class="principle-num">01</div><div class="principle-body"><h4>Testing shows presence, not absence of defects</h4><p>Passing all tests doesn't mean zero bugs. It just means you didn't find any <em>with those tests</em>.</p><span class="real-world">🌍 A medical scan showing no cancer doesn't guarantee you're 100% healthy forever.</span></div></div>
+<div class="principle"><div class="principle-num">02</div><div class="principle-body"><h4>Exhaustive testing is impossible</h4><p>You can't test every input, combination, and scenario. Use risk-based testing and prioritization instead.</p><span class="real-world">🌍 An 8-char password field has trillions of combinations. You can't test them all.</span></div></div>
+<div class="principle"><div class="principle-num">03</div><div class="principle-body"><h4>Early testing saves time and money</h4><p>Find defects in requirements/design before they grow. Start static AND dynamic testing as early as possible.</p><span class="real-world">🌍 A typo in a blueprint costs pennies. Tearing down a built wall costs thousands.</span></div></div>
+<div class="principle"><div class="principle-num">04</div><div class="principle-body"><h4>Defects cluster together</h4><p>Most bugs live in a small number of modules — the <strong>Pareto Principle</strong>: 80% of defects from 20% of code.</p><span class="real-world">🌍 In a city, most crime happens in a few areas. Focus resources there.</span></div></div>
+<div class="principle"><div class="principle-num">05</div><div class="principle-body"><h4>Tests wear out (Pesticide Paradox)</h4><p>Running the same tests repeatedly stops finding new bugs. Regularly update and add new test cases.</p><span class="real-world">🌍 Pesticides lose effectiveness when bugs develop resistance. Keep changing your approach.</span></div></div>
+<div class="principle"><div class="principle-num">06</div><div class="principle-body"><h4>Testing is context dependent</h4><p>No one-size-fits-all approach. Testing a banking app differs wildly from testing a mobile game.</p><span class="real-world">🌍 A doctor uses different tools for a child vs an elderly patient — same goal, different approach.</span></div></div>
+<div class="principle"><div class="principle-num">07</div><div class="principle-body"><h4>Absence-of-defects fallacy</h4><p>Zero defects found doesn't mean success. The software might still not meet user needs or business goals.</p><span class="real-world">🌍 A car with zero mechanical defects is useless if it has 2 seats and you need to transport 6 people.</span></div></div>`
+    },
+    { id:'1_8', num:'1.4', title:'Test Activities & Testware', content:`
+<div class="section-tag">Section 1.4</div>
+<h2>Test Activities, Testware & Roles</h2>
+<p class="intro-text">Testing follows a structured process — from planning to completion. Each phase produces outputs called <strong>testware</strong>.</p>
+<div class="flow"><div class="flow-step"><div class="flow-dot">🗺️</div><div class="flow-content"><h4>Test Planning — "What's the game plan?"</h4><p>Define objectives, scope, resources, schedule, risks. <em>Outputs: Test Plan, Risk Register, Entry/Exit Criteria</em></p></div></div><div class="flow-step"><div class="flow-dot">📊</div><div class="flow-content"><h4>Test Monitoring & Control — "Are we on track?"</h4><p>Compare actual progress against the plan. Take corrective actions. <em>Outputs: Progress Reports, Control Directives</em></p></div></div><div class="flow-step"><div class="flow-dot">🔍</div><div class="flow-content"><h4>Test Analysis — "What do we test?"</h4><p>Analyze requirements to identify testable features and risks. <em>Outputs: Test Conditions, Defect Reports on test basis</em></p></div></div><div class="flow-step"><div class="flow-dot">✏️</div><div class="flow-content"><h4>Test Design — "How do we test it?"</h4><p>Create test cases, define test data, design test environment. <em>Outputs: Test Cases, Test Charters, Coverage Items</em></p></div></div><div class="flow-step"><div class="flow-dot">⚙️</div><div class="flow-content"><h4>Test Implementation — "Set it all up"</h4><p>Build scripts, organize suites, set up environment. <em>Outputs: Test Procedures, Test Scripts, Test Suites, Test Data</em></p></div></div><div class="flow-step"><div class="flow-dot">▶️</div><div class="flow-content"><h4>Test Execution — "Run the tests!"</h4><p>Execute tests, compare actual vs expected, log defects. <em>Outputs: Test Logs, Defect Reports</em></p></div></div><div class="flow-step"><div class="flow-dot">🏁</div><div class="flow-content"><h4>Test Completion — "Wrap it up"</h4><p>Archive testware, write lessons learned, close environment. <em>Outputs: Test Completion Report, Improvement Actions</em></p></div></div></div>
+<div class="cards-grid"><div class="card"><div class="card-icon">👔</div><h4>Test Management Role</h4><p>Owns the test process & team. Focuses on: planning, monitoring, control, completion.</p></div><div class="card"><div class="card-icon">🔧</div><h4>Testing Role</h4><p>Technical/engineering side. Focuses on: analysis, design, implementation, execution.</p></div></div>
+<div class="info-block"><h3>Traceability</h3><p>Good traceability links test cases → requirements → risks → results. This allows you to prove coverage, assess residual risk, and communicate progress to stakeholders meaningfully.</p></div>`
+    },
+    { id:'1_9', num:'1.5', title:'Skills & Independence', content:`
+<div class="section-tag">Section 1.5</div>
+<h2>Essential Skills & Good Practices</h2>
+<p class="intro-text">Being a great tester isn't just about finding bugs — it's about communication, teamwork, and critical thinking.</p>
+<div class="term-list"><div class="term"><div class="term-name">🧠 Testing Knowledge</div><div class="term-def">Know techniques, tools, and methodologies to test effectively.</div></div><div class="term"><div class="term-name">🔍 Attention to Detail</div><div class="term-def">Be thorough, careful, methodical — great testers find bugs others miss.</div></div><div class="term"><div class="term-name">💬 Communication</div><div class="term-def">Testers deliver "bad news." Communicate defects constructively without making devs feel attacked.</div></div><div class="term"><div class="term-name">💡 Analytical Thinking</div><div class="term-def">Break down complex systems, identify risks, apply creative thinking to find hidden issues.</div></div><div class="term"><div class="term-name">🛠️ Technical Knowledge</div><div class="term-def">Understanding code and tools makes your testing more efficient and insightful.</div></div><div class="term"><div class="term-name">🌐 Domain Knowledge</div><div class="term-def">Industry understanding (finance, healthcare) helps you communicate with users and spot relevant issues.</div></div></div>
+<div class="info-block"><h3>🤝 Whole Team Approach (from Extreme Programming)</h3><p>Anyone can do any task, and <strong>everyone is responsible for quality</strong>. Testers and developers collaborate closely. ⚠️ Not always appropriate — safety-critical systems may need high test independence.</p></div>
+<div class="info-block"><h3>🎯 Independence of Testing</h3><p><strong>No independence:</strong> Author tests own work. <strong>Some:</strong> Peer review. <strong>High:</strong> Separate test team. <strong>Very high:</strong> External organization.</p><p>More independence = different perspectives catching different defects. But: can create communication gaps and developers losing ownership of quality.</p></div>`
+    },
+  ]
+},
+{
+  id:'ch2', title:'Ch 2 · Testing in SDLC', color:'#38bdf8',
+  sections:[
+    { id:'2_1', num:'2.1', title:'SDLC Impact on Testing', content:`
+<div class="section-tag">Section 2.1 — FL-2.1.1 (K2)</div>
+<h2>Testing in the Context of a Software Development Lifecycle</h2>
+<p class="intro-text">An SDLC model is a high-level blueprint of how software gets built. Your choice of SDLC directly shapes <em>how</em> you test — the timing, depth, tools, and even the tester's role all change depending on the model.</p>
+<div class="analogy"><div class="analogy-label">Analogy</div><p>Think of the SDLC like a construction blueprint. A prefab house (Waterfall) is designed fully upfront, built once, inspected at the end. A custom home with renovations (Agile) is built in phases with inspections happening at every stage. The inspection approach must match the build approach.</p></div>
+<div class="info-block"><h3>What Changes Based on the SDLC?</h3><p>The choice of SDLC directly impacts:<br>• <strong>Scope and timing</strong> of test activities (which test levels run, and when)<br>• <strong>Level of detail</strong> of test documentation (heavy in sequential, lightweight in Agile)<br>• <strong>Choice of test techniques</strong> and overall approach<br>• <strong>Extent of test automation</strong> (higher in Agile/DevOps)<br>• <strong>Role and responsibilities</strong> of the tester</p></div>
+<div class="cards-grid"><div class="card"><div class="card-icon">⬇️</div><h4>Sequential Models (Waterfall, V-Model)</h4><p>Testers review requirements and do test analysis early. But <em>dynamic testing</em> can only happen after code is written — which is late in the cycle. Defects found late are expensive.</p></div><div class="card"><div class="card-icon">🔁</div><h4>Iterative / Incremental Models</h4><p>Each iteration delivers a working increment. Both static and dynamic testing happen in <em>every iteration</em> at all test levels. Fast feedback + frequent regression testing are essential.</p></div><div class="card"><div class="card-icon">🏃</div><h4>Agile Models (Scrum, Kanban)</h4><p>Change is expected throughout the project. Lightweight documentation, experience-based testing, and <em>heavy test automation</em> are favored. Testers are embedded in the team from Day 1.</p></div><div class="card"><div class="card-icon">🔑</div><h4>Good Practice for ALL Models</h4><p>For every development activity → a corresponding test activity. Different test levels have different objectives to avoid overlap. Test analysis begins during the corresponding dev phase.</p></div></div>
+<div class="info-block blue"><h3>📌 Universal Good Testing Practices (applies to ALL SDLC models)</h3><p>1. Every dev activity has a corresponding test activity.<br>2. Each test level has specific, non-redundant objectives.<br>3. Test analysis and design for a level begins during that level's dev phase (early testing).<br>4. Testers review work products as soon as drafts are available — supporting <strong>shift left</strong>.</p></div>`
+    },
+    { id:'2_2', num:'2.1.3', title:'TDD, ATDD & BDD', content:`
+<div class="section-tag">Section 2.1.3 — FL-2.1.3 (K1)</div>
+<h2>Testing as a Driver for Software Development</h2>
+<p class="intro-text">What if you wrote the tests <em>before</em> you wrote the code? That's the idea behind TDD, ATDD, and BDD — three test-first approaches that flip the traditional order.</p>
+<div class="analogy"><div class="analogy-label">Analogy</div><p>Imagine designing an exam paper <em>before</em> writing the textbook. The exam defines exactly what students need to know — and the textbook is written to ensure students can pass it. TDD/ATDD/BDD do the same: define the "exam" (tests) first, then write the "textbook" (code) to pass.</p></div>
+<div class="info-block"><h3>Test-Driven Development (TDD)</h3><p><strong>Core idea:</strong> Tests direct the coding — not the other way around.<br><strong>Process:</strong> Write a failing test → Write code to pass it → Refactor code and tests → Repeat.<br><strong>Focus:</strong> Developer-level. Mostly unit/component tests.<br><strong>Result:</strong> Code is written only to satisfy defined tests. Nothing extra.</p></div>
+<div class="info-block"><h3>Acceptance Test-Driven Development (ATDD)</h3><p><strong>Core idea:</strong> Derive tests from <em>acceptance criteria</em> as part of system design.<br><strong>Who:</strong> Whole team — developers, testers, AND business representatives together.<br><strong>Process:</strong> Define acceptance tests first → Develop code to satisfy them.<br><strong>Result:</strong> Everyone agrees on "what done looks like" before a line of code is written.</p></div>
+<div class="info-block"><h3>Behavior-Driven Development (BDD)</h3><p><strong>Core idea:</strong> Express desired behavior in <em>plain natural language</em> everyone can understand.<br><strong>Format:</strong> Given / When / Then<br><strong>Example:</strong><br>&nbsp;&nbsp;<span class="tag-g">Given</span> a user has a valid account,<br>&nbsp;&nbsp;<span class="tag-b">When</span> they enter correct credentials and click Login,<br>&nbsp;&nbsp;<span class="tag-y">Then</span> they are redirected to their dashboard.<br><strong>Result:</strong> Test cases can be automatically translated into executable tests (e.g., Cucumber, SpecFlow).</p></div>
+<div class="info-block yellow"><h3>📌 What All Three Have in Common</h3><p>• Tests are <strong>written before the code</strong> — this is shift left in action.<br>• They all support <strong>iterative development</strong>.<br>• They all implement the principle of <strong>early testing</strong>.<br>• Tests written this way often <strong>persist as automated tests</strong> to protect quality during future changes.</p></div>`
+    },
+    { id:'2_3', num:'2.1.4', title:'DevOps & Testing', content:`
+<div class="section-tag">Section 2.1.4 — FL-2.1.4 (K2)</div>
+<h2>DevOps and Testing</h2>
+<p class="intro-text">DevOps is an organizational culture and set of practices that bridges Development (including testing) and Operations — making it possible to deliver high-quality software faster and more reliably.</p>
+<div class="analogy"><div class="analogy-label">Analogy</div><p>Traditional teams are like a relay race — dev runs their leg, then throws the baton to testing, who throws it to ops. DevOps is like a rowing team — everyone rows together, in sync, constantly. The boat moves faster and straighter.</p></div>
+<div class="info-block"><h3>What is DevOps?</h3><p>DevOps promotes: <strong>team autonomy</strong>, <strong>fast feedback</strong>, <strong>integrated toolchains</strong>, and technical practices like <strong>Continuous Integration (CI)</strong> and <strong>Continuous Delivery (CD)</strong>. The goal is a delivery pipeline that builds, tests, and releases software faster without sacrificing quality.</p></div>
+<div class="cards-grid"><div class="card"><div class="card-icon">⚡</div><h4>Fast Feedback on Code Quality</h4><p>Every code commit triggers automated tests. Developers know within minutes if their change broke something — not weeks later.</p></div><div class="card"><div class="card-icon">⬅️</div><h4>CI Promotes Shift Left</h4><p>Developers must submit code with component tests and static analysis. Quality gates are enforced earlier in the process.</p></div><div class="card"><div class="card-icon">🤖</div><h4>Automated Processes</h4><p>CI/CD pipelines automate build, test, and deployment. Stable test environments are created automatically, reducing manual setup errors.</p></div><div class="card"><div class="card-icon">📊</div><h4>Non-Functional Visibility</h4><p>DevOps pipelines make it easier to continuously monitor performance, reliability, and security — not just functionality.</p></div></div>
+<div class="info-block red"><h3>⚠️ DevOps Risks and Challenges</h3><p>• The DevOps delivery pipeline must be <strong>defined and established</strong> — this takes time and expertise.<br>• CI/CD tools must be <strong>introduced and actively maintained</strong>.<br>• Test automation requires <strong>additional resources</strong> and can be difficult to build and sustain.<br>• Even with high automation, <strong>manual testing — especially from the user's perspective — is still needed</strong>. Automation can't replace human judgment.</p></div>`
+    },
+    { id:'2_4', num:'2.1.5', title:'Shift Left', content:`
+<div class="section-tag">Section 2.1.5 — FL-2.1.5 (K2)</div>
+<h2>Shift Left</h2>
+<p class="intro-text">"Shift left" means moving testing activities <em>earlier</em> in the SDLC. Instead of waiting until the end to test, you start testing thinking from the very beginning. It's the practical application of Principle 3: Early testing saves time and money.</p>
+<div class="analogy"><div class="analogy-label">Analogy</div><p>Imagine a factory quality check. Catching a defective part at the raw materials stage costs almost nothing. Catching it after the finished product is assembled and packaged costs a fortune. Shift left = move the quality check as far to the left (earlier) as possible.</p></div>
+<div class="info-block blue"><h3>⬅️ How to Achieve Shift Left in Practice</h3><p><strong>1. Review specs as a tester</strong> — Find ambiguities, gaps, and inconsistencies in requirements <em>before</em> development starts.<br><strong>2. Write test cases before code</strong> — (TDD/ATDD/BDD) — code is then written to satisfy defined tests.<br><strong>3. Use CI/CD</strong> — Automated component tests run immediately when code is committed. Fast feedback loop.<br><strong>4. Static analysis before dynamic testing</strong> — Analyze code for defects without running it first.<br><strong>5. Non-functional testing at component level</strong> — Don't wait for a full system to test performance or security. Start early.</p></div>
+<div class="info-block yellow"><h3>📌 Important Nuance</h3><p>Shift left means testing <em>earlier</em> — it does NOT mean neglecting testing later in the SDLC. You still need system testing, acceptance testing, and other later activities. Shift left adds early testing; it doesn't remove late testing.</p><p>Also: shift left may require <strong>extra investment upfront</strong> (training, tools, effort) — but it is expected to <strong>save significantly more later</strong> by catching defects when they're cheap to fix.</p></div>
+<div class="info-block red"><h3>⚠️ Stakeholder Buy-In is Critical</h3><p>Shift left only works if stakeholders — management, business, developers — all understand and support it. If only testers believe in it, they'll be overruled when schedules get tight. Shift left is a cultural and organizational change, not just a testing technique.</p></div>`
+    },
+    { id:'2_5', num:'2.1.6', title:'Retrospectives', content:`
+<div class="section-tag">Section 2.1.6 — FL-2.1.6 (K2)</div>
+<h2>Retrospectives and Process Improvement</h2>
+<p class="intro-text">A retrospective is a structured team meeting to reflect on how things went — what worked, what didn't, and what to do differently next time. It's a key engine of continuous improvement.</p>
+<div class="analogy"><div class="analogy-label">Analogy</div><p>A sports team watches the game film after every match. They celebrate what worked, analyze what went wrong, and agree on adjustments for next week. Retrospectives are a software team's "game film review."</p></div>
+<div class="info-block"><h3>When Do Retrospectives Happen?</h3><p>Timing depends on the SDLC model:<br>• <strong>Agile:</strong> At the end of every sprint (typically every 2–4 weeks)<br>• <strong>Sequential:</strong> At the end of the project or major milestone<br>• <strong>Anytime:</strong> When a significant problem occurs and the team needs to course-correct</p><p>Participants: NOT just testers — developers, architects, product owners, business analysts all participate.</p></div>
+<div class="info-block"><h3>What Gets Discussed?</h3><p>Three core questions:<br>1. <strong>What was successful?</strong> → Retain and reinforce these practices.<br>2. <strong>What was not successful?</strong> → Identify root causes and improvement areas.<br>3. <strong>How do we improve?</strong> → Agree on concrete actions for next iteration/project.</p><p>Results are <strong>recorded</strong> and typically included in the <strong>Test Completion Report</strong>.</p></div>
+<div class="cards-grid"><div class="card"><div class="card-icon">🎯</div><h4>Better Test Effectiveness</h4><p>Process improvement suggestions are implemented. Testing gets smarter over time.</p></div><div class="card"><div class="card-icon">📋</div><h4>Higher Quality Testware</h4><p>Jointly reviewing test processes leads to better test cases, scripts, and documentation.</p></div><div class="card"><div class="card-icon">🤝</div><h4>Stronger Team Bonds</h4><p>Safe environment to raise issues and propose improvements builds trust and collaboration.</p></div><div class="card"><div class="card-icon">📄</div><h4>Better Test Basis Quality</h4><p>Deficiencies in requirements are surfaced and addressed, improving the foundation for future testing.</p></div></div>
+<div class="info-block yellow"><h3>📌 Exam Tip</h3><p>Retrospectives are critical for <strong>continuous improvement</strong>. The ISTQB emphasizes that improvement recommendations must be <strong>followed up</strong> — a retrospective that produces a list no one acts on has failed its purpose. Also note: results feed into the <strong>test completion report</strong>.</p></div>`
+    },
+    { id:'2_6', num:'2.2.1', title:'Test Levels', content:`
+<div class="section-tag">Section 2.2.1 — FL-2.2.1 (K2)</div>
+<h2>Test Levels</h2>
+<p class="intro-text">Test levels are groups of test activities organized around a specific phase of development. Each level has its own test objects, objectives, test basis, and responsible team. They're designed to avoid overlap while ensuring comprehensive coverage.</p>
+<div class="analogy"><div class="analogy-label">Analogy — Building a Car</div><p>First test each <strong>part</strong> individually (engine alone, brakes alone). Then test how <strong>parts work together</strong> (engine + gearbox). Then test the <strong>whole car</strong> on a track. Finally, let <strong>the customer test drive</strong> it and approve it. Component → Integration → System → Acceptance.</p></div>
+<div class="info-block"><h3>1. Component Testing (Unit Testing)</h3><p><strong>What:</strong> Test individual components in <em>isolation</em> — a function, a class, a module.<br><strong>Who:</strong> Usually <em>developers</em> in their dev environment.<br><strong>Requires:</strong> Test harnesses or unit test frameworks (e.g., JUnit, NUnit).<br><strong>Test basis:</strong> Component specs, detailed design, code itself.<br><strong>Typical defects found:</strong> Wrong logic, incorrect calculations, missing error handling.</p></div>
+<div class="info-block"><h3>2. Component Integration Testing (Unit Integration Testing)</h3><p><strong>What:</strong> Test the <em>interfaces and interactions</em> between integrated components.<br><strong>Who:</strong> Usually <em>developers</em>.<br><strong>Strategy dependent:</strong> Bottom-up, top-down, or big-bang integration approaches affect how this is done.<br><strong>Typical defects found:</strong> Wrong data passed between components, timing issues, interface mismatches.</p></div>
+<div class="info-block"><h3>3. System Testing</h3><p><strong>What:</strong> Test the <em>overall behavior and capabilities</em> of the entire system.<br><strong>Who:</strong> Usually an <em>independent test team</em>.<br><strong>Includes:</strong> End-to-end functional testing AND non-functional testing (performance, usability, security).<br><strong>Test basis:</strong> System requirements spec, use cases, risk analyses.<br><strong>Note:</strong> For some non-functional characteristics (like usability), a complete system in a representative environment is needed.</p></div>
+<div class="info-block"><h3>4. System Integration Testing</h3><p><strong>What:</strong> Test the interfaces between <em>your system and other external systems or services</em> (third-party APIs, databases, external services).<br><strong>Requires:</strong> A test environment preferably similar to the operational (production) environment.<br><strong>Typical defects:</strong> Communication failures, wrong data formats, authentication issues between systems.</p></div>
+<div class="info-block"><h3>5. Acceptance Testing</h3><p><strong>What:</strong> Validate the system is ready for deployment and fulfills <em>user business needs</em>.<br><strong>Who:</strong> Ideally <em>intended users</em> or their representatives.<br><strong>Focus:</strong> Validation (right product?) not just verification (built right?).<br><strong>Forms of acceptance testing:</strong><br>• <strong>UAT</strong> — User Acceptance Testing<br>• <strong>OAT</strong> — Operational Acceptance Testing (backup, recovery, maintenance procedures)<br>• <strong>Contractual/Regulatory</strong> — Must meet legal or contractual obligations<br>• <strong>Alpha/Beta Testing</strong> — Alpha = internal, Beta = limited external users</p></div>
+<div class="info-block yellow"><h3>📌 Exam Tip — What Distinguishes Test Levels?</h3><p>Each test level is distinguished by: <strong>test object, test objectives, test basis, types of defects found, approach, and responsibilities</strong>. This is the ISTQB's way of saying: each level is unique and designed to avoid redundancy. Don't confuse test levels (when/what scope) with test types (what quality characteristic).</p></div>`
+    },
+    { id:'2_7', num:'2.2.2', title:'Test Types', content:`
+<div class="section-tag">Section 2.2.2 — FL-2.2.2 (K2)</div>
+<h2>Test Types</h2>
+<p class="intro-text">While test levels answer <em>when and at what scope</em> you test, test types answer <em>what quality characteristic</em> you're evaluating. All 4 test types can be applied at every test level.</p>
+<div class="cards-grid"><div class="card"><div class="card-icon">⚙️</div><h4>Functional Testing</h4><p>Tests <em>what</em> the system does — its functions. Checks: functional completeness, correctness, and appropriateness. Example: Does the login button actually log me in?</p></div><div class="card"><div class="card-icon">📈</div><h4>Non-Functional Testing</h4><p>Tests <em>how well</em> the system does it. "It works" isn't enough. Evaluates quality characteristics like performance, security, usability, reliability.</p></div><div class="card"><div class="card-icon">⬛</div><h4>Black-Box Testing</h4><p>Specification-based. You cannot see the code. Tests are derived from documentation — requirements, use cases, specs. Checks behavior against specifications.</p></div><div class="card"><div class="card-icon">⬜</div><h4>White-Box Testing</h4><p>Structure-based. You can see the code, architecture, data flows. Tests are designed to cover the internal structure — logic branches, paths, conditions.</p></div></div>
+<div class="info-block"><h3>Non-Functional Quality Characteristics (ISO/IEC 25010)</h3><p>The ISTQB syllabus lists 8 non-functional characteristics to know:<br>• <strong>Performance efficiency</strong> — Speed, response time, resource usage under load<br>• <strong>Compatibility</strong> — Works alongside other systems/software<br>• <strong>Usability</strong> (Interaction capability) — How easily users can use it<br>• <strong>Reliability</strong> — How consistently it performs without failure<br>• <strong>Security</strong> — Protection against unauthorized access or attacks<br>• <strong>Maintainability</strong> — How easily it can be modified and updated<br>• <strong>Portability</strong> (Flexibility) — Ease of moving to different environments<br>• <strong>Safety</strong> — Does not cause harm to people or property</p></div>
+<div class="info-block yellow"><h3>📌 Non-Functional Testing — Key Exam Points</h3><p>• Non-functional testing can <strong>start early</strong> (e.g., at component level) — this is a form of shift left.<br>• Many non-functional tests are <strong>derived from functional tests</strong> — same actions, but checking if a constraint is satisfied (e.g., login works AND loads within 2 seconds).<br>• <strong>Late discovery</strong> of non-functional defects is a serious project risk — finding a performance problem after full system build is very expensive to fix.<br>• Some non-functional tests need <strong>special environments</strong> — usability labs, production-like environments for performance.</p></div>`
+    },
+    { id:'2_8', num:'2.2.3', title:'Confirmation & Regression Testing', content:`
+<div class="section-tag">Section 2.2.3 — FL-2.2.3 (K2)</div>
+<h2>Confirmation Testing vs. Regression Testing</h2>
+<p class="intro-text">Whenever a change is made to software — whether a bug fix or a new feature — two types of testing must follow. These are among the most commonly tested topics in the exam.</p>
+<div class="analogy"><div class="analogy-label">Analogy</div><p>A mechanic fixes your car's broken headlight (<strong>the defect</strong>). You check that the headlight now works — that's <strong>confirmation testing</strong>. Then you check that fixing the headlight didn't accidentally disconnect the horn or the dashboard lights — that's <strong>regression testing</strong>.</p></div>
+<div class="info-block"><h3>Confirmation Testing</h3><p><strong>Purpose:</strong> Confirm that a specific defect has been successfully fixed.<br><strong>How:</strong> Re-execute the tests that previously failed due to the defect. May also add new tests if the fix required code changes beyond the original defect.<br><strong>When time is short:</strong> At minimum, re-run just the steps that reproduced the original failure and verify it no longer occurs.<br><strong>Key rule:</strong> Ideally performed by the <em>same tester</em> who originally found the defect.</p></div>
+<div class="info-block"><h3>Regression Testing</h3><p><strong>Purpose:</strong> Confirm that a change (fix, enhancement, configuration change) has NOT caused adverse consequences elsewhere in the system.<br><strong>Scope:</strong> Can extend to other components, other systems, or even the environment — not just the changed area.<br><strong>First step:</strong> Perform <strong>impact analysis</strong> to identify which parts of the software could be affected by the change. This guides how much regression testing is needed.<br><strong>Grows over time:</strong> The regression test suite grows with each iteration. Eventually this becomes very large — making it the prime candidate for <strong>automation</strong>.</p></div>
+<div class="info-block blue"><h3>🤖 Regression Testing & Automation</h3><p>Because regression tests are run <em>many times</em> and the suite <em>grows with every release</em>, manual regression testing becomes impractical. This is why regression testing is the <strong>strongest candidate for test automation</strong>. In DevOps/CI environments, automated regression tests run on every code commit — giving instant feedback on whether changes broke anything.</p></div>
+<div class="info-block yellow"><h3>📌 Classic Exam Trap — Don't Mix These Up!</h3><p><strong>Confirmation testing</strong> = "Did the fix work?" (re-test the original failing test)<br><strong>Regression testing</strong> = "Did the fix break anything else?" (test the surrounding system)<br><br>Both are needed after every fix. In sequential models: done in that order. In Agile/CI: often automated and run simultaneously.</p></div>`
+    },
+    { id:'2_9', num:'2.3', title:'Maintenance Testing', content:`
+<div class="section-tag">Section 2.3 — FL-2.3.1 (K2)</div>
+<h2>Maintenance Testing</h2>
+<p class="intro-text">Software doesn't stop needing tests once it's released. When a live system changes — for any reason — it must be tested again. This is maintenance testing.</p>
+<div class="analogy"><div class="analogy-label">Analogy</div><p>You buy a car and it works perfectly. A year later you upgrade the engine. You need to test the whole car again — not just the new engine — because the change might have affected the gearbox, the cooling system, or the dashboard sensors. That's exactly what maintenance testing does for software.</p></div>
+<div class="info-block"><h3>What Triggers Maintenance Testing?</h3><p>The ISTQB syllabus defines three categories of triggers:</p><p><strong>1. Modifications:</strong><br>• Planned enhancements (release-based) — adding new features<br>• Corrective changes — fixing bugs in the live system<br>• Hot fixes — emergency patches deployed immediately</p><p><strong>2. Upgrades or Migrations:</strong><br>• Moving to a new platform, OS, database, or cloud environment<br>• Migrating data from another application into the system<br>• Requires testing the new environment AND the changed software, AND data conversion</p><p><strong>3. Retirement:</strong><br>• When a system reaches end-of-life<br>• Requires testing of <em>data archiving</em> (if long retention is needed)<br>• Testing of <em>restore and retrieval procedures</em> in case archived data must be accessed later</p></div>
+<div class="cards-grid"><div class="card"><div class="card-icon">⚠️</div><h4>Impact Analysis — Do This First</h4><p>Before testing (even before making the change!), analyze what areas could be affected. This determines the <em>scope</em> of regression testing needed and helps decide whether the change is worth the risk.</p></div><div class="card"><div class="card-icon">📐</div><h4>Scope Depends On...</h4><p>• Degree of risk of the change<br>• Size of the existing system<br>• Size of the change itself<br>A tiny hotfix to a small system = small scope. A platform migration of a large system = massive scope.</p></div><div class="card"><div class="card-icon">✅</div><h4>What to Test</h4><p>Two things: (1) Did the change work correctly? (2) Did the change break anything in the parts that weren't changed? The second part is usually <em>most</em> of the system.</p></div><div class="card"><div class="card-icon">🔥</div><h4>Hot Fix Scenario</h4><p>Unplanned emergency fix deployed directly to production. Needs fast confirmation testing + focused regression testing on critical paths. Often done under time pressure — risk must be managed carefully.</p></div></div>
+<div class="info-block yellow"><h3>📌 Exam Tip — Scope of Maintenance Testing</h3><p>The scope depends on: <strong>risk of the change + size of existing system + size of the change</strong>. Impact analysis is performed <em>before</em> the change, not after. Also remember: retirement triggers testing of <strong>data archiving and retrieval procedures</strong> — this is a specific detail the exam may ask about.</p></div>`
+    },
+  ]
+},
+{
+  id:'ch3', title:'Ch 3 · Static Testing', color:'#a78bfa',
+  sections:[
+    { id:'3_1', num:'3.1.1', title:'Work Products & Static Testing', content:`
+<div class="section-tag">Section 3.1.1 — FL-3.1.1 (K1)</div>
+<h2>Static Testing Basics</h2>
+<p class="intro-text">Static testing examines software work products <em>without executing</em> the code. It covers everything from manual reviews to automated static analysis tools — and it can be applied far earlier than dynamic testing.</p>
+<div class="analogy"><div class="analogy-label">Analogy</div><p>Dynamic testing = cooking a dish and tasting it to find problems.<br>Static testing = carefully reading the recipe before you even turn on the stove — catching wrong ingredients, ambiguous instructions, missing steps. You prevent the disaster before it happens.</p></div>
+<div class="info-block"><h3>What is Static Testing?</h3><p>In static testing, work products are evaluated through:<br>• <strong>Manual examination</strong> — reviews by people (walkthroughs, inspections, technical reviews)<br>• <strong>Tool-based analysis</strong> — static analysis tools that scan code or artifacts without running them<br><br>Static testing can be applied for both <strong>verification</strong> (does it match specs?) and <strong>validation</strong> (does it meet real needs?).</p></div>
+<div class="cards-grid"><div class="card"><div class="card-icon">📄</div><h4>Work Products You CAN Statically Test</h4><p>Requirements specs, user stories, acceptance criteria, source code, test plans, test cases, product backlog items, test charters, project documentation, contracts, architecture models — anything that can be read and understood.</p></div><div class="card"><div class="card-icon">🚫</div><h4>Work Products You CANNOT Statically Test</h4><p>Products difficult for humans to interpret AND that shouldn't be analyzed by tools — e.g., <strong>3rd party executable code</strong> (due to legal reasons). If it can't be read or structured-checked, static testing doesn't apply.</p></div><div class="card"><div class="card-icon">👀</div><h4>Reviews (Manual)</h4><p>Humans examine the work product. Examples: walkthroughs, technical reviews, inspections. Any readable work product qualifies.</p></div><div class="card"><div class="card-icon">🤖</div><h4>Static Analysis (Tool-Based)</h4><p>Tools check code or structured artifacts without executing them. Works on anything with a defined structure: code, models, formal text. Often built into CI pipelines. Examples: SonarQube, ESLint, Checkstyle.</p></div></div>
+<div class="info-block blue"><h3>Static Analysis in Modern Workflows</h3><p>Static analysis is often incorporated into <strong>CI frameworks</strong> (continuous integration). Every time code is committed, static analysis tools automatically scan it for defects — giving developers instant feedback without running any tests. Spelling checkers and readability tools are also simple examples of static analysis.</p></div>
+<div class="info-block"><h3>Role of Testers in Agile Static Testing</h3><p>In Agile, testers, business representatives (product owners, business analysts), and developers work together in <strong>example mapping, collaborative user story writing, and backlog refinement sessions</strong>. Testers ask the right questions to ensure user stories are complete, understandable, and include testable acceptance criteria — this is static testing in practice, even if it doesn't always get called that.</p></div>`
+    },
+    { id:'3_2', num:'3.1.2', title:'Value of Static Testing', content:`
+<div class="section-tag">Section 3.1.2 — FL-3.1.2 (K2)</div>
+<h2>The Value of Static Testing</h2>
+<p class="intro-text">Why bother with static testing when you can just run the software and see what breaks? Because static testing catches things dynamic testing simply cannot — and it does so far cheaper.</p>
+<div class="analogy"><div class="analogy-label">Analogy</div><p>It's cheaper to proofread a legal contract before signing it than to go to court after discovering an ambiguous clause. Static testing is that proofreading — it catches problems when they're easiest and cheapest to fix.</p></div>
+<div class="info-block"><h3>What Makes Static Testing Valuable?</h3><p>• <strong>Earliest defect detection</strong> — finds defects in the first phases of the SDLC, fulfilling the early testing principle.<br>• <strong>Finds defects dynamic testing can't</strong> — unreachable code, design patterns not implemented as intended, defects in non-executable work products like requirements.<br>• <strong>Evaluates quality beyond functionality</strong> — readability, completeness, correctness, testability, consistency.<br>• <strong>Builds confidence and shared understanding</strong> — stakeholders reviewing requirements together align on actual needs early.<br>• <strong>Improves communication</strong> — involving a wide variety of stakeholders in static testing surfaces misunderstandings early.</p></div>
+<div class="cards-grid"><div class="card"><div class="card-icon">💰</div><h4>Overall Cost Reduction</h4><p>Reviews are costly to run, but projects with reviews spend <em>less overall</em> — because defects fixed early are far cheaper than defects found after deployment.</p></div><div class="card"><div class="card-icon">🐛</div><h4>Fewer Code Defects</h4><p>Static analysis detects certain code defects <em>more efficiently</em> than dynamic testing, resulting in fewer defects in the final product and lower overall development effort.</p></div><div class="card"><div class="card-icon">🔍</div><h4>Hard-to-Reach Defects</h4><p>Static testing can find defects on code paths that are <em>rarely executed</em> or very hard to trigger through dynamic testing — like an error handler that only activates under extreme conditions.</p></div><div class="card"><div class="card-icon">📋</div><h4>Non-Executable Defects</h4><p>Requirements ambiguities, contradictions, missing acceptance criteria — these exist in documents, not code. Only static testing can find them before they become expensive code defects.</p></div></div>`
+    },
+    { id:'3_3', num:'3.1.3', title:'Static vs. Dynamic Testing', content:`
+<div class="section-tag">Section 3.1.3 — FL-3.1.3 (K2)</div>
+<h2>Static Testing vs. Dynamic Testing</h2>
+<p class="intro-text">Static and dynamic testing are complementary — not competing. They have overlapping goals but find different types of defects through fundamentally different mechanisms. The exam tests whether you know the key differences.</p>
+<div class="analogy"><div class="analogy-label">Analogy</div><p>Static testing = a structural engineer inspecting blueprints for design flaws before building starts.<br>Dynamic testing = a safety inspector testing the finished building by actually opening doors, testing elevators, and checking fire escapes.<br>Both are needed. Both catch different things.</p></div>
+<table class="compare"><thead><tr><th></th><th>Static Testing</th><th>Dynamic Testing</th></tr></thead>
+<tbody>
+<tr><td>Execution?</td><td><span class="tag-p">No — software NOT run</span></td><td><span class="tag-b">Yes — software IS run</span></td></tr>
+<tr><td>How defects found</td><td>Found <strong>directly</strong> during examination</td><td>Failure observed → defect diagnosed afterwards</td></tr>
+<tr><td>Work products</td><td>Executable AND non-executable (requirements, designs, docs)</td><td>Only <strong>executable</strong> work products</td></tr>
+<tr><td>When applicable</td><td>From the very first artifacts (requirements)</td><td>After code is written and can be run</td></tr>
+<tr><td>Quality measured</td><td>Maintainability, completeness, consistency (not execution-dependent)</td><td>Performance efficiency, reliability (execution-dependent)</td></tr>
+<tr><td>Hard-to-reach paths</td><td>Finds defects on <strong>rarely executed paths</strong> easily</td><td>Rarely executed paths are hard to trigger in tests</td></tr>
+</tbody></table>
+<div class="info-block yellow"><h3>📌 Defects That ONLY Static Testing Finds</h3><p>• Inconsistencies, ambiguities, contradictions in <strong>requirements</strong><br>• Design defects (inefficient database structures, poor modularization)<br>• Unreachable code, undeclared variables, excessive complexity<br>• Deviations from <strong>coding standards</strong> (naming conventions, formatting)<br>• Incorrect interface specs (mismatched parameter types or order)<br>• Specific <strong>security vulnerabilities</strong> (e.g., buffer overflows identified at code level)<br>• Gaps in test basis — <strong>missing tests for acceptance criteria</strong></p></div>
+<div class="info-block red"><h3>⚠️ Key Exam Distinction</h3><p>Static testing <strong>finds defects directly</strong> — no failure occurs, no diagnosis needed, just remove the defect. Dynamic testing <strong>causes failures</strong> — then you analyze the failure to find the underlying defect. This is a critical difference the exam regularly tests.</p></div>`
+    },
+    { id:'3_4', num:'3.2.1', title:'Early Stakeholder Feedback', content:`
+<div class="section-tag">Section 3.2.1 — FL-3.2.1 (K1)</div>
+<h2>Benefits of Early and Frequent Stakeholder Feedback</h2>
+<p class="intro-text">One of the biggest causes of project failure is building the wrong thing. Early and frequent feedback from stakeholders — enabled by static testing and reviews — is the antidote.</p>
+<div class="analogy"><div class="analogy-label">Analogy</div><p>Imagine building someone a custom house but only showing them the result when it's fully built. If they wanted 3 bedrooms but you built 2, you're tearing down walls. Now imagine showing them the blueprints every week and getting feedback. The house gets built right the first time.</p></div>
+<div class="info-block"><h3>What Happens Without Early Feedback?</h3><p>If stakeholders are only involved at the end of the SDLC:<br>• The product may not match the stakeholder's <em>original or current vision</em><br>• Requirements misunderstandings are discovered late — when they're expensive to fix<br>• Results: <strong>costly rework, missed deadlines, blame games, and even complete project failure</strong></p></div>
+<div class="info-block blue"><h3>What Frequent Feedback Enables</h3><p>• <strong>Early communication</strong> of potential quality problems — before they become crises<br>• <strong>Requirements changes understood earlier</strong> — the development team adjusts while changes are still cheap<br>• <strong>Better focus</strong> on features that deliver the most value and address the highest risks<br>• <strong>Shared understanding</strong> — the team knows what they're building and why<br>• <strong>Fewer surprises</strong> at delivery — stakeholders have been involved all along</p></div>
+<div class="info-block yellow"><h3>📌 Exam Tip</h3><p>The ISTQB syllabus frames early stakeholder feedback as a <strong>benefit of static testing and reviews</strong> — specifically section 3.2. When asked why reviews matter, "early and frequent stakeholder feedback prevents misunderstandings and costly rework" is a key answer to remember.</p></div>`
+    },
+    { id:'3_5', num:'3.2.2', title:'Review Process Activities', content:`
+<div class="section-tag">Section 3.2.2 — FL-3.2.2 (K2)</div>
+<h2>Review Process Activities</h2>
+<p class="intro-text">The ISO/IEC 20246 standard defines a generic review process — a structured but flexible framework that can be tailored to any situation. More formal reviews use more of these activities.</p>
+<div class="analogy"><div class="analogy-label">Analogy</div><p>Think of reviewing a work product like a legal case review. You plan what to examine (planning), brief the legal team (initiation), each lawyer reviews documents independently (individual review), the team meets to discuss findings (communication & analysis), corrections are made and the case is filed (fixing & reporting).</p></div>
+<div class="info-block yellow"><h3>📌 Important Note Before We Start</h3><p>Anomalies found during a review are <strong>not necessarily defects</strong>. An anomaly is anything that deviates from what's expected — it could be a defect, a question, a suggestion, or a misunderstanding. All anomalies must be analyzed before deciding which ones are actual defects requiring a fix.</p></div>
+<div class="flow">
+<div class="flow-step"><div class="flow-dot">📋</div><div class="flow-content"><h4>1. Planning</h4><p>Define: scope, purpose, quality characteristics to evaluate, areas to focus on, exit criteria, standards to apply, effort estimate, and timeframe. This shapes everything that follows.</p></div></div>
+<div class="flow-step"><div class="flow-dot">🚀</div><div class="flow-content"><h4>2. Review Initiation</h4><p>Ensure everyone is prepared and ready. Every participant must have: access to the work product, understanding of their role and responsibilities, and all materials needed to perform their review.</p></div></div>
+<div class="flow-step"><div class="flow-dot">🔍</div><div class="flow-content"><h4>3. Individual Review</h4><p>Each reviewer independently examines the work product and logs all <strong>anomalies, recommendations, and questions</strong>. They apply review techniques (e.g., checklist-based, scenario-based). This is done BEFORE the group meeting.</p></div></div>
+<div class="flow-step"><div class="flow-dot">💬</div><div class="flow-content"><h4>4. Communication & Analysis</h4><p>All anomalies are discussed — typically in a review meeting. For every anomaly: decide its <strong>status, ownership, and required action</strong>. The team agrees on the quality level of the work product and what follow-up is needed. A follow-up review may be required.</p></div></div>
+<div class="flow-step"><div class="flow-dot">✅</div><div class="flow-content"><h4>5. Fixing & Reporting</h4><p>A defect report is created for every confirmed defect so fixes can be tracked. Once exit criteria are met, the work product is accepted. Review results are formally reported.</p></div></div>
+</div>
+<div class="info-block"><h3>Practical Note on Size</h3><p>Large work products are too big for a single review. The review process can be invoked <strong>multiple times</strong> across different sections of the same document until the entire work product has been reviewed.</p></div>`
+    },
+    { id:'3_6', num:'3.2.3', title:'Review Roles & Responsibilities', content:`
+<div class="section-tag">Section 3.2.3 — FL-3.2.3 (K1)</div>
+<h2>Roles and Responsibilities in Reviews</h2>
+<p class="intro-text">Reviews involve multiple people, each with a distinct role. Understanding who does what — and who does NOT do what — is critical for the exam, especially for Inspections.</p>
+<div class="analogy"><div class="analogy-label">Analogy</div><p>Think of a review like a film production: the <strong>director</strong> (manager) greenlights the project, the <strong>screenwriter</strong> (author) creates the script, the <strong>editor</strong> (moderator) keeps the review meeting on track, the <strong>script supervisors</strong> (reviewers) spot continuity errors, and the <strong>production assistant</strong> (scribe) documents everything.</p></div>
+<div class="term-list">
+<div class="term"><div class="term-name">👔 Manager</div><div class="term-def">Decides what is to be reviewed. Provides resources — staff time, tools, and budget for the review. Makes the review happen organizationally.</div></div>
+<div class="term"><div class="term-name">✏️ Author</div><div class="term-def">Creates the work product being reviewed. Responsible for fixing defects identified during the review. In Inspections, the author <strong>cannot</strong> be the review leader or scribe.</div></div>
+<div class="term"><div class="term-name">🎙️ Moderator (Facilitator)</div><div class="term-def">Ensures the review meeting runs effectively. Responsible for: mediation between participants, time management, and creating a <strong>safe environment</strong> where everyone can speak freely without fear of blame.</div></div>
+<div class="term"><div class="term-name">📝 Scribe (Recorder)</div><div class="term-def">Collects anomalies from reviewers and records review information — decisions made, new anomalies found during the meeting. Creates the official record of the review.</div></div>
+<div class="term"><div class="term-name">🔍 Reviewer</div><div class="term-def">Performs the actual review — examines the work product and identifies anomalies. Can be a project team member, subject matter expert, or any other stakeholder with relevant knowledge.</div></div>
+<div class="term"><div class="term-name">🏆 Review Leader</div><div class="term-def">Takes overall responsibility for the review: decides who participates, organizes when and where the review takes place. Plans the whole review event.</div></div>
+</div>
+<div class="info-block yellow"><h3>📌 Critical Exam Point — Inspection Role Restriction</h3><p>In an <strong>Inspection</strong> (the most formal review type), the <strong>author CANNOT act as the review leader OR the scribe</strong>. This is explicitly stated in the ISTQB syllabus and is a very common exam question. The author is present and fixes defects — but cannot control the review process or record the findings.</p></div>
+<div class="info-block"><h3>One Person, Multiple Roles?</h3><p>Yes — in less formal reviews, one person may hold multiple roles. In a walkthrough, the author might also act as the moderator. However, in formal inspections, roles are strictly separated to ensure independence and objectivity.</p></div>`
+    },
+    { id:'3_7', num:'3.2.4', title:'Review Types', content:`
+<div class="section-tag">Section 3.2.4 — FL-3.2.4 (K2)</div>
+<h2>Review Types</h2>
+<p class="intro-text">There is a spectrum of review formality — from a quick colleague glance to a rigorous structured inspection. Choosing the right type depends on the work product's criticality, the project context, and what you're trying to achieve.</p>
+<div class="info-block"><h3>What Determines the Right Review Type?</h3><p>• SDLC model being followed<br>• Maturity of the development process<br>• Criticality and complexity of the work product<br>• Legal or regulatory requirements<br>• Need for an audit trail<br>• Available resources and project needs<br>• Business domain and company culture<br><br>The <strong>same work product</strong> can go through different review types at different times — e.g., an informal review first for early feedback, then a formal inspection before release.</p></div>
+<table class="compare"><thead><tr><th>Review Type</th><th>Formality</th><th>Who Leads?</th><th>Key Characteristics & Objectives</th></tr></thead>
+<tbody>
+<tr><td><span class="tag-p">Informal Review</span></td><td>Very Low</td><td>Anyone / No formal leader</td><td>No defined process. No formal documented output required. Main objective: <strong>detect anomalies</strong>. Example: asking a colleague to look at your test cases.</td></tr>
+<tr><td><span class="tag-b">Walkthrough</span></td><td>Low–Medium</td><td><strong>Author</strong> leads</td><td>Can serve many objectives: evaluate quality, build confidence, educate reviewers, gain consensus, generate new ideas, motivate authors. Individual review before the meeting is <em>not required</em>. Scenarios and dry runs may be used.</td></tr>
+<tr><td><span class="tag-y">Technical Review</span></td><td>Medium</td><td><strong>Moderator</strong> leads (technically qualified)</td><td>Performed by technically qualified reviewers. Objectives: gain consensus on technical problems, detect anomalies, evaluate quality, build confidence, generate new ideas, motivate authors.</td></tr>
+<tr><td><span class="tag-g">Inspection</span></td><td>Very High (most formal)</td><td><strong>Moderator</strong> leads (NOT the author)</td><td>Follows the complete generic review process. Main objective: find the <strong>maximum number of anomalies</strong>. Also: evaluate quality, build confidence, motivate authors. <strong>Metrics are collected</strong> and used to improve the SDLC. Author CANNOT be review leader or scribe.</td></tr>
+</tbody></table>
+<div class="info-block yellow"><h3>📌 Exam Tip — Key Distinctions Between Types</h3><p><strong>Walkthrough</strong> = Author leads. No preparation required from reviewers. Educational focus.<br><strong>Technical Review</strong> = Moderator-led. Technically qualified reviewers. Consensus on technical issues.<br><strong>Inspection</strong> = Most formal. Metrics collected. Author NOT leader/scribe. Maximum anomaly detection is primary goal.<br><strong>Informal</strong> = No process, no documented output. Just: spot the anomaly.</p></div>`
+    },
+    { id:'3_8', num:'3.2.5', title:'Success Factors for Reviews', content:`
+<div class="section-tag">Section 3.2.5 — FL-3.2.5 (K1)</div>
+<h2>Success Factors for Reviews</h2>
+<p class="intro-text">Even the best review process can fail if the conditions aren't right. These are the factors that determine whether a review actually achieves its objectives — and the exam expects you to know them.</p>
+<div class="analogy"><div class="analogy-label">Analogy</div><p>A well-designed courtroom procedure still fails if the lawyers aren't prepared, the judge is biased, witnesses are afraid to speak, or management pressures a particular outcome. Reviews work the same way — the process is only as good as the environment and people around it.</p></div>
+<div class="cards-grid"><div class="card"><div class="card-icon">🎯</div><h4>Clear Objectives & Exit Criteria</h4><p>Define measurable success upfront. <strong>Evaluating participants should NEVER be an objective</strong> — this creates fear and destroys honest feedback.</p></div>
+<div class="card"><div class="card-icon">🔀</div><h4>Right Review Type</h4><p>Choose the review type that fits the objectives, work product type, participants, project needs, and context. Mismatch = wasted effort.</p></div>
+<div class="card"><div class="card-icon">📦</div><h4>Small Chunks</h4><p>Review small pieces at a time so reviewers maintain focus and concentration. Large work products lose reviewer attention.</p></div>
+<div class="card"><div class="card-icon">💬</div><h4>Feedback to Authors</h4><p>Share review findings constructively with stakeholders and authors so they can improve the product AND their own activities.</p></div>
+<div class="card"><div class="card-icon">⏰</div><h4>Adequate Preparation Time</h4><p>Give participants enough time to properly prepare before the review. Unprepared reviewers find fewer defects.</p></div>
+<div class="card"><div class="card-icon">👔</div><h4>Management Support</h4><p>Reviews need management buy-in — time, budget, and cultural support. Without it, reviews get skipped when schedules tighten.</p></div>
+<div class="card"><div class="card-icon">🏢</div><h4>Organizational Culture</h4><p>Make reviews part of the culture — a tool for learning and improvement, not blame. Psychological safety is essential.</p></div>
+<div class="card"><div class="card-icon">🎓</div><h4>Adequate Training</h4><p>All participants need to know how to fulfil their role — reviewers must know how to review, scribes must know how to record. Training enables effective participation.</p></div></div>
+<div class="info-block red"><h3>⚠️ What NOT to Do — Most Important Failure Factor</h3><p>The syllabus explicitly states: <strong>"Evaluation of participants should never be an objective."</strong> If people believe their performance is being judged based on what they find (or don't find), they will not review honestly or thoroughly. Reviews must be a safe, blame-free environment focused entirely on improving the work product.</p></div>`
+    },
+  ]
+},
+{
+  id:'ch4', title:'Ch 4 · Test Techniques', color:'#f59e0b',
+  sections:[
+    { id:'4_1', num:'4.1', title:'Test Techniques Overview', content:`
+<div class="section-tag">Section 4.1 — FL-4.1.1 (K2)</div>
+<h2>Test Techniques Overview</h2>
+<p class="intro-text">Test techniques are your toolkit for answering two fundamental questions: <em>What should I test?</em> (test analysis) and <em>How should I test it?</em> (test design). They help you build a small but effective set of test cases systematically.</p>
+<div class="analogy"><div class="analogy-label">Analogy</div><p>A master chef doesn't just randomly taste everything — they use specific techniques: taste for salt at a boundary (BVA), check if a dish works for a vegetarian AND a meat-eater (EP), confirm the recipe rules produce the right result (decision table). Test techniques are those structured approaches applied to software.</p></div>
+<div class="info-block"><h3>What Do Test Techniques Help You Do?</h3><p>• Define <strong>test conditions</strong> — what aspects of the software need to be checked<br>• Identify <strong>coverage items</strong> — specific items that test cases must exercise<br>• Identify <strong>test data</strong> — concrete values to use in test cases<br>• Develop a <strong>relatively small but sufficient</strong> set of test cases in a systematic way</p></div>
+<div class="cards-grid"><div class="card"><div class="card-icon">⬛</div><h4>Black-Box Techniques</h4><p>Also called <strong>specification-based techniques</strong>. Based on the <em>specified behavior</em> — no knowledge of internal code needed. Tests remain valid even if implementation changes (as long as required behavior stays the same).</p></div><div class="card"><div class="card-icon">⬜</div><h4>White-Box Techniques</h4><p>Also called <strong>structure-based techniques</strong>. Based on the <em>internal structure and processing</em> of the code. Can only be created after the design or implementation exists.</p></div><div class="card"><div class="card-icon">🧭</div><h4>Experience-Based Techniques</h4><p>Leverage the <em>knowledge and experience</em> of the tester. Effectiveness depends heavily on tester skill. Complementary to black-box and white-box — they detect defects those techniques may miss.</p></div></div>
+<div class="info-block yellow"><h3>📌 Exam Key Point</h3><p>Experience-based techniques are <strong>complementary</strong> to black-box and white-box — they fill the gaps left by formal techniques. All three categories are used together on real projects for maximum coverage.</p></div>`
+    },
+    { id:'4_2', num:'4.2.1', title:'Equivalence Partitioning', content:`
+<div class="section-tag">Section 4.2.1 — FL-4.2.1 (K3)</div>
+<h2>Equivalence Partitioning (EP)</h2>
+<p class="intro-text">EP divides data into groups where all values behave the same way. If one value from the group finds a defect, any other value from that group would too — so one test per group is enough.</p>
+<div class="analogy"><div class="analogy-label">Analogy</div><p>Imagine testing how a cinema handles customers by age — Child (under 12), Adult (12-64), Senior (65+). You don't need to test every single age. Pick one from each group: 8 (child), 35 (adult), 70 (senior). Same behavior = same test result.</p></div>
+<div class="info-block"><h3>How EP Works</h3><p>Partitions can be identified for: <strong>inputs, outputs, configuration items, internal values, time-related values, and interface parameters</strong>.</p><p>Partitions may be: continuous or discrete, ordered or unordered, finite or infinite.</p><p><strong>Rules:</strong> Partitions must NOT overlap. Each partition must be non-empty.</p></div>
+<div class="cards-grid"><div class="card"><div class="card-icon">✅</div><h4>Valid Partitions</h4><p>Values that should be <em>processed</em> by the system (accepted/handled correctly). Testing here confirms correct behavior.</p></div><div class="card"><div class="card-icon">❌</div><h4>Invalid Partitions</h4><p>Values that should be <em>rejected or ignored</em> by the system. Testing here confirms the system handles bad input gracefully. <strong>Must be included in coverage!</strong></p></div></div>
+<div class="info-block blue"><h3>Coverage in EP</h3><p><strong>Coverage items = the equivalence partitions themselves.</strong><br><strong>100% EP coverage</strong> = all identified partitions (including invalid) each covered by at least one test case.<br><strong>Formula:</strong> (Partitions covered by ≥1 test case ÷ Total identified partitions) × 100%</p><p><strong>Multiple parameters?</strong> Use <em>Each Choice Coverage</em> — ensure each partition from each parameter is covered at least once. Note: this does NOT account for combinations.</p></div>
+<div class="info-block yellow"><h3>📌 Exam Example — Age Field: Valid 18–65</h3><p><strong>Partitions:</strong><br>• Invalid low: ≤17 (e.g., test with 10)<br>• Valid: 18–65 (e.g., test with 35)<br>• Invalid high: ≥66 (e.g., test with 80)<br><br><strong>3 partitions = minimum 3 test cases for 100% EP coverage.</strong></p></div>`
+    },
+    { id:'4_2b', num:'4.2.2', title:'Boundary Value Analysis', content:`
+<div class="section-tag">Section 4.2.2 — FL-4.2.2 (K3)</div>
+<h2>Boundary Value Analysis (BVA)</h2>
+<p class="intro-text">Developers make the most mistakes at the edges of their conditions — "off-by-one" errors are extremely common. BVA focuses testing exactly where bugs are most likely to hide.</p>
+<div class="analogy"><div class="analogy-label">Analogy</div><p>Think of a bouncer at a club with an age limit of 18+. The ambiguity is always at the edge — is a person who is exactly 18 allowed in? What about 17 years and 364 days? Bugs cluster at these boundary cases.</p></div>
+<div class="info-block"><h3>BVA Basics</h3><p>• BVA can ONLY be used for <strong>ordered partitions</strong>.<br>• The minimum and maximum values of a partition are its <strong>boundary values</strong>.<br>• Typical defects: boundaries are misplaced above or below their intended position, or omitted entirely.</p></div>
+<table class="compare"><thead><tr><th></th><th>2-Value BVA</th><th>3-Value BVA</th></tr></thead>
+<tbody>
+<tr><td><strong>Items per boundary</strong></td><td>2 — the boundary value + its closest neighbor in the adjacent partition</td><td>3 — the boundary value + BOTH its neighbors (one on each side)</td></tr>
+<tr><td><strong>100% coverage requires</strong></td><td>All identified boundary values</td><td>All boundary values AND all their neighbors</td></tr>
+<tr><td><strong>Rigorousness</strong></td><td>Less rigorous</td><td><span class="tag-g">More rigorous</span> — catches defects 2-value misses</td></tr>
+<tr><td><strong>Example (range 1–10)</strong></td><td>Test: 1, 10, 0, 11</td><td>Test: 0, 1, 2 and 9, 10, 11</td></tr>
+</tbody></table>
+<div class="info-block red"><h3>⚠️ Why 3-Value BVA Matters — Classic Example</h3><p>Condition should be: <code>if (x ≤ 10)</code> but developer coded it as <code>if (x = 10)</code></p><p><strong>2-value BVA test data</strong> (x=10, x=11): x=10 passes (both conditions true), x=11 fails (both conditions false). <strong>The defect is hidden!</strong></p><p><strong>3-value BVA test data</strong> adds x=9: <code>if (x ≤ 10)</code> should be TRUE for x=9, but <code>if (x = 10)</code> is FALSE. <strong>Defect detected!</strong></p></div>
+<div class="info-block yellow"><h3>📌 Exam Tip — Coverage Formula</h3><p><strong>2-value:</strong> (Boundary values exercised ÷ Total identified boundary values) × 100%<br><strong>3-value:</strong> (Boundary values + neighbors exercised ÷ Total boundary values + neighbors) × 100%</p></div>`
+    },
+    { id:'4_2c', num:'4.2.3', title:'Decision Table Testing', content:`
+<div class="section-tag">Section 4.2.3 — FL-4.2.3 (K3)</div>
+<h2>Decision Table Testing</h2>
+<p class="intro-text">When a system's outcome depends on combinations of multiple conditions — especially business rules — decision tables make sure you don't miss any scenario.</p>
+<div class="analogy"><div class="analogy-label">Analogy</div><p>Think of a bank loan system: "Approve if income is high AND credit score is good, OR if income is medium AND credit score is excellent." There are many combinations. A decision table maps every possible scenario systematically — like a truth table for your business rules.</p></div>
+<div class="info-block"><h3>Structure of a Decision Table</h3><p><strong>Rows:</strong> Conditions (inputs) + Actions (outputs)<br><strong>Columns:</strong> Each column = one decision rule = one unique combination of conditions + its resulting action<br><br><strong>Notation for conditions:</strong> <code>T</code> = condition satisfied, <code>F</code> = not satisfied, <code>–</code> = irrelevant (doesn't affect outcome), <code>N/A</code> = infeasible combination<br><strong>Notation for actions:</strong> <code>X</code> = action occurs, <em>blank</em> = action does not occur</p></div>
+<div class="info-block blue"><h3>Example — Loan Approval Decision Table</h3><table class="compare"><thead><tr><th>Condition/Action</th><th>Rule 1</th><th>Rule 2</th><th>Rule 3</th><th>Rule 4</th></tr></thead>
+<tbody>
+<tr><td>Good Credit Score?</td><td class="tag-g">T</td><td class="tag-g">T</td><td class="tag-r">F</td><td class="tag-r">F</td></tr>
+<tr><td>Steady Income?</td><td class="tag-g">T</td><td class="tag-r">F</td><td class="tag-g">T</td><td class="tag-r">F</td></tr>
+<tr><td><strong>→ Approve Loan</strong></td><td>X</td><td></td><td></td><td></td></tr>
+<tr><td><strong>→ Manual Review</strong></td><td></td><td>X</td><td>X</td><td></td></tr>
+<tr><td><strong>→ Reject</strong></td><td></td><td></td><td></td><td>X</td></tr>
+</tbody></table></div>
+<div class="info-block"><h3>Coverage & Optimization</h3><p><strong>Coverage items = feasible columns</strong> (infeasible combinations are removed).<br><strong>100% coverage</strong> = all feasible columns exercised by test cases.<br><br><strong>Simplification:</strong> Delete infeasible columns. <strong>Minimization:</strong> Merge columns where a condition is irrelevant (–). With many conditions, the number of rules grows exponentially (2ⁿ for n conditions) — use minimized tables or risk-based approach.</p></div>
+<div class="info-block yellow"><h3>📌 Strength of Decision Table Testing</h3><p>• Systematically identifies <strong>all combinations</strong> of conditions<br>• Finds <strong>gaps and contradictions</strong> in requirements<br>• Ensures no business rule combination is overlooked<br>• Works best for complex logic with 3–6 conditions</p></div>`
+    },
+    { id:'4_2d', num:'4.2.4', title:'State Transition Testing', content:`
+<div class="section-tag">Section 4.2.4 — FL-4.2.4 (K3)</div>
+<h2>State Transition Testing</h2>
+<p class="intro-text">Systems often behave differently depending on their current state. State transition testing ensures that state changes work correctly — and that invalid transitions are properly rejected.</p>
+<div class="analogy"><div class="analogy-label">Analogy</div><p>Think of a vending machine: it has states (Idle, Item Selected, Payment Received, Dispensing). Events cause transitions (coin inserted, button pressed, item dispensed). Some transitions are valid (insert coin when Idle → go to Item Selected), some are invalid (dispense item without payment). You must test both.</p></div>
+<div class="info-block"><h3>Key Concepts</h3><p><strong>State diagram:</strong> Visual model showing states (circles) and transitions (arrows). Transition label syntax: <code>event [guard condition] / action</code><br><strong>State table:</strong> Equivalent model in table form. Rows = states, columns = events. Empty cells = <strong>invalid transitions</strong> (explicitly shown — this is the advantage over a state diagram!).</p><p>One test case usually covers <strong>several transitions</strong> (a sequence of events). Test cases are represented as sequences of events.</p></div>
+<table class="compare"><thead><tr><th>Coverage Criterion</th><th>Coverage Items</th><th>To Achieve 100%</th><th>Strength</th></tr></thead>
+<tbody>
+<tr><td><span class="tag-y">All States Coverage</span></td><td>The states themselves</td><td>Every state visited at least once</td><td>Weakest — can skip transitions</td></tr>
+<tr><td><span class="tag-b">Valid Transitions Coverage</span><br><em>(0-switch coverage)</em></td><td>Single valid transitions</td><td>Every valid transition exercised once</td><td><span class="tag-g">Most widely used</span>. Guarantees all states coverage.</td></tr>
+<tr><td><span class="tag-g">All Transitions Coverage</span></td><td>All transitions (valid + invalid)</td><td>All valid transitions exercised + invalid transitions attempted</td><td>Strongest. Guarantees valid transitions + all states. Required for safety-critical software.</td></tr>
+</tbody></table>
+<div class="info-block red"><h3>⚠️ Defect Masking — Why Test Invalid Transitions Carefully</h3><p>When testing invalid transitions, test <strong>only ONE invalid transition per test case</strong>. Why? One defect can <em>mask</em> another — if an invalid transition causes a cascade of failures, you can't tell which specific invalid transition is the root cause.</p></div>
+<div class="info-block yellow"><h3>📌 Coverage Hierarchy — Know This for the Exam</h3><p>All States ⊂ Valid Transitions ⊂ All Transitions<br><br>• Valid transitions coverage <strong>guarantees</strong> all states coverage.<br>• All transitions coverage <strong>guarantees</strong> both valid transitions AND all states coverage.<br>• All transitions coverage is the <strong>minimum requirement</strong> for mission-critical and safety-critical software.</p></div>`
+    },
+    { id:'4_3', num:'4.3', title:'White-Box Techniques', content:`
+<div class="section-tag">Section 4.3 — FL-4.3.1/4.3.2/4.3.3 (K2)</div>
+<h2>White-Box Test Techniques</h2>
+<p class="intro-text">White-box techniques look <em>inside</em> the software. You design tests based on the code's internal structure — ensuring every line and every decision path is exercised.</p>
+<div class="analogy"><div class="analogy-label">Analogy</div><p>Black-box testing is like testing a finished car as a driver — does it start, steer, brake? White-box is like being the mechanic — checking every fuel line, every wire connection, every valve. You test what the user can't see.</p></div>
+<div class="info-block"><h3>4.3.1 — Statement Testing & Statement Coverage</h3><p><strong>Coverage items:</strong> Executable statements in the code.<br><strong>Goal:</strong> Design test cases so that every executable statement is exercised at least once.<br><strong>Formula:</strong> (Statements exercised by tests ÷ Total executable statements) × 100%</p><p><strong>What 100% statement coverage guarantees:</strong> Every statement with a defect WILL be executed — giving it a chance to cause a failure.<br><strong>What it does NOT guarantee:</strong> All decision logic tested. It won't necessarily exercise all branches. A data-dependent defect (like division by zero) may still be missed.</p></div>
+<div class="info-block"><h3>4.3.2 — Branch Testing & Branch Coverage</h3><p>A <strong>branch</strong> = a transfer of control between two nodes in the control flow graph. Branches can be <em>unconditional</em> (straight-line code) or <em>conditional</em> (decision outcome: true/false).</p><p><strong>Coverage items:</strong> Branches (not just statements).<br><strong>Goal:</strong> Every branch — both the true and false outcomes of every decision — is exercised.<br><strong>Formula:</strong> (Branches exercised ÷ Total branches) × 100%</p><p><strong>Examples of conditional branches:</strong> <code>if...then</code> decision (true + false), <code>switch/case</code> outcomes, loop exit conditions.</p></div>
+<div class="cards-grid"><div class="card"><div class="card-icon">📊</div><h4>Branch Coverage ⊇ Statement Coverage</h4><p><strong>Branch coverage subsumes statement coverage.</strong> Any test set achieving 100% branch coverage automatically achieves 100% statement coverage — but NOT vice versa. Branch coverage is more thorough.</p></div><div class="card"><div class="card-icon">⚠️</div><h4>Limitation of Both</h4><p>Neither technique detects all defects. Data-dependent bugs (division by zero only when denominator = 0) may still slip through. Path-specific defects need even more rigorous techniques.</p></div></div>
+<div class="info-block blue"><h3>4.3.3 — The Value of White-Box Testing</h3><p><strong>Fundamental strength:</strong> The entire software implementation is considered during testing. Defects can be found even when the specification is vague, outdated, or incomplete.</p><p><strong>Key weakness:</strong> If the software doesn't implement a requirement at all (defect of omission), white-box testing won't find it — there's no code to cover.</p><p><strong>Use in static testing:</strong> White-box techniques work in static testing too — dry runs of code, reviewing pseudocode, control flow graphs of code not yet ready for execution.</p><p><strong>Objective measurement:</strong> White-box coverage gives a concrete, measurable metric — unlike black-box testing, which doesn't tell you how much of the code you actually exercised.</p></div>`
+    },
+    { id:'4_4', num:'4.4', title:'Experience-Based Techniques', content:`
+<div class="section-tag">Section 4.4 — FL-4.4.1/4.4.2/4.4.3 (K2)</div>
+<h2>Experience-Based Test Techniques</h2>
+<p class="intro-text">Experience-based techniques leverage what skilled testers know — about the system's history, typical developer mistakes, and how software tends to fail. They fill the gaps that formal techniques leave behind.</p>
+<div class="analogy"><div class="analogy-label">Analogy</div><p>An experienced pilot does more than follow the checklist — they also check things they know from experience tend to go wrong on this aircraft type, in this weather, with this crew. That veteran instinct is the equivalent of experience-based testing.</p></div>
+<div class="info-block"><h3>4.4.1 — Error Guessing</h3><p>Anticipate errors, defects, and failures based on the tester's knowledge of:<br>• How the application has worked (or failed) in the <strong>past</strong><br>• The types of <strong>errors developers tend to make</strong> and the defects they produce<br>• Types of failures seen in <strong>similar applications</strong></p><p><strong>Common error categories:</strong></p><p>• <strong>Input errors:</strong> correct input rejected, parameters wrong or missing<br>• <strong>Output errors:</strong> wrong format, wrong result<br>• <strong>Logic errors:</strong> missing cases, wrong operator<br>• <strong>Computation errors:</strong> incorrect operand, wrong calculation<br>• <strong>Interface errors:</strong> parameter mismatch, incompatible types<br>• <strong>Data errors:</strong> incorrect initialization, wrong type</p><p><strong>Fault attacks:</strong> A structured form of error guessing — create/acquire a list of possible errors, defects, and failures, then design tests specifically targeting them. Lists built from experience, defect databases, or common knowledge of failure patterns.</p></div>
+<div class="info-block"><h3>4.4.2 — Exploratory Testing</h3><p>Tests are <strong>simultaneously designed, executed, and evaluated</strong> while the tester learns about the test object. It's adaptive — what you discover shapes what you test next.</p><p><strong>Session-Based Exploratory Testing:</strong> Performed within a defined <strong>time box</strong> (e.g., 90 minutes). The tester uses a <strong>test charter</strong> containing test objectives to guide testing. Followed by a <strong>debriefing</strong> — discussion with stakeholders about the session's results. Tester uses <strong>test session sheets</strong> to document steps taken and discoveries made.</p><p><strong>When it shines:</strong><br>• Few or inadequate specifications<br>• Significant time pressure<br>• Complementing formal techniques<br>• When the tester is experienced, domain-knowledgeable, analytical, curious, and creative</p></div>
+<div class="info-block"><h3>4.4.3 — Checklist-Based Testing</h3><p>The tester designs, implements, and executes tests to cover <strong>conditions from a checklist</strong>. Checklists are built from experience, user importance, and knowledge of how software fails.</p><p><strong>Good checklist items are:</strong><br>• Phrased as questions (e.g., "Does the form validate empty fields?")<br>• Checkable separately and directly<br>• NOT things that can be automatically checked, entry/exit criteria, or too generic</p><p><strong>Checklist maintenance:</strong> Items become less effective over time (developers learn to avoid those errors). New high-severity defects should add new entries. Regular updates based on defect analysis. Don't let it get too long.</p><p><strong>Benefit:</strong> In the absence of detailed test cases, checklists provide guidelines and consistency. High-level checklists allow for greater coverage variability — but less repeatability.</p></div>
+<div class="info-block yellow"><h3>📌 All 3 Are Complementary</h3><p>Use error guessing when you know the system's weak spots. Use exploratory testing when you're learning the system or specs are thin. Use checklist-based testing to ensure consistency across sessions. Together they catch what formal techniques miss.</p></div>`
+    },
+    { id:'4_5', num:'4.5.1', title:'Collaborative User Story Writing', content:`
+<div class="section-tag">Section 4.5.1 — FL-4.5.1 (K2)</div>
+<h2>Collaborative User Story Writing</h2>
+<p class="intro-text">Collaboration-based approaches go beyond defect detection — they focus on <em>defect avoidance</em> by getting developers, testers, and business representatives to agree on requirements before a single line of code is written.</p>
+<div class="analogy"><div class="analogy-label">Analogy</div><p>Instead of each architect, builder, and interior designer working from their own version of the plans, they sit down together and co-write the blueprint until all three agree it's complete, clear, and buildable. Collaborative user story writing is exactly that.</p></div>
+<div class="info-block"><h3>What is a User Story?</h3><p>A user story represents a <strong>feature that will be valuable to a user or purchaser</strong> of the software. The most common format:<br><br><em>"As a [role], I want [goal to be accomplished], so that I can [resulting business value]."</em><br><br>Followed by acceptance criteria.</p></div>
+<div class="info-block blue"><h3>The 3 C's of a User Story (Jeffries 2000)</h3><div class="cards-grid"><div class="card"><div class="card-icon">🃏</div><h4>Card</h4><p>The medium describing the story — an index card, electronic board entry. Keeps it short and focused.</p></div><div class="card"><div class="card-icon">💬</div><h4>Conversation</h4><p>Explains how the software will be used. Can be documented or verbal. The discussion that fills in the details.</p></div><div class="card"><div class="card-icon">✅</div><h4>Confirmation</h4><p>The acceptance criteria — how the team confirms the story is done correctly.</p></div></div></div>
+<div class="info-block"><h3>INVEST — Qualities of a Good User Story (Wake 2003)</h3><p>
+<strong>I</strong>ndependent — can be developed and tested without depending on other stories<br>
+<strong>N</strong>egotiable — not a rigid contract; open to discussion and refinement<br>
+<strong>V</strong>aluable — delivers value to a user or stakeholder<br>
+<strong>E</strong>stimable — the team can estimate its size and effort<br>
+<strong>S</strong>mall — fits within one iteration; not too large to be tracked<br>
+<strong>T</strong>estable — acceptance criteria exist; if a stakeholder can't describe how to test it, the story is unclear
+</p></div>
+<div class="info-block yellow"><h3>📌 Tester's Role in Story Writing</h3><p>Testers <strong>ask the right questions</strong> — they explore, challenge, and help improve the proposed user stories. Techniques used: <strong>brainstorming and mind mapping</strong>. The goal: achieve a <strong>shared vision</strong> from three perspectives — business, development, and testing. If a stakeholder can't describe how to test a user story, it signals the story is unclear OR not truly valuable.</p></div>`
+    },
+    { id:'4_5b', num:'4.5.2', title:'Acceptance Criteria', content:`
+<div class="section-tag">Section 4.5.2 — FL-4.5.2 (K2)</div>
+<h2>Acceptance Criteria</h2>
+<p class="intro-text">Acceptance criteria are the concrete conditions that an implementation must satisfy to be accepted by stakeholders. They transform a vague user story into a verifiable specification.</p>
+<div class="analogy"><div class="analogy-label">Analogy</div><p>A user story says "I want a table that seats 6 and looks good in my dining room." Acceptance criteria spell it out: "Must seat 6 adults, must be rectangular, must be under 180cm long, must be made of wood, must match the existing decor color scheme." Now both the builder and buyer know exactly what success looks like.</p></div>
+<div class="info-block"><h3>What Are Acceptance Criteria Used For?</h3><p>• Define the <strong>scope</strong> of the user story<br>• Reach <strong>consensus</strong> among stakeholders<br>• Describe both <strong>positive and negative scenarios</strong><br>• Serve as the basis for <strong>acceptance testing</strong><br>• Allow accurate <strong>planning and estimation</strong></p></div>
+<div class="cards-grid"><div class="card"><div class="card-icon">📖</div><h4>Scenario-Oriented Format</h4><p>Uses <strong>Given / When / Then</strong> — the BDD format. Readable by everyone on the team.<br><br><em>Given</em> a logged-in user,<br><em>When</em> they click "Delete Account",<br><em>Then</em> a confirmation dialog appears.</p></div><div class="card"><div class="card-icon">📋</div><h4>Rule-Oriented Format</h4><p>A bullet point verification list or a tabulated input-output mapping.<br><br>• Password must be 8+ characters<br>• Must contain at least one uppercase letter<br>• Must contain at least one number</p></div></div>
+<div class="info-block yellow"><h3>📌 Exam Point</h3><p>These two formats (scenario-oriented and rule-oriented) are the most common, but teams may use <strong>custom formats</strong> — as long as criteria are <strong>well-defined and unambiguous</strong>. Acceptance criteria are typically the result of the <strong>Conversation</strong> (the second C in the 3 C's of user stories).</p></div>`
+    },
+    { id:'4_5c', num:'4.5.3', title:'ATDD — Acceptance Test-Driven Dev', content:`
+<div class="section-tag">Section 4.5.3 — FL-4.5.3 (K3)</div>
+<h2>Acceptance Test-Driven Development (ATDD)</h2>
+<p class="intro-text">ATDD is a test-first approach where test cases are created BEFORE implementing the user story. It's collaboration in action — turning acceptance criteria into executable tests that drive development.</p>
+<div class="analogy"><div class="analogy-label">Analogy</div><p>Before writing a textbook chapter, the teacher writes the exam first. Every section of the chapter is written to ensure students can pass the exam. ATDD works the same way — the acceptance tests are the exam; the code is the textbook written to pass it.</p></div>
+<div class="flow">
+<div class="flow-step"><div class="flow-dot">👥</div><div class="flow-content"><h4>Step 1 — Specification Workshop</h4><p>The whole team (customers, developers, testers) analyzes, discusses, and writes the user story and acceptance criteria together. Incompleteness, ambiguities, and defects in the story are resolved <em>before</em> coding begins.</p></div></div>
+<div class="flow-step"><div class="flow-dot">📝</div><div class="flow-content"><h4>Step 2 — Create Test Cases</h4><p>Test cases are written based on acceptance criteria — they become <em>examples of how the software should work</em>. Can be done by the whole team or by testers individually. Test techniques from sections 4.2, 4.3, and 4.4 may all be applied.</p></div></div>
+<div class="flow-step"><div class="flow-dot">✅</div><div class="flow-content"><h4>Step 3 — Positive Tests First</h4><p>Start with the happy path — confirming correct behavior without exceptions. This covers the main flow everyone expects to work.</p></div></div>
+<div class="flow-step"><div class="flow-dot">❌</div><div class="flow-content"><h4>Step 4 — Negative Testing</h4><p>After positive tests, add negative tests — error conditions, boundary violations, unexpected inputs. These are just as important as the happy path.</p></div></div>
+<div class="flow-step"><div class="flow-dot">📊</div><div class="flow-content"><h4>Step 5 — Non-Functional Coverage</h4><p>Finally, cover non-functional quality characteristics — performance, usability, security — that the story also must satisfy.</p></div></div>
+<div class="flow-step"><div class="flow-dot">🤖</div><div class="flow-content"><h4>Step 6 — Automate (Optional)</h4><p>When captured in a format supported by a test automation framework, developers write supporting code to automate the tests. The acceptance tests become <strong>executable requirements</strong>.</p></div></div>
+</div>
+<div class="info-block"><h3>Rules for ATDD Test Cases</h3><p>• Tests must <strong>cover all characteristics</strong> of the user story<br>• Tests must <strong>NOT go beyond</strong> the story scope<br>• <strong>No two test cases</strong> should describe the same characteristics<br>• Tests should be expressed in <strong>natural language</strong> understandable to all stakeholders (preconditions, inputs, postconditions)</p></div>
+<div class="info-block yellow"><h3>📌 "Examples" = "Tests" in ATDD</h3><p>In ATDD, the terms "examples" and "test cases" are often used interchangeably — because the examples of how the software works ARE the tests. This is the connection between ATDD and BDD (Given/When/Then examples become executable tests).</p></div>`
+    },
+  ]
+},
+{
+  id:'ch5', title:'Ch 5 · Managing Test Activities', color:'#f87171',
+  sections:[
+    { id:'5_1', num:'5.1.1', title:'Test Plan — Purpose & Content', content:`
+<div class="section-tag">Section 5.1.1 — FL-5.1.1 (K2)</div>
+<h2>Purpose and Content of a Test Plan</h2>
+<p class="intro-text">A test plan is the master document that describes <em>what</em> you will test, <em>how</em> you will test it, <em>when</em>, and <em>who</em> will do it. Think of it as the testing team's contract with the project.</p>
+<div class="analogy"><div class="analogy-label">Analogy</div><p>A test plan is like a <strong>military operation order</strong>. It defines the mission (objectives), the territory (scope), the troops and resources, the timeline, the rules of engagement (strategy), the communication plan, and the conditions for declaring victory (exit criteria). Without it, everyone's operating on assumptions.</p></div>
+<div class="info-block blue"><h3>What Does a Test Plan Do?</h3>
+<p>📄 <strong>Documents</strong> the means and schedule for achieving test objectives.</p>
+<p>✅ <strong>Ensures</strong> test activities meet the established criteria.</p>
+<p>💬 <strong>Communicates</strong> the testing approach to team members and stakeholders.</p>
+<p>🏛️ <strong>Demonstrates</strong> that testing will adhere to the existing test policy and test strategy — or explains why it deviates.</p>
+<p>🧠 <strong>Forces testers to think ahead</strong> — confronting risks, schedules, people, tools, costs, and effort before they become problems.</p></div>
+<div class="info-block"><h3>📋 Typical Contents of a Test Plan (Know All of These!)</h3>
+<table class="compare"><thead><tr><th>Section</th><th>What It Covers</th></tr></thead><tbody>
+<tr><td><strong>Context of Testing</strong></td><td>Test scope, test objectives, test basis (requirements, standards, risks)</td></tr>
+<tr><td><strong>Assumptions & Constraints</strong></td><td>What we're assuming is true; what limits our testing</td></tr>
+<tr><td><strong>Stakeholders</strong></td><td>Roles, responsibilities, relevance to testing, hiring/training needs</td></tr>
+<tr><td><strong>Communication</strong></td><td>Forms and frequency of communication, documentation templates</td></tr>
+<tr><td><strong>Risk Register</strong></td><td>Identified product risks and project risks</td></tr>
+<tr><td><strong>Test Approach</strong></td><td>Test levels, test types, techniques, deliverables, entry/exit criteria, independence of testing, metrics to collect, test data and environment requirements, deviations from strategy</td></tr>
+<tr><td><strong>Budget & Schedule</strong></td><td>Cost and timeline for all test activities</td></tr>
+</tbody></table></div>
+<div class="info-block yellow"><h3>📌 Exam Tip — ISO Standard Reference</h3><p>The ISTQB syllabus points to <strong>ISO/IEC/IEEE 29119-3</strong> for detailed test plan templates and examples. You don't need to memorize the standard itself, but knowing it exists and what it covers may appear in exam questions.</p></div>`
+    },
+    { id:'5_1b', num:'5.1.2', title:'Tester\'s Role in Iteration & Release Planning', content:`
+<div class="section-tag">Section 5.1.2 — FL-5.1.2 (K1)</div>
+<h2>Tester's Contribution to Iteration and Release Planning</h2>
+<p class="intro-text">In Agile and iterative projects, planning happens at two levels: the big-picture release and the short-cycle iteration. Testers actively contribute to both — they're not just passive recipients of a work schedule.</p>
+<div class="analogy"><div class="analogy-label">Analogy</div><p>Imagine planning a multi-stop road trip. <strong>Release planning</strong> = deciding which cities to visit and in what order for the whole trip. <strong>Iteration planning</strong> = figuring out exactly how to navigate each day's leg, including rest stops and fuel. A smart navigator (tester) is essential to both levels.</p></div>
+<div class="cards-grid">
+<div class="card highlight">
+  <div class="card-icon">🗓️</div>
+  <h4>Release Planning — Big Picture</h4>
+  <p>Looks ahead to the <strong>entire product release</strong>. Defines and refines the product backlog. Testers:<br>• Write testable user stories and acceptance criteria<br>• Participate in quality risk analysis<br>• Estimate test effort for user stories<br>• Determine the test approach<br>• Plan testing across all iterations</p>
+</div>
+<div class="card blue">
+  <div class="card-icon">🔄</div>
+  <h4>Iteration Planning — Sprint Detail</h4>
+  <p>Looks ahead to the <strong>end of one sprint/iteration</strong>. Concerned with the iteration backlog. Testers:<br>• Perform detailed risk analysis of user stories<br>• Determine testability of each story<br>• Break stories into testing tasks<br>• Estimate effort for each testing task<br>• Identify functional AND non-functional aspects to test</p>
+</div>
+</div>
+<div class="info-block yellow"><h3>📌 Exam Key Point</h3><p>Testers are <strong>active participants</strong> in planning, not just order-takers. Their most important contribution at the planning stage is ensuring user stories are <strong>testable</strong> before any code is written — catching vague or unmeasurable requirements early.</p></div>`
+    },
+    { id:'5_1c', num:'5.1.3', title:'Entry Criteria & Exit Criteria', content:`
+<div class="section-tag">Section 5.1.3 — FL-5.1.3 (K2)</div>
+<h2>Entry Criteria and Exit Criteria</h2>
+<p class="intro-text">These are the gatekeepers of testing. Entry criteria control when you <em>start</em> — exit criteria define when you're <em>done</em>.</p>
+<div class="analogy"><div class="analogy-label">Analogy</div><p>Entry criteria are like the conditions before a surgeon starts an operation: patient vitals stable, instruments sterilized, team present, anesthesia administered. Exit criteria are the conditions before the patient leaves recovery: vitals normal, incision sealed, no complications. Meeting these criteria isn't optional — skipping them creates risk.</p></div>
+<div class="cards-grid">
+<div class="card highlight">
+  <div class="card-icon">🚪</div>
+  <h4>Entry Criteria — "Before We Start"</h4>
+  <p>Define preconditions for undertaking testing. If not met, testing will be harder, slower, costlier, and riskier.<br><br>
+  <strong>Typical examples:</strong><br>
+  • People, tools, environments, test data, budget, and time are available<br>
+  • Test basis (requirements, user stories, test cases) is available<br>
+  • Initial quality check passed (e.g., smoke tests passed)</p>
+</div>
+<div class="card blue">
+  <div class="card-icon">🏁</div>
+  <h4>Exit Criteria — "We're Done When..."</h4>
+  <p>Define what must be achieved to declare an activity complete.<br><br>
+  <strong>Thoroughness measures:</strong><br>
+  • Coverage level achieved<br>
+  • Number of unresolved defects / defect density<br>
+  • Number of failed test cases<br><br>
+  <strong>Binary yes/no criteria:</strong><br>
+  • Planned tests executed<br>
+  • All defects reported<br>
+  • All regression tests automated</p>
+</div>
+</div>
+<div class="info-block red"><h3>⚠️ Time/Budget as Valid Exit Criteria</h3><p>Running out of time or budget can also be a valid exit criterion — even if other criteria aren't fully met. This is acceptable IF stakeholders have reviewed and accepted the risk of going live under these conditions. Testing stops; risk is documented and accepted.</p></div>
+<div class="info-block blue"><h3>Agile Equivalents — Definition of Ready & Definition of Done</h3><p>In Agile development:</p><p>✅ <strong>Definition of Done (DoD)</strong> = exit criteria. Objective metrics a team uses to declare a user story releasable. Every story must pass the DoD before it's "done."</p><p>✅ <strong>Definition of Ready (DoR)</strong> = entry criteria. The conditions a user story must fulfill <em>before</em> development (and testing) begins on it.</p></div>`
+    },
+    { id:'5_1d', num:'5.1.4', title:'Estimation Techniques', content:`
+<div class="section-tag">Section 5.1.4 — FL-5.1.4 (K3)</div>
+<h2>Test Effort Estimation Techniques</h2>
+<p class="intro-text">How long will testing take? How many person-days do we need? Estimation is never perfect — but using the right technique gets you much closer than guessing.</p>
+<div class="analogy"><div class="analogy-label">Analogy</div><p>Estimating test effort is like a contractor estimating a renovation. They use past project costs (ratios), measure current work and scale (extrapolation), consult with multiple experienced tradespeople (Wideband Delphi), or ask for a best-case, worst-case, and most-likely-case figure (three-point estimation). No single method is perfect — each has its place.</p></div>
+<div class="info-block yellow"><h3>⚠️ Important Caveat — Always Communicate This!</h3><p>Estimates are based on <strong>assumptions</strong> and are always subject to <strong>estimation error</strong>. Stakeholders must understand this. Also: estimating a large task as a whole is less accurate — <strong>break large tasks into smaller ones</strong> first, then estimate each piece.</p></div>
+<div class="term-list">
+<div class="term">
+  <div class="term-name">📊 Estimation Based on Ratios</div>
+  <div class="term-def"><strong>Metrics-based.</strong> Uses historical data from past projects to derive standard ratios. Example: if your organization's development-to-test ratio is consistently 3:2, and development effort is 600 person-days, test effort = 400 person-days. Best ratios come from your own organization's data.</div>
+</div>
+<div class="term">
+  <div class="term-name">📈 Extrapolation</div>
+  <div class="term-def"><strong>Metrics-based.</strong> Collect measurements early in the current project, then use a mathematical model to project remaining effort. Very suitable for iterative SDLCs. Example: average effort from the last 3 sprints = estimate for next sprint.</div>
+</div>
+<div class="term">
+  <div class="term-name">🎯 Wideband Delphi</div>
+  <div class="term-def"><strong>Expert-based, iterative.</strong> Experts estimate independently → results collected → outliers discuss their reasoning → re-estimate independently → repeat until consensus. <strong>Planning Poker</strong> is a Wideband Delphi variant used in Agile, using numbered cards to represent effort size.</div>
+</div>
+<div class="term">
+  <div class="term-name">🔢 Three-Point Estimation</div>
+  <div class="term-def"><strong>Expert-based.</strong> Experts give three values: optimistic (a), most likely (m), pessimistic (b). Final estimate: <strong>E = (a + 4×m + b) / 6</strong>. Measurement error: <strong>SD = (b – a) / 6</strong>.<br><br>Example: a=6, m=9, b=18 → E = (6 + 36 + 18)/6 = 10. SD = (18–6)/6 = 2. Result: <strong>10 ± 2 person-hours</strong>.</div>
+</div>
+</div>
+<div class="info-block"><h3>📌 Planning Poker — How It Works</h3><p>Each team member has cards with numbers (like Fibonacci: 1, 2, 3, 5, 8, 13, 21). Everyone simultaneously reveals their estimate. If there are large differences, those who chose extreme values explain their reasoning. Then estimate again. Repeat until the team converges on an estimate.</p></div>`
+    },
+    { id:'5_1e', num:'5.1.5', title:'Test Case Prioritization', content:`
+<div class="section-tag">Section 5.1.5 — FL-5.1.5 (K3)</div>
+<h2>Test Case Prioritization</h2>
+<p class="intro-text">You have 500 test cases but only time to run 300. Which 300? Prioritization decides the execution order so that the most important tests always run first.</p>
+<div class="analogy"><div class="analogy-label">Analogy</div><p>A hospital triage system doesn't treat patients on a first-come-first-served basis. It prioritizes by severity: critical first, then urgent, then stable. Test case prioritization is exactly this — the most critical tests run first so that if time runs out, we've already found the most important problems.</p></div>
+<div class="cards-grid three">
+<div class="card highlight">
+  <div class="card-icon">🎲</div>
+  <h4>Risk-Based Prioritization</h4>
+  <p>Order tests based on <strong>risk analysis results</strong>. Highest-risk features first. If time runs out, you've already tested what matters most.</p>
+</div>
+<div class="card blue">
+  <div class="card-icon">📊</div>
+  <h4>Coverage-Based Prioritization</h4>
+  <p>Order tests to <strong>achieve maximum code/requirements coverage</strong> first. Variant: <strong>Additional Coverage</strong> — each next test adds the most new coverage to what's already covered.</p>
+</div>
+<div class="card yellow">
+  <div class="card-icon">📋</div>
+  <h4>Requirements-Based Prioritization</h4>
+  <p>Order tests based on <strong>stakeholder-defined requirement priorities</strong>. Most important requirements → their tests run first.</p>
+</div>
+</div>
+<div class="info-block red"><h3>⚠️ Dependencies Can Override Priority Order</h3><p>If a high-priority test case depends on a low-priority one (e.g., you can't test "checkout" without first testing "add to cart"), the lower-priority test MUST run first — regardless of its priority rank. Dependencies always constrain the ideal execution order.</p></div>
+<div class="info-block"><h3>Also Consider: Resource Availability</h3><p>Test execution order must account for when specific tools, environments, or people are available. A test requiring a specific test environment can only run when that environment is ready — even if it's high priority.</p></div>`
+    },
+    { id:'5_1f', num:'5.1.6–5.1.7', title:'Test Pyramid & Testing Quadrants', content:`
+<div class="section-tag">Sections 5.1.6 & 5.1.7 — FL-5.1.6 (K1) / FL-5.1.7 (K2)</div>
+<h2>Test Pyramid & Testing Quadrants</h2>
+<p class="intro-text">Two visual models that help teams make smart decisions about <em>how much</em> of each test type to have and <em>where</em> each type belongs in the project.</p>
+<div class="analogy"><div class="analogy-label">Analogy — Test Pyramid</div><p>Think of a building's foundation. A skyscraper needs a massive, deep foundation (lots of unit tests), moderate middle floors (integration tests), and a relatively small penthouse at the top (end-to-end tests). If you invert this — small foundation, massive top — the building is unstable and expensive to maintain.</p></div>
+<div class="info-block blue"><h3>🔺 The Test Pyramid</h3>
+<div style="display:flex;flex-direction:column;align-items:center;gap:0;margin:12px 0 16px;">
+  <div style="background:rgba(248,113,113,0.15);border:1px solid rgba(248,113,113,0.3);border-radius:8px;padding:10px 20px;text-align:center;width:280px;">
+    <div style="font-size:12px;color:var(--warn);font-weight:700;font-family:'Syne',sans-serif;">TOP — FEW TESTS</div>
+    <div style="font-size:13px;color:var(--text);">E2E / UI Tests — Slow, costly, broad scope</div>
+  </div>
+  <div style="width:2px;height:10px;background:var(--border);"></div>
+  <div style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);border-radius:8px;padding:10px 30px;text-align:center;width:340px;">
+    <div style="font-size:12px;color:var(--accent3);font-weight:700;font-family:'Syne',sans-serif;">MIDDLE — MODERATE TESTS</div>
+    <div style="font-size:13px;color:var(--text);">Integration / Service Tests — Medium speed</div>
+  </div>
+  <div style="width:2px;height:10px;background:var(--border);"></div>
+  <div style="background:rgba(74,240,168,0.1);border:1px solid rgba(74,240,168,0.3);border-radius:8px;padding:10px 40px;text-align:center;width:420px;">
+    <div style="font-size:12px;color:var(--accent);font-weight:700;font-family:'Syne',sans-serif;">BOTTOM — MANY TESTS</div>
+    <div style="font-size:13px;color:var(--text);">Unit / Component Tests — Fast, isolated, cheap</div>
+  </div>
+</div>
+<p>Higher layer = lower granularity + lower isolation + higher execution time. Bottom tests are fast, small, and plentiful. Top tests are slow, complex, and few.</p></div>
+<div class="info-block"><h3>🔲 The Testing Quadrants (Brian Marick)</h3>
+<p style="margin-bottom:12px;">Tests can be <strong>business-facing</strong> or <strong>technology-facing</strong>. They can <strong>support the team</strong> (guide development) or <strong>critique the product</strong> (measure behavior against expectations). These two axes create four quadrants:</p>
+<table class="compare"><thead><tr><th>Quadrant</th><th>Facing</th><th>Purpose</th><th>Test Types</th><th>Automation?</th></tr></thead><tbody>
+<tr><td><span class="tag-g">Q1</span></td><td>Technology</td><td>Support team</td><td>Component tests, component integration tests</td><td>✅ Automated, in CI</td></tr>
+<tr><td><span class="tag-b">Q2</span></td><td>Business</td><td>Support team</td><td>Functional tests, user story tests, examples, API tests, simulations</td><td>✅ Manual or automated</td></tr>
+<tr><td><span class="tag-y">Q3</span></td><td>Business</td><td>Critique product</td><td>Exploratory, usability, user acceptance testing</td><td>🙋 Mostly manual</td></tr>
+<tr><td><span class="tag-r">Q4</span></td><td>Technology</td><td>Critique product</td><td>Smoke tests, non-functional tests (except usability)</td><td>✅ Often automated</td></tr>
+</tbody></table></div>
+<div class="info-block yellow"><h3>📌 Why Quadrants Matter</h3><p>The quadrant model helps managers ensure <strong>all test types are included</strong> in the SDLC — nothing gets overlooked. It also helps explain testing to non-testers (developers, business reps) in terms they understand.</p></div>`
+    },
+    { id:'5_2', num:'5.2', title:'Risk Management', content:`
+<div class="section-tag">Section 5.2 — FL-5.2.1 to FL-5.2.4 (K1/K2)</div>
+<h2>Risk Management</h2>
+<p class="intro-text">We can't test everything. Risk management helps us focus testing where it matters most — increasing the likelihood of catching the most damaging defects first.</p>
+<div class="analogy"><div class="analogy-label">Analogy</div><p>An airport security team can't give every passenger a full body scan. They prioritize based on risk signals — origin, behavior, flags. Same principle in testing: test more intensively where the risk of failure is highest and the impact would be greatest.</p></div>
+<div class="info-block"><h3>What is Risk?</h3><p><strong>Risk</strong> = a potential event whose occurrence causes an adverse effect. Every risk has two attributes:</p><p>🎲 <strong>Risk Likelihood</strong> — probability of the risk occurring (between 0 and 1, exclusive)<br>💥 <strong>Risk Impact</strong> — consequences if it occurs<br><br><strong>Risk Level = Likelihood × Impact</strong><br>The higher the risk level, the more important it is to address it.</p></div>
+<div class="cards-grid">
+<div class="card highlight">
+  <div class="card-icon">🏢</div>
+  <h4>Product Risks</h4>
+  <p>Related to <strong>product quality</strong> (ISO 25010). Examples:<br>• Missing or wrong functionality<br>• Incorrect calculations<br>• Runtime errors<br>• Poor architecture<br>• Inadequate response time<br>• Security vulnerabilities<br>• Poor user experience<br><br>Consequences: user dissatisfaction, revenue loss, damage to third parties, criminal penalties, even physical harm.</p>
+</div>
+<div class="card red">
+  <div class="card-icon">📋</div>
+  <h4>Project Risks</h4>
+  <p>Related to <strong>project management and control</strong>. Examples:<br>• Organizational: delays, cost cutting, inaccurate estimates<br>• People: skill gaps, conflicts, staff shortage<br>• Technical: scope creep, poor tool support<br>• Supplier: third-party delivery failure, vendor bankruptcy<br><br>Consequences: project schedule, budget, or scope impacted.</p>
+</div>
+</div>
+<div class="flow">
+<div class="flow-step"><div class="flow-dot">🔍</div><div class="flow-content"><h4>Risk Identification</h4><p>Generate a comprehensive list of risks using: brainstorming, workshops, interviews, cause-effect diagrams. Involve stakeholders — they know where things can go wrong.</p></div></div>
+<div class="flow-step"><div class="flow-dot">📊</div><div class="flow-content"><h4>Risk Assessment</h4><p>For each risk: categorize, assess likelihood and impact, determine risk level, prioritize. Can use quantitative (Likelihood × Impact) or qualitative (risk matrix) approach.</p></div></div>
+<div class="flow-step"><div class="flow-dot">🎯</div><div class="flow-content"><h4>Risk Mitigation (Control)</h4><p>Implement actions to reduce risk. Options: mitigate by testing more, accept the risk, transfer it (insurance), or create a contingency plan. Mitigation actions include: experienced testers, independence of testing, reviews, static analysis, appropriate test techniques.</p></div></div>
+<div class="flow-step"><div class="flow-dot">📈</div><div class="flow-content"><h4>Risk Monitoring</h4><p>Ensure mitigation actions are effective. Identify emerging risks. Update risk levels as testing progresses and new information becomes available.</p></div></div>
+</div>
+<div class="info-block blue"><h3>How Product Risk Analysis Influences Testing</h3><p>Results of product risk analysis are used to:</p><p>• <strong>Determine test scope</strong> — what gets tested at all<br>• <strong>Determine test levels and types</strong> — where to test and how<br>• <strong>Select test techniques and coverage levels</strong><br>• <strong>Estimate effort</strong> — high-risk = more time<br>• <strong>Prioritize</strong> — find critical defects early<br>• <strong>Decide if non-testing activities</strong> are needed (e.g., reviews, audits)</p></div>`
+    },
+    { id:'5_3', num:'5.3', title:'Test Monitoring, Control & Completion', content:`
+<div class="section-tag">Section 5.3 — FL-5.3.1 to FL-5.3.3 (K1/K2)</div>
+<h2>Test Monitoring, Control and Test Completion</h2>
+<p class="intro-text">Testing must be tracked, managed, and communicated — not just executed and forgotten. These three activities keep testing on course and meaningful.</p>
+<div class="analogy"><div class="analogy-label">Analogy</div><p>Think of a ship's navigation system. <strong>Monitoring</strong> = checking GPS, speed, heading, weather. <strong>Control</strong> = adjusting course when you're off track. <strong>Completion</strong> = docking and logging the voyage for future captains. All three are essential.</p></div>
+<div class="cards-grid">
+<div class="card highlight">
+  <div class="card-icon">📡</div>
+  <h4>Test Monitoring</h4>
+  <p>Gather information about testing to assess progress and whether exit criteria are being met. Are we on schedule? Is coverage being achieved? Are risks decreasing?</p>
+</div>
+<div class="card blue">
+  <div class="card-icon">🎮</div>
+  <h4>Test Control</h4>
+  <p>Use monitoring data to provide corrective action directives. Examples:<br>• Reprioritize tests when risk becomes an issue<br>• Re-evaluate entry/exit criteria due to rework<br>• Adjust schedule due to environment delays<br>• Add resources where needed</p>
+</div>
+<div class="card yellow">
+  <div class="card-icon">🏁</div>
+  <h4>Test Completion</h4>
+  <p>Collect data from completed activities to consolidate experience and testware. Occurs at: end of test level, end of iteration, project completion/cancellation, release, or maintenance release.</p>
+</div>
+</div>
+<div class="info-block"><h3>📊 Common Test Metrics — Know These Categories!</h3>
+<table class="compare"><thead><tr><th>Metric Category</th><th>Examples</th></tr></thead><tbody>
+<tr><td><span class="tag-g">Project Progress</span></td><td>Task completion rate, resource usage, test effort consumed</td></tr>
+<tr><td><span class="tag-b">Test Progress</span></td><td>Test cases implemented/run/passed/failed, environment prep progress, test execution time</td></tr>
+<tr><td><span class="tag-y">Product Quality</span></td><td>Availability, response time, mean time to failure</td></tr>
+<tr><td><span class="tag-r">Defect Metrics</span></td><td>Defects found/fixed, defect density, defect detection percentage, priorities of open defects</td></tr>
+<tr><td><span class="tag-p">Risk Metrics</span></td><td>Residual risk level</td></tr>
+<tr><td><span class="tag-g">Coverage Metrics</span></td><td>Requirements coverage %, code coverage %</td></tr>
+<tr><td><span class="tag-b">Cost Metrics</span></td><td>Cost of testing, organizational cost of quality</td></tr>
+</tbody></table></div>
+<div class="cards-grid">
+<div class="card highlight">
+  <div class="card-icon">📊</div>
+  <h4>Test Progress Report</h4>
+  <p>Created <strong>regularly during testing</strong> (daily, weekly). Supports ongoing test control. Includes: testing period, progress vs. schedule, impediments & workarounds, metrics, new/changed risks, what's planned next. Audience: team members.</p>
+</div>
+<div class="card blue">
+  <div class="card-icon">📄</div>
+  <h4>Test Completion Report</h4>
+  <p>Created <strong>at the end</strong> of a test level, type, or project. Includes: test summary, evaluation vs. test objectives, deviations from plan, impediments, metrics, unmitigated risks, lessons learned. Audience: management and stakeholders.</p>
+</div>
+</div>
+<div class="info-block blue"><h3>Communicating Test Status</h3><p>Options include: verbal communication, dashboards (CI/CD dashboards, burn-down charts, task boards), email/chat, online documentation, formal test reports. The best approach depends on team structure, regulatory requirements, and stakeholder preferences. Distributed teams often need more formal written communication.</p></div>`
+    },
+    { id:'5_4', num:'5.4', title:'Configuration Management', content:`
+<div class="section-tag">Section 5.4 — FL-5.4.1 (K2)</div>
+<h2>Configuration Management</h2>
+<p class="intro-text">Configuration management (CM) is the discipline of tracking and controlling every piece of the testing puzzle — so you always know exactly what you tested, with what, and when.</p>
+<div class="analogy"><div class="analogy-label">Analogy</div><p>Imagine running a test, finding a critical bug, and not being able to reproduce it — because you don't know which version of the code you tested or which version of the test script you used. Configuration management prevents this chaos entirely. It's the difference between "I found a bug" and "I found a bug in build v2.3.1 using test script TS-045 on environment CONFIG-A."</p></div>
+<div class="info-block"><h3>What Does CM Track in Testing?</h3><p>CM provides a discipline for identifying, controlling, and tracking these work products as <strong>configuration items</strong>:</p>
+<p>
+  <span class="tag-g">Test Plans</span> &nbsp;
+  <span class="tag-g">Test Strategies</span> &nbsp;
+  <span class="tag-b">Test Conditions</span> &nbsp;
+  <span class="tag-b">Test Cases</span> &nbsp;
+  <span class="tag-y">Test Scripts</span> &nbsp;
+  <span class="tag-y">Test Results</span> &nbsp;
+  <span class="tag-r">Test Logs</span> &nbsp;
+  <span class="tag-r">Test Reports</span>
+</p></div>
+<div class="cards-grid">
+<div class="card highlight">
+  <div class="card-icon">🆔</div>
+  <h4>Unique Identification</h4>
+  <p>Every configuration item is uniquely identified and version controlled. You always know exactly which version of a test script produced which result.</p>
+</div>
+<div class="card blue">
+  <div class="card-icon">🔗</div>
+  <h4>Traceability</h4>
+  <p>All identified documentation and software items are referenced unambiguously in testware. Test results trace to test cases, which trace to requirements, which trace to risks.</p>
+</div>
+<div class="card yellow">
+  <div class="card-icon">📸</div>
+  <h4>Baselines</h4>
+  <p>When a configuration item is approved for testing, it becomes a <strong>baseline</strong> — it can only be changed via a formal change control process. Previous baselines can be restored to reproduce past results.</p>
+</div>
+<div class="card">
+  <div class="card-icon">🔄</div>
+  <h4>Complex Item Recording</h4>
+  <p>For complex items (e.g., a test environment), CM records all components, their relationships, and versions. Full transparency of what an environment consists of.</p>
+</div>
+</div>
+<div class="info-block blue"><h3>CM in DevOps/CI/CD</h3><p>In modern DevOps pipelines, CM is typically <strong>automated</strong>. Continuous integration, delivery, and deployment pipelines have automated CM built in — every commit, build, and test run is tracked automatically, with version histories maintained without manual effort.</p></div>`
+    },
+    { id:'5_5', num:'5.5', title:'Defect Management', content:`
+<div class="section-tag">Section 5.5 — FL-5.5.1 (K3)</div>
+<h2>Defect Management</h2>
+<p class="intro-text">Finding a bug is only half the battle. The other half is managing it — documenting it clearly, tracking it to resolution, and ensuring it never gets lost in the chaos.</p>
+<div class="analogy"><div class="analogy-label">Analogy</div><p>A hospital doesn't treat patients and then forget about them. Every patient gets a file: symptoms recorded, diagnosis made, treatment assigned, progress tracked, and discharged only when fully treated. Defect management is the same — every bug gets a "file" from discovery to closure, with full traceability throughout.</p></div>
+<div class="info-block yellow"><h3>⚠️ Important Nuance — Anomalies ≠ Defects</h3><p>The reported anomaly may turn out to be an actual defect — OR it could be a false positive, a misunderstanding, or a change request. This is resolved <em>during</em> the defect management process. Every anomaly gets logged; not every anomaly is a defect that needs a fix.</p></div>
+<div class="flow">
+<div class="flow-step"><div class="flow-dot">🔍</div><div class="flow-content"><h4>Detection & Logging</h4><p>Anomaly found (during any SDLC phase). Logged immediately with all available details. The defect management workflow begins.</p></div></div>
+<div class="flow-step"><div class="flow-dot">📊</div><div class="flow-content"><h4>Analysis & Classification</h4><p>Is it a real defect? What is its severity? Which component is affected? Who owns it? What's the priority?</p></div></div>
+<div class="flow-step"><div class="flow-dot">🎯</div><div class="flow-content"><h4>Decision</h4><p>Fix it? Defer it to next release? Accept it as a known limitation? Reject it (not a bug, working as designed)?</p></div></div>
+<div class="flow-step"><div class="flow-dot">🔧</div><div class="flow-content"><h4>Fix & Confirmation Test</h4><p>Developer fixes; tester re-runs to confirm resolution. If confirmed: close. If not: reopen.</p></div></div>
+<div class="flow-step"><div class="flow-dot">✅</div><div class="flow-content"><h4>Closure</h4><p>Defect is formally closed. Metrics collected. Lessons feed process improvement.</p></div></div>
+</div>
+<div class="info-block"><h3>📋 What Goes Into a Good Defect Report?</h3>
+<table class="compare"><thead><tr><th>Field</th><th>What to Include</th></tr></thead><tbody>
+<tr><td><span class="tag-g">Unique Identifier</span></td><td>Auto-generated ID for tracking (e.g., DEF-0042)</td></tr>
+<tr><td><span class="tag-g">Title / Summary</span></td><td>Short, clear description of the anomaly</td></tr>
+<tr><td><span class="tag-b">Date & Author</span></td><td>When found, who found it, their role, organization</td></tr>
+<tr><td><span class="tag-b">Test Object & Environment</span></td><td>Which build, which environment, which config</td></tr>
+<tr><td><span class="tag-y">Context</span></td><td>Test case being run, test activity, SDLC phase, technique used, test data</td></tr>
+<tr><td><span class="tag-y">Steps to Reproduce</span></td><td>Exact numbered steps. Add logs, screenshots, DB dumps, recordings</td></tr>
+<tr><td><span class="tag-r">Expected vs. Actual Result</span></td><td>What should happen vs. what actually happened</td></tr>
+<tr><td><span class="tag-r">Severity</span></td><td>Degree of impact on stakeholders / requirements</td></tr>
+<tr><td><span class="tag-p">Priority</span></td><td>How urgently this must be fixed</td></tr>
+<tr><td><span class="tag-p">Status</span></td><td>Open / Deferred / Duplicate / Waiting to fix / Awaiting confirmation / Re-opened / Closed / Rejected</td></tr>
+</tbody></table></div>
+<div class="info-block yellow"><h3>📌 Severity vs. Priority — The Classic Exam Trap!</h3><p><strong>Severity</strong> = technical impact. How bad is the damage if this defect occurs?<br><strong>Priority</strong> = business urgency. How soon must this be fixed?<br><br>These are <strong>independent</strong>:<br>• <span class="tag-r">High severity, Low priority:</span> System crashes if a user types a 500-character name in an internal admin tool used twice a year.<br>• <span class="tag-g">Low severity, High priority:</span> Company logo is spelled wrong on the homepage — embarrassing but not functionally broken.</p></div>
+<div class="info-block blue"><h3>Where Does This Apply?</h3><p>Defect management applies to defects found during <strong>any SDLC phase</strong> — not just test execution. Defects found during static testing (reviews, static analysis) should be handled through the same defect management process, logged and tracked with the same rigour.</p></div>`
+    },
+  ]
+},
+{
+  id:'ch6', title:'Ch 6 · Test Tools', color:'#4af0a8',
+  sections:[
+    { id:'6_1', num:'6.1', title:'Tool Support for Testing', content:`
+<div class="section-tag">Section 6.1 — FL-6.1.1 (K2)</div>
+<h2>Tool Support for Testing</h2>
+<p class="intro-text">Tools don't replace testers — they amplify them. They support and facilitate many test activities, making testing faster, more consistent, and more capable. But a tool is only as good as the person wielding it.</p>
+<div class="analogy"><div class="analogy-label">Real-World Analogy</div><p>Think of test tools like kitchen appliances. A stand mixer doesn't bake the cake — the baker does. But it handles the repetitive, exhausting part (mixing) so the baker can focus on creative work (flavor, decoration). Test tools handle the repetitive and complex so testers can focus on thinking.</p></div>
+<div class="info-block"><h3>What Do Test Tools Support?</h3><p>The ISTQB syllabus lists the following categories of tools that support testing. Note: <strong>any tool that assists in testing is a test tool</strong> — even a simple spreadsheet used to track test cases counts!</p></div>
+<div class="cards-grid three">
+  <div class="card"><div class="card-icon">📋</div><h4>Test Management Tools</h4><p>Increase efficiency by helping manage the full SDLC — requirements, tests, defects, and configurations. Examples: Jira, TestRail, Azure DevOps.</p></div>
+  <div class="card"><div class="card-icon">🔍</div><h4>Static Testing Tools</h4><p>Support testers in performing reviews and static analysis — finding defects in code and documents <em>without running</em> the software. Examples: SonarQube, ESLint.</p></div>
+  <div class="card"><div class="card-icon">🧪</div><h4>Test Design & Implementation Tools</h4><p>Facilitate generation of test cases, test data, and test procedures — reducing the time to build a solid test suite.</p></div>
+  <div class="card"><div class="card-icon">⚡</div><h4>Test Execution & Coverage Tools</h4><p>Facilitate automated test execution and measure coverage (e.g., how much code was exercised). Examples: Selenium, JaCoCo, Istanbul.</p></div>
+  <div class="card"><div class="card-icon">📈</div><h4>Non-Functional Testing Tools</h4><p>Allow testers to perform non-functional testing that is difficult or impossible to do manually — like simulating 10,000 concurrent users for performance testing. Examples: JMeter, k6, Gatling.</p></div>
+  <div class="card"><div class="card-icon">🚀</div><h4>DevOps Tools</h4><p>Support the DevOps delivery pipeline: workflow tracking, automated build processes, CI/CD pipelines. Examples: Jenkins, GitHub Actions, GitLab CI.</p></div>
+  <div class="card"><div class="card-icon">💬</div><h4>Collaboration Tools</h4><p>Facilitate communication between team members across testing activities. Examples: Confluence, Slack, Microsoft Teams.</p></div>
+  <div class="card"><div class="card-icon">🖥️</div><h4>Scalability & Deployment Tools</h4><p>Support deployment standardization and testing environment management. Examples: Docker (containerization), virtual machines, Kubernetes.</p></div>
+  <div class="card"><div class="card-icon">📊</div><h4>Any Other Assisting Tool</h4><p>Remember: even a <strong>spreadsheet</strong> is a test tool in the context of testing! Any tool that assists in testing qualifies.</p></div>
+</div>
+<div class="info-block blue"><h3>🧠 Memory Shortcut — 9 Tool Categories</h3><p>Management → Static → Design/Implementation → Execution/Coverage → Non-Functional → DevOps → Collaboration → Scalability/Deployment → Any assisting tool (spreadsheets, etc.)</p></div>
+<div class="info-block yellow"><h3>📌 Exam Tip</h3><p>The exam may ask you to identify which type of tool supports a specific activity. Key distinction: <strong>static testing tools</strong> don't run code (they analyze it), while <strong>test execution tools</strong> do run code. A CI/CD pipeline tool = DevOps tool. A coverage report generator = test coverage tool.</p></div>`
+    },
+    { id:'6_2', num:'6.2', title:'Benefits & Risks of Test Automation', content:`
+<div class="section-tag">Section 6.2 — FL-6.2.1 (K1)</div>
+<h2>Benefits and Risks of Test Automation</h2>
+<p class="intro-text">Simply buying a tool doesn't guarantee success. Each new tool requires effort — for introduction, maintenance, and training. There are real benefits AND real risks. The exam expects you to know both sides cold.</p>
+<div class="analogy"><div class="analogy-label">Real-World Analogy</div><p>Buying a high-end espresso machine doesn't automatically make you a barista. It takes training, maintenance, and the right beans. If you only use it to make instant coffee, it was a waste of money. Test automation is exactly the same — the value comes from how wisely you use and maintain it.</p></div>
+<div class="divider"></div>
+<h3>✅ Potential Benefits of Test Automation</h3>
+<div class="cards-grid">
+  <div class="card"><div class="card-icon">⏱️</div><h4>Time Saved on Repetitive Work</h4><p>Reduces manual, repetitive effort — like re-running regression tests, re-entering the same test data, or comparing expected vs. actual results every release cycle.</p></div>
+  <div class="card"><div class="card-icon">🎯</div><h4>Prevents Simple Human Errors</h4><p>Greater consistency and repeatability. Tests are consistently derived from requirements, test data is created systematically, and tests run in the same order with the same frequency — every time.</p></div>
+  <div class="card"><div class="card-icon">📊</div><h4>More Objective Assessment</h4><p>Provides measures too complicated for humans to calculate manually — such as precise code coverage percentages and complex execution metrics.</p></div>
+  <div class="card"><div class="card-icon">📁</div><h4>Easier Access to Test Information</h4><p>Supports test management and reporting with statistics, graphs, and aggregated data about test progress, failure rates, and execution duration.</p></div>
+  <div class="card"><div class="card-icon">⚡</div><h4>Reduced Test Execution Time</h4><p>Faster execution means earlier defect detection, faster feedback to developers, and faster time to market for the product.</p></div>
+  <div class="card"><div class="card-icon">🧠</div><h4>More Time for Deeper Testing</h4><p>When automation handles the repetitive work, testers have more time to design new, deeper, and more effective test cases that require human creativity and judgment.</p></div>
+</div>
+<div class="divider"></div>
+<h3>⚠️ Potential Risks of Test Automation</h3>
+<div class="cards-grid">
+  <div class="card"><div class="card-icon">🌈</div><h4>Unrealistic Expectations</h4><p>Overestimating what a tool can do — including its functionality and ease of use. "Once we automate, everything is solved!" is almost always wrong.</p></div>
+  <div class="card"><div class="card-icon">💸</div><h4>Inaccurate Estimations</h4><p>Underestimating the time, cost, and effort needed to introduce a tool, maintain test scripts, and change existing manual test processes. Automation has ongoing costs.</p></div>
+  <div class="card"><div class="card-icon">🔨</div><h4>Automating the Wrong Things</h4><p>Using a test tool when manual testing is more appropriate — like automating one-time tests, exploratory sessions, or frequently changing UI flows where maintenance would outweigh benefit.</p></div>
+  <div class="card"><div class="card-icon">🤖</div><h4>Over-Relying on the Tool</h4><p>Ignoring the need for human critical thinking. "All tests green = all good" is a dangerous assumption. Automation only finds what it was programmed to find.</p></div>
+  <div class="card"><div class="card-icon">🏢</div><h4>Vendor Dependency</h4><p>The tool vendor may go out of business, retire the tool, sell it to a different vendor, or provide poor support — leaving your test suite stranded.</p></div>
+  <div class="card"><div class="card-icon">📂</div><h4>Open-Source Abandonment</h4><p>Open-source tools may be abandoned — no further updates, security fixes, or compatibility updates. Internal components may also require frequent updates as dependencies evolve.</p></div>
+  <div class="card"><div class="card-icon">🔌</div><h4>Compatibility Issues</h4><p>The automation tool may not be compatible with the development platform, tech stack, or operating system in use.</p></div>
+  <div class="card"><div class="card-icon">⚖️</div><h4>Regulatory Non-Compliance</h4><p>Choosing an unsuitable tool that does not comply with regulatory requirements or safety standards — a serious risk in healthcare, finance, and aviation.</p></div>
+</div>
+<div class="info-block red"><h3>🚨 The Core Exam Trap: "Automation = Quality"</h3><p>Many teams assume: "We have 80% automation — our quality is great." <strong>This is wrong.</strong> Automation only catches regressions in previously defined scenarios. It <em>cannot</em> find new types of defects, usability issues, or problems in untested areas. Automation <strong>complements</strong> manual and exploratory testing — it does <strong>not</strong> replace them. Acquiring a tool does NOT guarantee success.</p></div>
+<div class="info-block yellow"><h3>📌 Exam Tip — Know the Risk List</h3><p>The CTFL exam (K1 level for this section) expects you to <strong>recall</strong> both benefits and risks. Focus on the ones that are non-obvious: vendor dependency, open-source abandonment, regulatory non-compliance, and over-reliance on the tool are the ones most candidates miss.</p></div>`
+    },
+  ]
+},
+];
+
+// QUIZ DATA
+const allQuizzes = [
+  // Ch1
+  { ch:1, q:'Which of the following BEST distinguishes verification from validation?', opts:['A) Verification is done by testers; validation by developers','B) Verification checks against requirements; validation checks against user needs','C) They are the same in Agile environments','D) Validation checks if code is correct; verification checks if users are happy'], ans:1, fb:'Verification = "Did we build it right?" (against specs). Validation = "Did we build the right thing?" (against user needs). The WHO does it is irrelevant to the distinction.' },
+  { ch:1, q:'A developer makes a mistake that introduces a bug in the code. Using correct ISTQB terminology, the mistake is called a(n):', opts:['A) Failure','B) Defect','C) Error','D) Root Cause'], ans:2, fb:'Error = the human mistake. Defect = the fault introduced into the work product. Failure = the observable bad behavior when the defect is triggered. These are a chain.' },
+  { ch:1, q:'Which testing principle is illustrated when a test team uses risk-based prioritization instead of testing every single input combination?', opts:['A) Tests wear out','B) Exhaustive testing is impossible','C) Testing is context dependent','D) Defects cluster together'], ans:1, fb:'Because exhaustive testing is impossible, we use techniques like risk-based testing to focus effort where it matters most.' },
+  { ch:1, q:'After fixing a defect, testing is repeated to verify the fix worked AND to ensure no new defects were introduced elsewhere. The second part is called:', opts:['A) Confirmation testing','B) Exploratory testing','C) Regression testing','D) Acceptance testing'], ans:2, fb:'Confirmation testing = re-run original test to verify the fix. Regression testing = test the rest of the system to ensure the fix didn\'t break something else. Both happen after a fix.' },
+  { ch:1, q:'Which statement about QA vs. Testing is CORRECT?', opts:['A) QA and Testing are the same activity','B) Testing is process-oriented; QA is product-oriented','C) Testing is product-oriented and corrective; QA is process-oriented and preventive','D) QA is only the responsibility of the test team'], ans:2, fb:'Testing = product-focused (find defects in THIS software). QA = process-focused (improve how ALL software is built). QA is everyone\'s responsibility; testing is mainly the test team\'s.' },
+  // Ch2
+  { ch:2, q:'Which of the following BEST describes the impact of choosing an Agile SDLC model on testing?', opts:['A) Dynamic testing can be performed early since code is written upfront','B) Lightweight documentation and heavy test automation are favored due to frequent change','C) Test documentation is more formal and detailed than in sequential models','D) Testers only participate in the final iteration for acceptance testing'], ans:1, fb:'Agile assumes change throughout the project. This means lightweight work product documentation and extensive test automation (for regression) are favored. Most manual testing uses experience-based techniques. Testers are involved from Day 1.' },
+  { ch:2, q:'In Test-Driven Development (TDD), what is the correct order of activities?', opts:['A) Write code → Write test → Refactor','B) Write test → Write code to pass it → Refactor','C) Analyze requirements → Write code → Write tests','D) Write acceptance criteria → Write tests → Deploy'], ans:1, fb:'TDD follows: Write a FAILING test first → Write the minimum code to make it pass → Refactor both code and tests. The test drives the coding — not the other way around.' },
+  { ch:2, q:'Which statement about "shift left" is CORRECT according to the ISTQB syllabus?', opts:['A) Shift left means removing all late-stage testing to save time','B) Shift left means performing testing earlier in the SDLC without neglecting later testing','C) Shift left is only applicable in Agile projects','D) Shift left means moving test execution to the left side of the V-Model diagram'], ans:1, fb:'Shift left = testing earlier in the SDLC. Crucially, it does NOT mean neglecting later testing — all phases still occur. It adds early testing. It is applicable to ALL SDLC models, not just Agile.' },
+  { ch:2, q:'What is the PRIMARY purpose of a retrospective in the context of testing?', opts:['A) To formally close all open defects before release','B) To measure code coverage achieved during the iteration','C) To reflect on what worked and what to improve, feeding into continuous improvement','D) To hand over testware to the operations team'], ans:2, fb:'Retrospectives discuss: what succeeded (retain it), what failed (improve it), and how to act on improvements. Results are recorded, typically in the Test Completion Report. They are a key mechanism for continuous process improvement.' },
+  { ch:2, q:'A company migrates its system from an on-premise server to a cloud platform. According to ISTQB, what maintenance testing trigger does this represent?', opts:['A) Modification — corrective change','B) Modification — planned enhancement','C) Upgrade or migration of the operational environment','D) Retirement testing'], ans:2, fb:'Moving to a new platform (cloud migration) is an "upgrade or migration of the operational environment." This requires testing the new environment AND the changed software, potentially including data migration testing.' },
+  { ch:2, q:'What is the FIRST step a tester should take before performing regression testing after a software change?', opts:['A) Re-run all existing test cases immediately','B) Write new test cases for the changed code','C) Perform impact analysis to identify which parts of the system could be affected','D) Archive the old test scripts and start fresh'], ans:2, fb:'The ISTQB syllabus specifically states: perform IMPACT ANALYSIS before regression testing (ideally before even making the change). Impact analysis identifies which parts could be affected, guiding the scope and depth of regression testing needed.' },
+  { ch:2, q:'A system being retired requires its data to be stored for 10 years. What type of maintenance testing is specifically needed?', opts:['A) Corrective maintenance testing','B) Performance testing of the archive system','C) Testing of data archiving and restore/retrieval procedures','D) User acceptance testing of the new replacement system'], ans:2, fb:'The ISTQB syllabus specifically mentions: retirement can require testing of data ARCHIVING (if long retention is needed) AND testing of RESTORE and RETRIEVAL procedures — in case archived data must be accessed during the retention period.' },
+  // Ch3
+  { ch:3, q:'Which type of review is the MOST FORMAL and typically involves predefined roles, entry/exit criteria, and the author NOT leading the review?', opts:['A) Informal Review','B) Walkthrough','C) Technical Review','D) Inspection'], ans:3, fb:'Inspection is the most formal review type. Key features: defined roles (moderator ≠ author), formal entry/exit criteria, checklists, metrics collected, author does NOT lead.' },
+  { ch:3, q:'A requirements document is reviewed by the project team to check for ambiguities and missing information — WITHOUT running any software. This is an example of:', opts:['A) Dynamic testing','B) Black-box testing','C) Static testing','D) Regression testing'], ans:2, fb:'Static testing = examining work products without executing software. Reviewing requirements documents is a classic static testing activity. No code runs.' },
+  { ch:3, q:'Which of the following is a benefit UNIQUE to static testing (that dynamic testing cannot provide)?', opts:['A) Finds defects when the code is executed','B) Can detect defects in non-executable artifacts like requirements and designs','C) Measures code coverage','D) Verifies system performance'], ans:1, fb:'Static testing can review requirements, designs, contracts, and plans — things that can\'t be "run." Dynamic testing only works on executable software. This is static testing\'s unique advantage.' },
+  // Ch4
+  { ch:4, q:'A tester is testing an age input field that only accepts values from 18 to 65. Using 2-value BVA, which set of test values achieves 100% boundary coverage?', opts:['A) 18, 35, 65','B) 17, 18, 65, 66','C) 18, 19, 64, 65','D) 1, 18, 65, 100'], ans:1, fb:'2-value BVA: for each boundary, test the boundary itself AND its closest neighbor in the adjacent partition. Lower boundary 18 → test 17 (invalid, adjacent) and 18. Upper boundary 65 → test 65 and 66 (invalid, adjacent). Result: 17, 18, 65, 66.' },
+  { ch:4, q:'A developer coded "if (x = 10)" instead of the correct "if (x ≤ 10)". Which BVA approach would detect this defect?', opts:['A) 2-value BVA only (tests x=10 and x=11)','B) 3-value BVA (adds x=9, which detects the defect)','C) Both 2-value and 3-value BVA would catch it equally','D) Neither BVA approach can detect logical errors like this'], ans:1, fb:'2-value BVA tests x=10 (true in both versions) and x=11 (false in both versions) — the defect is hidden. 3-value BVA adds x=9: the correct condition (x≤10) should be TRUE for x=9, but the buggy code (x=10) returns FALSE. Defect detected!' },
+  { ch:4, q:'Which statement about branch coverage and statement coverage is CORRECT according to the ISTQB syllabus?', opts:['A) 100% statement coverage guarantees 100% branch coverage','B) 100% branch coverage guarantees 100% statement coverage','C) They are equivalent — achieving one always achieves the other','D) Branch coverage only applies to white-box testing; statement coverage applies to black-box'], ans:1, fb:'Branch coverage SUBSUMES statement coverage. Achieving 100% branch coverage automatically guarantees 100% statement coverage (because every statement must be in some branch). But NOT vice versa — 100% statement coverage does not guarantee all branches are exercised.' },
+  { ch:4, q:'In Equivalence Partitioning, why is testing ONE value from each partition considered sufficient?', opts:['A) Because it saves testing time and budget','B) Because all values in a partition are expected to be processed the same way by the test object','C) Because boundary values at the edges are already handled by BVA','D) Because the ISTQB exam only requires one test per partition'], ans:1, fb:'The core EP assumption: if a test with one value from a partition detects a defect, any other value from that same partition would detect the same defect. Conversely, if one value behaves correctly, all values in the partition behave correctly. One test per partition is sufficient.' },
+  { ch:4, q:'A tester is designing tests for a business rules engine that grants discounts based on customer tier (Gold/Silver/Bronze) AND order size (Large/Small). To systematically cover all combinations, which technique is most appropriate?', opts:['A) Boundary Value Analysis','B) State Transition Testing','C) Decision Table Testing','D) Exploratory Testing'], ans:2, fb:'Decision table testing is ideal when outcomes depend on COMBINATIONS of conditions — like customer tier AND order size. It creates a systematic table of all feasible combinations, ensuring no business rule scenario is missed. BVA focuses on boundaries, State Transition on system states, Exploratory on unstructured learning.' },
+  { ch:4, q:'A system has states: Locked, Unlocked, and Suspended. Which coverage criterion requires testing BOTH valid transitions AND attempting invalid transitions?', opts:['A) All States Coverage','B) Valid Transitions Coverage (0-switch coverage)','C) All Transitions Coverage','D) Path Coverage'], ans:2, fb:'All Transitions Coverage requires: (1) exercising all VALID transitions, AND (2) attempting to execute all INVALID transitions (empty cells in the state table). This is the most rigorous criterion and the minimum requirement for safety-critical software. Testing only one invalid transition per test case avoids defect masking.' },
+  { ch:4, q:'In ATDD, what is the FIRST step before writing any test cases?', opts:['A) Automate the acceptance tests using a BDD framework','B) Write the code so the tests have something to test','C) Conduct a specification workshop where the whole team analyzes and refines the user story and acceptance criteria','D) Perform exploratory testing to learn about the feature'], ans:2, fb:'ATDD step 1: Specification workshop — customers, developers, and testers together analyze, discuss, and write the user story and acceptance criteria. Incompleteness and ambiguities are resolved HERE. Only after the story is clear and agreed upon do you move to writing test cases.' },
+  { ch:4, q:'A tester is performing exploratory testing using a session-based approach. What is the purpose of the TEST CHARTER in this approach?', opts:['A) It is a formal test script with predefined steps to follow exactly','B) It contains test objectives that guide the testing during the time-boxed session','C) It documents all defects found during the session','D) It defines the entry and exit criteria for the test level'], ans:1, fb:'In session-based exploratory testing, the test charter contains TEST OBJECTIVES that guide — not prescribe — what the tester explores in the time-boxed session. The tester uses the charter as a compass, not a script. After the session, a debriefing discusses findings with stakeholders.' },
+  // Ch5
+  { ch:5, q:'A critical bug is found in a feature that only 0.1% of users ever access. It crashes the app completely if triggered. Which correctly describes its severity and priority?', opts:['A) High severity, High priority','B) High severity, Low/Medium priority','C) Low severity, High priority','D) Low severity, Low priority'], ans:1, fb:'Severity = technical impact = High (crashes the app). Priority = business urgency = Low/Medium (almost nobody hits this path). Severity and priority are INDEPENDENT — this is a classic exam scenario.' },
+  { ch:5, q:'Which document is typically created AT THE END of a test project or major test phase, summarizing coverage achieved, defects found, and lessons learned?', opts:['A) Test Plan','B) Test Progress Report','C) Test Completion Report','D) Risk Register'], ans:2, fb:'Test Completion Report = end-of-project summary. Test Progress Reports = created DURING testing (regularly). Test Plan = created BEFORE testing. Risk Register = part of the test plan.' },
+  { ch:5, q:'In risk-based testing, how should testing effort be distributed?', opts:['A) Equally across all features','B) More effort on low-risk areas to ensure full coverage','C) More effort on high-risk areas first','D) Only on features that have had defects before'], ans:2, fb:'Risk-based testing focuses the MOST effort on areas with highest risk (high likelihood × high impact of failure). This ensures that if we run out of time, we\'ve already tested what matters most.' },
+  { ch:5, q:'A team uses Three-Point Estimation with values a=6, m=9, b=18. What is the final estimate (E) and standard deviation (SD)?', opts:['A) E=9, SD=2','B) E=10, SD=2','C) E=11, SD=3','D) E=10, SD=4'], ans:1, fb:'Formula: E = (a + 4×m + b) / 6 = (6 + 36 + 18) / 6 = 60/6 = 10. SD = (b - a) / 6 = (18 - 6) / 6 = 12/6 = 2. So E=10, SD=2 → the estimate is 10 ± 2 person-hours.' },
+  { ch:5, q:'Which of the following is a characteristic of the TEST PYRAMID\'s BOTTOM layer?', opts:['A) Few tests, slow execution, broad scope (end-to-end)','B) Many tests, fast execution, high isolation (unit/component level)','C) Medium number of tests at the API/service level','D) Manual-only tests for usability and acceptance'], ans:1, fb:'Bottom of the test pyramid = unit/component tests. Characteristics: MANY tests, fast execution, high isolation (test one thing at a time), cheap. Top layer = few, slow, broad E2E tests. The pyramid shape shows the recommended proportions.' },
+  { ch:5, q:'According to the Testing Quadrants model, exploratory testing, usability testing, and user acceptance testing all belong to which quadrant?', opts:['A) Q1 — Technology facing, support the team','B) Q2 — Business facing, support the team','C) Q3 — Business facing, critique the product','D) Q4 — Technology facing, critique the product'], ans:2, fb:'Q3 = Business facing, Critique the product. This quadrant contains: exploratory testing, usability testing, and user acceptance testing. These are user-oriented and often manual. Q4 has smoke tests and non-functional tests (except usability).' },
+  { ch:5, q:'A tester must prioritize test cases but discovers that test case #20 (low priority) must execute before test case #5 (high priority) due to a dependency. What should the tester do?', opts:['A) Skip test case #20 and execute #5 first to maintain priority order','B) Execute test case #20 before #5, since dependencies override priority rankings','C) Execute both in parallel to save time','D) Report the dependency as a defect and await resolution'], ans:1, fb:'Dependencies always override the ideal priority order. If a high-priority test depends on a lower-priority one, the lower-priority test MUST run first. Failing to do so would make the high-priority test impossible to execute meaningfully.' },
+  { ch:5, q:'In Configuration Management, what is a "baseline" in the context of testing?', opts:['A) The minimum acceptable code coverage percentage','B) The first draft of a test plan before it is approved','C) A configuration item approved for testing that can only be changed through formal change control','D) The set of regression tests run at the start of every iteration'], ans:2, fb:'A baseline is an approved configuration item (e.g., a test environment, a build) that has been formally accepted. It can ONLY be changed through a formal change control process. Previous baselines can be restored to reproduce past test results — this is critical for reproducibility.' },
+  // Ch6
+  { ch:6, q:'Which of the following BEST describes a potential risk of test automation, as stated in the ISTQB CTFL syllabus?', opts:['A) Automation reduces repetitive manual work','B) A team may choose a tool that is not compatible with their development platform','C) Automated tests provide more consistent execution than manual tests','D) Automation enables earlier defect detection'], ans:1, fb:'A, C, D are BENEFITS of test automation. The risk stated in the syllabus is: the automation tool may not be compatible with the development platform — leaving your test suite unable to run on your actual technology stack.' },
+  { ch:6, q:'According to the ISTQB syllabus, which category of test tool "supports the tester in performing reviews and static analysis"?', opts:['A) Test execution tools','B) Non-functional testing tools','C) Static testing tools','D) DevOps tools'], ans:2, fb:'The syllabus explicitly states: Static testing tools support the tester in performing reviews and static analysis. They do NOT execute code — they analyze it. Examples: SonarQube, ESLint, Checkstyle.' },
+  { ch:6, q:'A team acquires an expensive test automation tool but sees no improvement after 6 months. According to the ISTQB syllabus, what is the MOST LIKELY root cause?', opts:['A) Automated testing is always less effective than manual testing','B) Simply acquiring a tool does not guarantee success — effort is needed for introduction, maintenance, and training','C) The tool vendor provided poor support','D) The team should have used open-source tools instead'], ans:1, fb:'The ISTQB syllabus opens section 6.2 with this key statement: "Simply acquiring a tool does not guarantee success. Each new tool will require effort to achieve real and lasting benefits — for tool introduction, maintenance and training." Buying the tool is just the first step.' },
+  { ch:6, q:'Which of the following is listed as a BENEFIT of test automation in the ISTQB CTFL v4.0.1 syllabus?', opts:['A) Unrealistic expectations about tool functionality','B) Dependency on the tool vendor who may retire the tool','C) More time for testers to design new, deeper, and more effective tests','D) Using a test tool when manual testing is more appropriate'], ans:2, fb:'The syllabus lists "More time for testers to design new, deeper and more effective tests" as a benefit — automation takes over repetitive execution so human testers can focus on creative, complex test design. Options A, B, D are all RISKS.' },
+  { ch:6, q:'A company integrates their test execution into an automated CI/CD pipeline that triggers tests on every code commit. According to the ISTQB tool categories, which type of tool primarily enables this pipeline?', opts:['A) Static testing tools','B) Non-functional testing tools','C) Test management tools','D) DevOps tools'], ans:3, fb:'The syllabus defines DevOps tools as those that "support the DevOps delivery pipeline, workflow tracking, automated build processes, CI/CD." A CI/CD pipeline that triggers tests automatically on every commit is a DevOps tool in action. Examples: Jenkins, GitHub Actions, GitLab CI.' },
+];
+
+// ─────────────────────────────────────────────
+// BUILD SIDEBAR
+// ─────────────────────────────────────────────
+const sidebar = document.getElementById('sidebar');
+const chColors = {'ch1':'#4af0a8','ch2':'#38bdf8','ch3':'#a78bfa','ch4':'#f59e0b','ch5':'#f87171','ch6':'#4af0a8'};
+
+chapters.forEach((ch,ci) => {
+  const grp = document.createElement('div');
+  grp.className = 'chapter-group';
+  const hdr = document.createElement('div');
+  hdr.className = 'chapter-header' + (ci===0?' open':'');
+  hdr.innerHTML = `<span class="chapter-dot"></span>${ch.title}`;
+  const items = document.createElement('div');
+  items.className = 'chapter-items' + (ci===0?' open':'');
+  ch.sections.forEach((sec,si) => {
+    const n = document.createElement('div');
+    n.className = 'nav-item' + (ci===0&&si===0?' active':'');
+    n.dataset.id = sec.id;
+    n.innerHTML = `<span class="num">${sec.num}</span>${sec.title}`;
+    n.onclick = () => showSection(sec.id, n);
+    items.appendChild(n);
+  });
+  // Quiz link
+  const qn = document.createElement('div');
+  qn.className = 'nav-item';
+  qn.dataset.id = `quiz_${ch.id}`;
+  qn.innerHTML = `<span class="num">✓</span>Chapter Quiz`;
+  qn.onclick = () => showSection(`quiz_${ch.id}`, qn);
+  items.appendChild(qn);
+
+  hdr.onclick = () => {
+    hdr.classList.toggle('open');
+    items.classList.toggle('open');
+  };
+  grp.appendChild(hdr);
+  grp.appendChild(items);
+  sidebar.appendChild(grp);
+});
+
+// ─────────────────────────────────────────────
+// BUILD MAIN CONTENT
+// ─────────────────────────────────────────────
+const mainEl = document.getElementById('main');
+const visited = new Set();
+let allSectionIds = [];
+
+chapters.forEach((ch,ci) => {
+  ch.sections.forEach((sec,si) => {
+    allSectionIds.push(sec.id);
+    const div = document.createElement('div');
+    div.className = 'section' + (ci===0&&si===0?' active':'');
+    div.id = sec.id;
+    div.innerHTML = sec.content;
+    mainEl.appendChild(div);
+    if(ci===0&&si===0) visited.add(sec.id);
+  });
+  // Build quiz section
+  const chQuizzes = allQuizzes.filter(q => q.ch === ci+1);
+  const qId = `quiz_${ch.id}`;
+  allSectionIds.push(qId);
+  const qDiv = document.createElement('div');
+  qDiv.className = 'section';
+  qDiv.id = qId;
+  let qHTML = `<div class="section-tag">${ch.title}</div><h2>Chapter Quiz</h2><p class="intro-text">Test your understanding with ISTQB-style questions. Read carefully!</p>`;
+  chQuizzes.forEach((quiz,qi) => {
+    const qKey = `${qId}_${qi}`;
+    qHTML += `<div class="quiz-card" id="qc_${qKey}">
+      <div class="quiz-q">Q${qi+1}. ${quiz.q}</div>
+      <div class="quiz-options">
+        ${quiz.opts.map((o,oi) => `<button class="quiz-opt" onclick="answer('${qKey}',${oi},${quiz.ans},'${quiz.fb.replace(/'/g,"&#39;")}')">${o}</button>`).join('')}
+      </div>
+      <div class="quiz-feedback" id="fb_${qKey}"></div>
+    </div>`;
+  });
+  qDiv.innerHTML = qHTML;
+  mainEl.appendChild(qDiv);
+});
+
+// Final mega quiz
+allSectionIds.push('mega_quiz');
+const mqDiv = document.createElement('div');
+mqDiv.className = 'section';
+mqDiv.id = 'mega_quiz';
+let mqHTML = `<div class="section-tag">All Chapters</div><h2>🎓 Final Exam Practice</h2><p class="intro-text">A mixed selection of questions from all 6 chapters. This simulates the real ISTQB exam format.</p>`;
+const shuffled = [...allQuizzes].sort(()=>Math.random()-0.5).slice(0,15);
+shuffled.forEach((quiz,qi) => {
+  const qKey = `mq_${qi}`;
+  mqHTML += `<div class="quiz-card" id="qc_${qKey}">
+    <div class="quiz-q">Q${qi+1}. ${quiz.q}</div>
+    <div class="quiz-options">
+      ${quiz.opts.map((o,oi) => `<button class="quiz-opt" onclick="answer('${qKey}',${oi},${quiz.ans},'${quiz.fb.replace(/'/g,"&#39;")}')">${o}</button>`).join('')}
+    </div>
+    <div class="quiz-feedback" id="fb_${qKey}"></div>
+  </div>`;
+});
+mqDiv.innerHTML = mqHTML;
+mainEl.appendChild(mqDiv);
+
+// Final quiz nav item
+const finalGrp = document.createElement('div');
+finalGrp.className = 'chapter-group';
+finalGrp.innerHTML = `<div class="nav-item" data-id="mega_quiz" onclick="showSection('mega_quiz',this)" style="padding-left:18px;"><span class="num" style="background:rgba(74,240,168,0.15);color:#4af0a8;">🏆</span>Final Exam Practice</div>`;
+sidebar.appendChild(finalGrp);
+
+// ─────────────────────────────────────────────
+// INTERACTIONS
+// ─────────────────────────────────────────────
+function showSection(id, navEl) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const target = document.getElementById(id);
+  if(target) { target.classList.add('active'); }
+  if(navEl) navEl.classList.add('active');
+  visited.add(id);
+  const pct = Math.min(100, Math.round((visited.size / allSectionIds.length) * 100));
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = pct + '% complete';
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+const answeredCards = {};
+function answer(qKey, chosen, correct, fb) {
+  if(answeredCards[qKey]) return;
+  answeredCards[qKey] = true;
+  const card = document.getElementById(`qc_${qKey}`);
+  const btns = card.querySelectorAll('.quiz-opt');
+  btns.forEach(b => b.disabled = true);
+  btns[chosen].classList.add(chosen === correct ? 'correct' : 'wrong');
+  if(chosen !== correct) btns[correct].classList.add('correct');
+  const fbEl = document.getElementById(`fb_${qKey}`);
+  fbEl.textContent = (chosen === correct ? '✅ ' : '❌ ') + fb;
+  fbEl.className = 'quiz-feedback show ' + (chosen === correct ? 'ok' : 'nope');
+}
+</script>
+</body>
+</html>

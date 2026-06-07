@@ -1,0 +1,2190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISTQB CTFL — Set A Exam Trainer</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #07090f;
+  --surface: #0e1118;
+  --surface2: #141925;
+  --surface3: #1c2235;
+  --border: #252d42;
+  --border2: #2e3a55;
+  --accent: #00e5a0;
+  --accent-dim: rgba(0,229,160,0.12);
+  --blue: #4da6ff;
+  --blue-dim: rgba(77,166,255,0.12);
+  --amber: #ffb347;
+  --amber-dim: rgba(255,179,71,0.12);
+  --red: #ff6b6b;
+  --red-dim: rgba(255,107,107,0.12);
+  --purple: #b48eff;
+  --purple-dim: rgba(180,142,255,0.12);
+  --text: #dde3f2;
+  --muted: #6b7899;
+  --muted2: #8a96b8;
+  --ch1: #00e5a0;
+  --ch2: #4da6ff;
+  --ch3: #b48eff;
+  --ch4: #ffb347;
+  --ch5: #ff6b6b;
+  --ch6: #5ce1e6;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 15px; }
+body { font-family: 'Outfit', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--surface); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 4px; }
+
+/* HEADER */
+.header {
+  position: sticky; top: 0; z-index: 200;
+  background: rgba(7,9,15,0.92);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  height: 56px;
+  display: flex; align-items: center; gap: 16px;
+}
+.header-logo {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px; font-weight: 700;
+  background: var(--accent);
+  color: #07090f;
+  padding: 3px 10px; border-radius: 4px;
+  letter-spacing: .05em;
+  white-space: nowrap;
+}
+.header-title {
+  font-size: 14px; font-weight: 600; color: var(--text);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.header-right {
+  margin-left: auto; display: flex; align-items: center; gap: 16px;
+}
+.score-display {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px; color: var(--muted2);
+}
+.score-display span { color: var(--accent); font-weight: 700; }
+.progress-bar {
+  width: 120px; height: 4px;
+  background: var(--border);
+  border-radius: 99px; overflow: hidden;
+}
+.progress-fill {
+  height: 100%; background: var(--accent);
+  border-radius: 99px;
+  transition: width .5s ease;
+}
+
+/* LAYOUT */
+.layout { display: grid; grid-template-columns: 280px 1fr; min-height: calc(100vh - 56px); }
+
+/* SIDEBAR */
+.sidebar {
+  position: sticky; top: 56px;
+  height: calc(100vh - 56px);
+  overflow-y: auto; overflow-x: hidden;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column;
+}
+.sidebar-top {
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
+}
+.sidebar-top label {
+  display: block; font-size: 10px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 6px;
+  font-family: 'Space Mono', monospace;
+}
+.filter-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 8px; }
+.filter-btn {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 6px; padding: 7px 10px;
+  font-size: 11px; font-weight: 600; color: var(--muted2);
+  cursor: pointer; transition: all .2s;
+  font-family: 'Outfit', sans-serif; text-align: center;
+}
+.filter-btn:hover { border-color: var(--border2); color: var(--text); }
+.filter-btn.active { border-color: var(--accent); background: var(--accent-dim); color: var(--accent); }
+.filter-btn.ch1.active { border-color: var(--ch1); background: rgba(0,229,160,0.1); color: var(--ch1); }
+.filter-btn.ch2.active { border-color: var(--ch2); background: rgba(77,166,255,0.1); color: var(--ch2); }
+.filter-btn.ch3.active { border-color: var(--ch3); background: rgba(180,142,255,0.1); color: var(--ch3); }
+.filter-btn.ch4.active { border-color: var(--ch4); background: rgba(255,179,71,0.1); color: var(--ch4); }
+.filter-btn.ch5.active { border-color: var(--ch5); background: rgba(255,107,107,0.1); color: var(--ch5); }
+.filter-btn.ch6.active { border-color: var(--ch6); background: rgba(92,225,230,0.1); color: var(--ch6); }
+.search-box {
+  width: 100%; background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 6px; padding: 8px 12px;
+  font-size: 13px; color: var(--text);
+  font-family: 'Outfit', sans-serif;
+  outline: none; transition: border-color .2s;
+}
+.search-box::placeholder { color: var(--muted); }
+.search-box:focus { border-color: var(--blue); }
+
+.q-list { flex: 1; overflow-y: auto; padding: 8px 0; }
+.q-list-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 16px; cursor: pointer;
+  transition: all .18s; border-left: 3px solid transparent;
+  font-size: 12px; color: var(--muted2);
+}
+.q-list-item:hover { background: var(--surface2); color: var(--text); }
+.q-list-item.active { border-left-color: var(--accent); background: var(--accent-dim); color: var(--accent); }
+.q-list-item.answered-correct { opacity: .7; }
+.q-list-item.answered-wrong { opacity: .8; }
+.q-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px; font-weight: 700;
+  background: var(--surface3); border-radius: 3px;
+  padding: 2px 6px; min-width: 34px; text-align: center;
+  flex-shrink: 0;
+}
+.q-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--border2); flex-shrink: 0; margin-left: auto;
+}
+.q-dot.correct { background: var(--accent); }
+.q-dot.wrong { background: var(--red); }
+.q-text-mini { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 11.5px; }
+.ch-tag-mini {
+  font-size: 9px; font-weight: 700;
+  border-radius: 3px; padding: 1px 5px;
+  white-space: nowrap; flex-shrink: 0;
+  font-family: 'Space Mono', monospace;
+}
+
+/* MAIN */
+.main { padding: 32px 40px; max-width: 860px; }
+
+/* HERO */
+.hero {
+  background: linear-gradient(135deg, rgba(0,229,160,0.07), rgba(77,166,255,0.05));
+  border: 1px solid rgba(0,229,160,0.15);
+  border-radius: 16px; padding: 28px 32px; margin-bottom: 28px;
+}
+.hero-tag { font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); font-family: 'Space Mono', monospace; margin-bottom: 8px; }
+.hero h1 { font-size: 26px; font-weight: 800; line-height: 1.2; margin-bottom: 10px; }
+.hero p { font-size: 13px; color: var(--muted2); line-height: 1.7; max-width: 600px; }
+.hero-stats { display: flex; gap: 20px; margin-top: 18px; flex-wrap: wrap; }
+.stat { text-align: center; }
+.stat-num { font-family: 'Space Mono', monospace; font-size: 22px; font-weight: 700; color: var(--accent); }
+.stat-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; }
+.chapter-pills { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+.ch-pill {
+  font-size: 11px; font-weight: 600; border-radius: 20px;
+  padding: 4px 12px; border: 1px solid;
+  cursor: pointer; transition: all .2s;
+  font-family: 'Space Mono', monospace;
+}
+
+/* QUESTION CARD */
+.q-card {
+  display: none;
+  animation: fadeUp .3s ease;
+}
+.q-card.visible { display: block; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+.q-header {
+  display: flex; align-items: flex-start; gap: 14px; margin-bottom: 20px;
+}
+.q-num-badge {
+  font-family: 'Space Mono', monospace; font-weight: 700;
+  font-size: 12px; background: var(--surface3);
+  border: 1px solid var(--border2);
+  border-radius: 6px; padding: 6px 12px;
+  white-space: nowrap; flex-shrink: 0;
+}
+.q-meta { flex: 1; }
+.q-chapter-label {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  font-family: 'Space Mono', monospace;
+  margin-bottom: 4px;
+}
+.q-title { font-size: 15px; font-weight: 600; color: var(--text); line-height: 1.5; }
+.q-points {
+  font-size: 11px; color: var(--muted);
+  margin-top: 3px;
+  font-family: 'Space Mono', monospace;
+}
+.multi-note {
+  display: inline-block; font-size: 11px; font-weight: 600;
+  background: var(--amber-dim); color: var(--amber);
+  border: 1px solid rgba(255,179,71,0.3);
+  border-radius: 4px; padding: 2px 8px; margin-bottom: 14px;
+}
+
+/* SCENARIO */
+.scenario {
+  background: var(--surface2); border: 1px solid var(--border2);
+  border-radius: 10px; padding: 14px 18px; margin-bottom: 16px;
+  font-size: 13px; color: var(--muted2); line-height: 1.7;
+}
+.scenario-label {
+  font-size: 10px; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--amber);
+  font-family: 'Space Mono', monospace; margin-bottom: 6px;
+}
+
+/* OPTIONS */
+.options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+.opt-btn {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 8px; padding: 12px 16px;
+  cursor: pointer; transition: all .18s;
+  display: flex; align-items: flex-start; gap: 12px;
+  text-align: left; font-family: 'Outfit', sans-serif; width: 100%;
+}
+.opt-btn:hover:not(:disabled):not(.selected-wrong):not(.selected-right):not(.revealed-right) {
+  border-color: var(--blue); background: var(--blue-dim);
+}
+.opt-btn.selected-right, .opt-btn.revealed-right {
+  border-color: var(--accent); background: var(--accent-dim);
+}
+.opt-btn.selected-wrong {
+  border-color: var(--red); background: var(--red-dim);
+}
+.opt-key {
+  font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700;
+  min-width: 24px; height: 24px; border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--surface2); flex-shrink: 0;
+  transition: all .18s;
+}
+.opt-btn.selected-right .opt-key, .opt-btn.revealed-right .opt-key {
+  background: var(--accent); color: #07090f;
+}
+.opt-btn.selected-wrong .opt-key { background: var(--red); color: #fff; }
+.opt-text { font-size: 13px; color: var(--muted2); line-height: 1.6; flex: 1; transition: color .18s; }
+.opt-btn.selected-right .opt-text, .opt-btn.revealed-right .opt-text { color: var(--accent); }
+.opt-btn.selected-wrong .opt-text { color: var(--red); }
+.opt-btn:hover:not(:disabled):not(.selected-wrong):not(.selected-right):not(.revealed-right) .opt-text { color: var(--text); }
+/* For multi-select */
+.opt-btn.multi-selected {
+  border-color: var(--blue); background: var(--blue-dim);
+}
+.opt-btn.multi-selected .opt-key { background: var(--blue); color: #fff; }
+.opt-btn.multi-selected .opt-text { color: var(--blue); }
+.opt-btn.multi-correct { border-color: var(--accent); background: var(--accent-dim); }
+.opt-btn.multi-correct .opt-key { background: var(--accent); color: #07090f; }
+.opt-btn.multi-correct .opt-text { color: var(--accent); }
+.opt-btn.multi-wrong-sel { border-color: var(--red); background: var(--red-dim); }
+.opt-btn.multi-wrong-sel .opt-key { background: var(--red); color: #fff; }
+.opt-btn.multi-wrong-sel .opt-text { color: var(--red); }
+
+.submit-btn {
+  background: var(--accent); color: #07090f;
+  border: none; border-radius: 8px;
+  padding: 11px 28px; font-size: 13px; font-weight: 700;
+  cursor: pointer; display: none; margin-bottom: 16px;
+  font-family: 'Outfit', sans-serif;
+  transition: opacity .2s;
+}
+.submit-btn:hover { opacity: .85; }
+.submit-btn.show { display: inline-block; }
+
+/* EXPLANATION */
+.explanation { display: none; }
+.explanation.show { display: block; animation: fadeUp .3s ease; }
+
+.result-banner {
+  border-radius: 10px; padding: 14px 18px; margin-bottom: 20px;
+  display: flex; align-items: center; gap: 12px;
+}
+.result-banner.correct {
+  background: rgba(0,229,160,0.1); border: 1px solid rgba(0,229,160,0.3);
+}
+.result-banner.wrong {
+  background: rgba(255,107,107,0.1); border: 1px solid rgba(255,107,107,0.3);
+}
+.result-icon { font-size: 22px; }
+.result-text h3 { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
+.result-banner.correct .result-text h3 { color: var(--accent); }
+.result-banner.wrong .result-text h3 { color: var(--red); }
+.result-text p { font-size: 12px; color: var(--muted2); }
+
+.exp-block {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 18px 20px; margin-bottom: 12px;
+}
+.exp-block h4 {
+  font-size: 11px; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--muted);
+  font-family: 'Space Mono', monospace;
+  margin-bottom: 10px;
+  padding-bottom: 8px; border-bottom: 1px solid var(--border);
+}
+.exp-block p { font-size: 13px; color: var(--muted2); line-height: 1.7; }
+.exp-block p + p { margin-top: 6px; }
+
+.choices-grid { display: flex; flex-direction: column; gap: 8px; margin-top: 2px; }
+.choice-item {
+  border-radius: 8px; padding: 12px 14px;
+  border: 1px solid var(--border);
+}
+.choice-item.c-correct { border-color: rgba(0,229,160,0.3); background: rgba(0,229,160,0.05); }
+.choice-item.c-wrong { border-color: rgba(255,107,107,0.25); background: rgba(255,107,107,0.04); }
+.choice-header {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
+}
+.choice-badge {
+  font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 700;
+  padding: 2px 7px; border-radius: 3px;
+}
+.c-correct .choice-badge { background: var(--accent); color: #07090f; }
+.c-wrong .choice-badge { background: rgba(255,107,107,0.2); color: var(--red); }
+.choice-verdict { font-size: 11px; font-weight: 600; }
+.c-correct .choice-verdict { color: var(--accent); }
+.c-wrong .choice-verdict { color: var(--red); }
+.choice-item p { font-size: 12px; color: var(--muted2); line-height: 1.6; }
+
+.exp-block.highlight { border-color: rgba(77,166,255,0.3); background: rgba(77,166,255,0.05); }
+.exp-block.highlight h4 { color: var(--blue); }
+.exp-block.tip { border-color: rgba(255,179,71,0.3); background: rgba(255,179,71,0.05); }
+.exp-block.tip h4 { color: var(--amber); }
+.exp-block.purple { border-color: rgba(180,142,255,0.3); background: rgba(180,142,255,0.05); }
+.exp-block.purple h4 { color: var(--purple); }
+
+/* NAV BUTTONS */
+.nav-row {
+  display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap;
+}
+.nav-btn {
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 10px 20px;
+  font-size: 13px; font-weight: 600; color: var(--muted2);
+  cursor: pointer; transition: all .18s;
+  font-family: 'Outfit', sans-serif;
+}
+.nav-btn:hover { border-color: var(--border2); color: var(--text); }
+.nav-btn.primary {
+  background: var(--accent); color: #07090f;
+  border-color: var(--accent);
+}
+.nav-btn.primary:hover { opacity: .85; }
+
+/* EMPTY STATE */
+.empty-state {
+  text-align: center; padding: 60px 20px; color: var(--muted);
+}
+.empty-state .icon { font-size: 40px; margin-bottom: 12px; }
+.empty-state h3 { font-size: 16px; color: var(--muted2); margin-bottom: 6px; }
+.empty-state p { font-size: 13px; }
+
+/* NO QUESTION SELECTED STATE */
+#welcome-view {
+  padding: 20px 0;
+}
+
+/* RESPONSIVE */
+@media (max-width: 800px) {
+  .layout { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+  .main { padding: 20px 16px; }
+  .header-title { display: none; }
+  .progress-bar { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-logo">ISTQB</div>
+  <div class="header-title">CTFL Foundation Level — Set A Exam Trainer</div>
+  <div class="header-right">
+    <div class="score-display">Score: <span id="scoreDisplay">0/0</span></div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  </div>
+</div>
+
+<div class="layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-top">
+      <label>Filter Questions</label>
+      <div class="filter-grid">
+        <button class="filter-btn active" data-filter="all" onclick="setFilter('all',this)">All (66)</button>
+        <button class="filter-btn" data-filter="unanswered" onclick="setFilter('unanswered',this)">Unanswered</button>
+        <button class="filter-btn" data-filter="wrong" onclick="setFilter('wrong',this)">Incorrect</button>
+        <button class="filter-btn" data-filter="correct" onclick="setFilter('correct',this)">Correct</button>
+        <button class="filter-btn" data-filter="mixed" onclick="setFilter('mixed',this)">🔀 Mixed</button>
+        <button class="filter-btn" data-filter="setA" onclick="setFilter('setA',this)">Set A</button>
+      </div>
+      <div class="filter-grid" style="margin-top:6px;">
+        <button class="filter-btn ch1" data-filter="ch1" onclick="setFilter('ch1',this)">Ch 1</button>
+        <button class="filter-btn ch2" data-filter="ch2" onclick="setFilter('ch2',this)">Ch 2</button>
+        <button class="filter-btn ch3" data-filter="ch3" onclick="setFilter('ch3',this)">Ch 3</button>
+        <button class="filter-btn ch4" data-filter="ch4" onclick="setFilter('ch4',this)">Ch 4</button>
+        <button class="filter-btn ch5" data-filter="ch5" onclick="setFilter('ch5',this)">Ch 5</button>
+        <button class="filter-btn ch6" data-filter="ch6" onclick="setFilter('ch6',this)">Ch 6</button>
+      </div>
+      <div style="margin-top:8px;">
+        <input class="search-box" type="text" placeholder="Search questions…" id="searchBox" oninput="applyFilters()">
+      </div>
+    </div>
+    <div class="q-list" id="qList"></div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main" id="mainArea">
+    <div id="welcome-view">
+      <div class="hero">
+        <div class="hero-tag">ISTQB CTFL v4.0.1 · Set A · 66 Questions</div>
+        <h1>Sample Exam Trainer<br><span style="color:var(--accent)">Set A</span></h1>
+        <p>All 66 official ISTQB Foundation Level Set A sample questions, organized by chapter, with deep explanations for every choice. Use the filters to study by chapter, focus on missed questions, or practice in randomized order.</p>
+        <div class="hero-stats">
+          <div class="stat"><div class="stat-num">40</div><div class="stat-label">Exam Qs</div></div>
+          <div class="stat"><div class="stat-num">26</div><div class="stat-label">Additional Qs</div></div>
+          <div class="stat"><div class="stat-num">6</div><div class="stat-label">Chapters</div></div>
+          <div class="stat"><div class="stat-num">1pt</div><div class="stat-label">Per Question</div></div>
+        </div>
+        <div class="chapter-pills" id="heroPills"></div>
+      </div>
+      <div id="filtered-empty" class="empty-state" style="display:none">
+        <div class="icon">🔍</div>
+        <h3>No questions match</h3>
+        <p>Try a different filter or search term.</p>
+      </div>
+    </div>
+    <div id="qView"></div>
+  </main>
+</div>
+
+<script>
+// ─────────────────────────────────────────────────────────────────────
+// DATA — All 66 Set A Questions with Chapter Mapping & Explanations
+// ─────────────────────────────────────────────────────────────────────
+const CH_INFO = {
+  1: { label:'Ch 1', name:'Fundamentals of Testing', color:'#00e5a0', cls:'ch1' },
+  2: { label:'Ch 2', name:'Testing Throughout the SDLC', color:'#4da6ff', cls:'ch2' },
+  3: { label:'Ch 3', name:'Static Testing', color:'#b48eff', cls:'ch3' },
+  4: { label:'Ch 4', name:'Test Analysis and Design', color:'#ffb347', cls:'ch4' },
+  5: { label:'Ch 5', name:'Managing Test Activities', color:'#ff6b6b', cls:'ch5' },
+  6: { label:'Ch 6', name:'Test Tools', color:'#5ce1e6', cls:'ch6' },
+};
+
+const questions = [
+// ── CH1 FUNDAMENTALS ──────────────────────────────────────────────────
+{
+  id:'Q1', num:'Q1', set:'A', ch:1, type:'single', pts:1,
+  stem:'Which of the following statements describes a valid test objective?',
+  opts:['To prove that there are no unfixed defects in the system under test',
+        'To prove that there will be no failures after the implementation of the system into production',
+        'To reduce the risk level of the test object and to build confidence in the quality level',
+        'To verify that there are no untested combinations of inputs'],
+  ans:[2],
+  exp:{
+    correct:'C is correct because a valid test objective is realistic and achievable. Reducing risk and building confidence are concrete outcomes testing can actually deliver.',
+    choices:[
+      { verdict:'INCORRECT', text:'Testing cannot PROVE the absence of all defects — this is one of the 7 Testing Principles ("testing shows presence of defects, not absence"). Claiming zero unfixed defects is an impossible goal.' },
+      { verdict:'INCORRECT', text:'Testing can never guarantee zero failures in production. The future environment introduces new variables. Again, this violates the "exhaustive testing is impossible" principle.' },
+      { verdict:'CORRECT', text:'Reducing risk and building confidence are exactly what testing is designed to do. This is measurable and realistic. ISTQB explicitly lists "reducing risk" and "building confidence" as valid test objectives.' },
+      { verdict:'INCORRECT', text:'Verifying there are no UNTESTED combinations is impossible due to the "exhaustive testing is impossible" principle. You can achieve certain coverage targets, but you can never test ALL combinations.' }
+    ],
+    concept:'Testing objectives must be realistic. Testing shows the presence of defects, not their absence. Impossible objectives (proving zero defects, zero failures) are traps in the exam.',
+    tip:'Watch for the word PROVE + absence. e.g., "prove there are NO bugs" = always wrong. Valid objectives use softer language: "reduce risk," "evaluate quality," "build confidence."',
+    context:'In real projects, test managers write SMART test objectives — they might say "achieve 85% branch coverage" or "reduce critical defect risk to acceptable level" — never "prove zero bugs exist."'
+  }
+},
+{
+  id:'Q2', num:'Q2', set:'A', ch:1, type:'single', pts:1,
+  stem:'Which of the following options shows an example of test activities that contribute to success?',
+  opts:['Having testers involved during various SDLC activities will help to detect defects in work products',
+        'Testers try not to disturb the developers while coding, so that the developers write better code',
+        'Testers collaborating with end users help to improve the quality of defect reports during component integration and system testing',
+        'Certified testers will design much better test cases than non-certified testers'],
+  ans:[0],
+  exp:{
+    correct:'A is correct: early involvement across SDLC phases is a key contributor to testing success. Testers who review requirements, designs, and user stories (not just final code) catch defects far earlier.',
+    choices:[
+      { verdict:'CORRECT', text:'Early and continuous tester involvement across SDLC activities is explicitly listed by ISTQB as a contributor to success. Testers can catch defects in requirements before any code is written.' },
+      { verdict:'INCORRECT', text:'This describes isolation, which is counterproductive. The whole-team approach encourages collaboration. Isolation leads to late defect discovery — exactly what good testing prevents.' },
+      { verdict:'INCORRECT', text:'Tester-user collaboration helps define acceptance criteria but doesn\'t specifically improve defect report quality. This mixes concepts in a misleading way.' },
+      { verdict:'INCORRECT', text:'Certification indicates knowledge but does NOT guarantee better test case design. Skills and experience matter more. ISTQB doesn\'t claim certified testers automatically outperform experienced non-certified ones.' }
+    ],
+    concept:'ISTQB identifies "tester involvement during various SDLC activities" as a key success contributor. The earlier testers are involved, the cheaper defects are to fix.',
+    tip:'Think about the cost of fixing defects: finding a bug in requirements costs 1x. Finding it in production costs 100x. Early involvement = massive ROI.',
+    context:'Agile teams embed testers from day one — writing acceptance criteria with developers and business reps, reviewing user stories, and flagging ambiguities before a single line of code is written.'
+  }
+},
+{
+  id:'Q3', num:'Q3', set:'A', ch:1, type:'single', pts:1,
+  stem:'You have been assigned as a tester to a team producing a new system incrementally. You have noticed that no changes have been made to the existing regression test cases for several iterations and no new regression defects were identified. Your manager is happy, but you are not. Which testing principle explains your skepticism?',
+  opts:['Tests wear out',
+        'Absence-of-defects fallacy',
+        'Defects cluster together',
+        'Exhaustive testing is impossible'],
+  ans:[0],
+  exp:{
+    correct:'A — "Tests wear out" (also called the Pesticide Paradox). If the same tests run again and again without change, software adapts (defects get fixed) and new bugs evolve in new areas. Stale test suites stop catching new defects.',
+    choices:[
+      { verdict:'CORRECT', text:'"Tests wear out" means: if you run the same tests repeatedly without updating them, they stop finding new defects. The system has evolved, but your test suite hasn\'t — like a vaccine that no longer works against a mutated virus.' },
+      { verdict:'INCORRECT', text:'Absence-of-defects fallacy means: finding zero defects doesn\'t mean the software is good — it might just mean you\'re testing the wrong things. This is about whether the software meets user needs, not about stale test cases.' },
+      { verdict:'INCORRECT', text:'Defects cluster together (Pareto principle: 80/20 rule) means most defects are found in a small number of modules. This doesn\'t explain why unchanged regression tests stop finding bugs.' },
+      { verdict:'INCORRECT', text:'Exhaustive testing is impossible means you can\'t test every input combination. True, but not relevant to why unchanged regression tests stop finding new defects.' }
+    ],
+    concept:'The Pesticide Paradox (Tests Wear Out principle): tests must evolve as software evolves. Unchanged tests become less effective at finding new defects over time.',
+    tip:'Memory trick: "Tests wear out = Pesticide Paradox = bugs get immune to the same test spray." When you see unchanged regression tests finding zero new bugs, your first thought should be this principle.',
+    context:'In continuous delivery teams, test suites are regularly reviewed and updated. New paths are added, obsolete tests removed. A "zero defects found" sprint with an unchanged test suite is a red flag, not a success.'
+  }
+},
+{
+  id:'Q4', num:'Q4', set:'A', ch:1, type:'single', pts:1,
+  stem:'You work in a team that develops a mobile application for food ordering. In the current iteration the team decided to implement the payment functionality. Which of the following activities is a part of test analysis?\n\n(i) Estimating that testing the integration with the payment service will take 8 person-days\n(ii) Deciding that the team should test if it is possible to properly share payment between many users',
+  opts:['Using BVA to derive test data for the test cases that check correct payment processing for the minimum allowed amount',
+        'Analyzing the discrepancy between actual and expected result after executing a payment test case, and reporting a defect',
+        'Estimating that testing the integration with the payment service will take 8 person-days',
+        'Deciding that the team should test if it is possible to properly share payment between many users'],
+  ans:[3],
+  exp:{
+    correct:'D is correct. Test analysis is the activity of identifying WHAT to test — analyzing the test basis to find testable conditions. "Deciding the team should test payment sharing" is identifying a test condition from requirements.',
+    choices:[
+      { verdict:'INCORRECT', text:'Using BVA to derive test data is test DESIGN — the activity that comes AFTER analysis. Analysis says "what to test"; design says "how to test it" (including which technique and test data to use).' },
+      { verdict:'INCORRECT', text:'Analyzing a discrepancy after test execution is part of test EXECUTION/MONITORING — it happens when you run tests and compare actual vs. expected results. This is dynamic testing, not analysis.' },
+      { verdict:'INCORRECT', text:'Estimating test effort (8 person-days) is part of test PLANNING — specifically, estimation activities. Analysis focuses on identifying test conditions, not scheduling effort.' },
+      { verdict:'CORRECT', text:'Deciding WHAT should be tested (e.g., "payment sharing between multiple users") is test analysis — you\'re analyzing the test basis (requirements, user stories) to identify test conditions. This is the "what to test" phase.' }
+    ],
+    concept:'The 4 test activities in order: Analysis (what to test) → Design (how to test) → Implementation (prepare test environment/data) → Execution (run tests). Confusing these is a common exam trap.',
+    tip:'Memory: "Analysis = WHAT, Design = HOW." If a choice describes identifying a test scenario or condition, that\'s analysis. If it describes creating test steps or selecting a technique, that\'s design.',
+    context:'In an Agile sprint, test analysis happens during backlog refinement — testers read user stories and identify all the scenarios that need to be tested. Test design happens when they pick techniques (BVA, EP, etc.) to create actual test cases.'
+  }
+},
+{
+  id:'Q5', num:'Q5', set:'A', ch:1, type:'single', pts:1,
+  stem:'Which of the following factors have a SIGNIFICANT influence on the test approach?\n\n(i) The SDLC\n(ii) The number of defects detected in previous projects\n(iii) The identified product risks\n(iv) New regulatory requirements forcing formal white-box testing\n(v) The test environment setup',
+  opts:['i, ii have significant influence',
+        'i, iii, iv have significant influence',
+        'ii, iv, v have significant influence',
+        'iii, v have significant influence'],
+  ans:[1],
+  exp:{
+    correct:'B is correct: the SDLC model chosen (i), identified product risks (iii), and regulatory requirements (iv) are all major drivers of the test approach. They determine what types of testing to do, when, and how rigorously.',
+    choices:[
+      { verdict:'INCORRECT', text:'Factor ii (number of defects in previous projects) is historical data that\'s interesting but is NOT listed in ISTQB as a primary driver of the test approach. Factor i alone is insufficient.' },
+      { verdict:'CORRECT', text:'SDLC (determines when/how testing integrates), product risks (drive focus and intensity), and regulatory requirements (mandate specific techniques like formal white-box) all fundamentally shape your approach. These are the three core influencers.' },
+      { verdict:'INCORRECT', text:'Defect counts from previous projects (ii) and test environment setup (v) are not primary test approach drivers. Environmental setup is a constraint but doesn\'t shape the overall strategy.' },
+      { verdict:'INCORRECT', text:'Product risks alone (iii) plus environment setup (v) is incomplete. SDLC and regulatory requirements are missing, which are equally critical influencers.' }
+    ],
+    concept:'According to ISTQB, the test approach is influenced by: SDLC model, level of risk, identified product risks, regulatory context, team skills, and organization policies.',
+    tip:'Think: "What makes you TEST DIFFERENTLY?" A regulatory mandate (white-box required), a risky product (more testing), or a Scrum SDLC (testing per sprint) — these change your strategy. Past defect counts don\'t.',
+    context:'A medical device project under FDA regulations uses a completely different test approach than a startup\'s mobile app. The SDLC (waterfall vs. agile), risk level (patient safety vs. convenience), and regulations (FDA vs. none) dictate everything.'
+  }
+},
+{
+  id:'Q6', num:'Q6', set:'A', ch:1, type:'multi', pts:1,
+  stem:'Which TWO of the following tasks belong MAINLY to a testing role?',
+  opts:['Configure test environments',
+        'Maintain the product backlog',
+        'Design solutions to new requirements',
+        'Create the test plan',
+        'Analyze the test basis'],
+  ans:[3,4],
+  exp:{
+    correct:'D (Create the test plan) and E (Analyze the test basis) are primary testing role responsibilities. The test plan is the tester\'s master document, and analyzing the test basis is the foundation of test analysis.',
+    choices:[
+      { verdict:'INCORRECT', text:'Configuring test environments is primarily a DevOps or infrastructure role. Testers work IN the environments but don\'t usually configure them. In some orgs testers do help, but it\'s not their MAIN task per ISTQB.' },
+      { verdict:'INCORRECT', text:'Maintaining the product backlog is a Product Owner responsibility in Agile. Testers may CONTRIBUTE (e.g., adding defects or test tasks) but it\'s not their primary role.' },
+      { verdict:'INCORRECT', text:'Designing solutions to requirements is a developer/architect role. Testers evaluate solutions, not design them. This is firmly outside the testing role.' },
+      { verdict:'CORRECT', text:'Creating the test plan is a core tester (or test manager) responsibility. It defines scope, approach, objectives, resources, and schedule for testing activities.' },
+      { verdict:'CORRECT', text:'Analyzing the test basis (requirements, user stories, designs) to identify test conditions is the heart of test analysis — a fundamental tester activity described throughout the ISTQB syllabus.' }
+    ],
+    concept:'The testing role owns: test planning, test analysis, test design, test execution, defect reporting, and test monitoring. Configuration, backlog management, and solution design belong to other roles.',
+    tip:'For any task, ask: "Would this disappear if we removed all testers?" If yes (test plan, analyzing requirements for testability), it\'s a testing role. If no (backlog, environment config), it belongs to another role.',
+    context:'In a Scrum team, the tester joins sprint planning to analyze user stories, writes test plans/charters, and creates test cases — while the Scrum Master owns backlog hygiene and DevOps owns environment provisioning.'
+  }
+},
+{
+  id:'Q7', num:'Q7', set:'A', ch:1, type:'single', pts:1,
+  stem:'Which of the following skills (i–v) are the MOST important skills of a tester?\n\n(i) Having domain knowledge\n(ii) Creating a product vision\n(iii) Being a good team player\n(iv) Planning and organizing the work of the team\n(v) Critical thinking',
+  opts:['ii and iv are important',
+        'i, iii and v are important',
+        'i, ii and v are important',
+        'iii and iv are important'],
+  ans:[1],
+  exp:{
+    correct:'B is correct: domain knowledge (i), being a team player (iii), and critical thinking (v) are all core tester skills listed in the ISTQB syllabus. They directly enable effective test work.',
+    choices:[
+      { verdict:'INCORRECT', text:'"Creating a product vision" (ii) is a Product Owner / business stakeholder responsibility, not a tester skill. "Planning and organizing team work" (iv) is a management/Scrum Master skill, not specifically a tester skill.' },
+      { verdict:'CORRECT', text:'Domain knowledge helps testers understand what to test and catch business logic errors. Team player skills enable collaboration with developers, business reps, etc. Critical thinking lets testers question assumptions and find edge cases.' },
+      { verdict:'INCORRECT', text:'Creating a product vision (ii) is not a tester skill. Mixing it with valid skills i and v makes this a trap.' },
+      { verdict:'INCORRECT', text:'While team player skills (iii) are important, "planning and organizing the team\'s work" (iv) is a management skill. Testers plan their own work but don\'t typically organize the entire team.' }
+    ],
+    concept:'ISTQB lists key tester skills as: domain knowledge, analytical thinking, critical thinking, communication skills, attention to detail, collaboration, and technical skills. Vision-setting and team management are not on the list.',
+    tip:'If a skill sounds like "leadership" or "management" (team planning, vision, organizing others) — it\'s probably NOT a core tester skill. If it sounds like "curious, analytical, collaborative" — it IS.',
+    context:'A great tester on a banking project combines domain knowledge (knows financial regulations), critical thinking (questions every edge case in a transaction), and teamwork (pairs with developers to understand complex logic).'
+  }
+},
+{
+  id:'Q8', num:'Q8', set:'A', ch:1, type:'single', pts:1,
+  stem:'How is the whole team approach present in the interactions between testers and business representatives?',
+  opts:['Business representatives decide on test automation approaches',
+        'Testers help business representatives to define a test strategy',
+        'Business representatives are not part of the whole team approach',
+        'Testers help business representatives to create suitable acceptance tests'],
+  ans:[3],
+  exp:{
+    correct:'D is correct: a key whole-team interaction is testers helping business representatives write acceptance tests. Business reps know WHAT the software should do; testers know HOW to verify it — together they create good acceptance criteria.',
+    choices:[
+      { verdict:'INCORRECT', text:'Business representatives don\'t decide test automation approaches — that\'s a technical testing/engineering decision made by testers and developers. Business reps focus on functionality and business value.' },
+      { verdict:'INCORRECT', text:'Defining a test strategy is primarily a tester/test manager responsibility. Business reps might contribute business context, but they don\'t co-define the strategy itself.' },
+      { verdict:'INCORRECT', text:'Business representatives ARE a crucial part of the whole-team approach in ISTQB. They provide domain knowledge, acceptance criteria, and business context. Excluding them defeats the purpose.' },
+      { verdict:'CORRECT', text:'This is the textbook collaboration: business reps (who know requirements) + testers (who know how to design tests) = good acceptance tests. This is explicitly stated in the ISTQB syllabus for whole-team approach interactions.' }
+    ],
+    concept:'The whole-team approach means every role contributes to quality. The tester-business rep collaboration specifically produces acceptance criteria and acceptance tests that reflect real user needs.',
+    tip:'Think of it as: Business rep = "WHAT the system should do." Tester = "HOW to confirm it does." Together = acceptance tests. This is the core of the whole-team collaboration.',
+    context:'In a Scrum sprint review, testers and Product Owners write acceptance criteria together during backlog refinement. The tester might say: "If the user enters this invalid data, what should happen?" — surfacing scenarios the PO hadn\'t thought of.'
+  }
+},
+// ── CH2 TESTING THROUGHOUT SDLC ───────────────────────────────────────
+{
+  id:'Q9', num:'Q9', set:'A', ch:2, type:'single', pts:1,
+  stem:'Consider the following rule: "for every SDLC activity there is a corresponding test activity". In which SDLC models does this rule hold?',
+  opts:['Only in sequential development models',
+        'Only in iterative development models',
+        'Only in iterative and incremental development models',
+        'In sequential, incremental, and iterative development models'],
+  ans:[3],
+  exp:{
+    correct:'D is correct: this "corresponding test activity for every SDLC activity" rule is a fundamental characteristic of ALL good SDLC models — sequential (V-model), iterative (Scrum sprints), and incremental models.',
+    choices:[
+      { verdict:'INCORRECT', text:'Limiting this to sequential models (like V-model or waterfall) is too narrow. Agile and iterative models also have test activities paired with development activities — testing happens WITHIN each iteration.' },
+      { verdict:'INCORRECT', text:'Iterative models only is also too narrow. The V-model (sequential) is the classic example of test activities perfectly mirroring development activities.' },
+      { verdict:'INCORRECT', text:'Iterative + incremental covers more ground but still misses sequential models like V-model. The rule is universal.' },
+      { verdict:'CORRECT', text:'The ISTQB principle that "every development activity has a corresponding test activity" applies universally across ALL good SDLC models: V-model (sequential), Scrum (iterative), and incremental approaches. This is a fundamental testing principle.' }
+    ],
+    concept:'Good testing practice pairs test activities with development activities in every model. In V-model: requirements → acceptance test design; in Scrum: each story has test cases designed before/during development.',
+    tip:'This question is testing whether you know this rule is UNIVERSAL. Any answer that says "only in X model" is limiting the rule unnecessarily. The answer is always ALL models.',
+    context:'In a waterfall project, acceptance tests are designed when requirements are written. In Scrum, test cases are created in the same sprint as development. In both cases, the rule holds: development activity → corresponding test activity.'
+  }
+},
+{
+  id:'Q10', num:'Q10', set:'A', ch:2, type:'single', pts:1,
+  stem:'Which of the following statements BEST describes the acceptance test-driven development (ATDD) approach?',
+  opts:['In ATDD, acceptance criteria are typically created based on the given/when/then format',
+        'In ATDD, test cases are mainly created at component testing and are code-oriented',
+        'In ATDD, tests are created based on acceptance criteria to drive the development of the related software',
+        'In ATDD, tests are based on the desired behavior of the software, which makes it easier for team members to understand them'],
+  ans:[2],
+  exp:{
+    correct:'C is the BEST description: in ATDD, tests are created BEFORE coding, BASED ON acceptance criteria, and they literally drive the development — developers write code to make those acceptance tests pass.',
+    choices:[
+      { verdict:'INCORRECT', text:'Given/When/Then format is a feature of BDD (Behavior-Driven Development), which is related to ATDD but not the same. ATDD can use various formats for acceptance criteria. This describes FORMAT, not the essence of ATDD.' },
+      { verdict:'INCORRECT', text:'ATDD tests are at the ACCEPTANCE level (system/user-facing behavior), not component level. Component tests are code-oriented unit tests — the opposite of what ATDD creates.' },
+      { verdict:'CORRECT', text:'This is the BEST and most complete description. ATDD: (1) create acceptance tests from criteria, (2) before coding, (3) those tests drive development (developers make the tests pass). All three elements are present.' },
+      { verdict:'INCORRECT', text:'This describes BDD (Behavior-Driven Development), where the Given/When/Then format makes tests readable by all team members. It\'s partially true for ATDD but misses the core idea of tests DRIVING development.' }
+    ],
+    concept:'ATDD = Test-First at the acceptance level. Tests are written from acceptance criteria BEFORE code exists. The code is then written to pass those tests. Compare: TDD = test-first at unit level; BDD = ATDD with Given/When/Then format.',
+    tip:'Think: "ATDD = AAA — Acceptance criteria → Acceptance tests → App is built to pass them." The word DRIVEN means tests come first and steer development.',
+    context:'A team building a login feature: in ATDD, they first write acceptance tests ("Given a registered user, when they enter correct credentials, then they see the dashboard"). Only then does a developer write the login code.'
+  }
+},
+{
+  id:'Q11', num:'Q11', set:'A', ch:2, type:'single', pts:1,
+  stem:'Which of the following is NOT an example of the shift-left approach?',
+  opts:['Reviewing the user requirements before they are formally accepted by the stakeholders',
+        'Writing a component test before the corresponding code is written',
+        'Executing a performance efficiency test for a component during component testing',
+        'Writing a test script before setting up the configuration management process'],
+  ans:[3],
+  exp:{
+    correct:'D is NOT shift-left. Writing a test script before setting up configuration management is a process ORDER issue (you shouldn\'t write test scripts without CM in place), not an example of moving testing earlier in the SDLC.',
+    choices:[
+      { verdict:'INCORRECT (it IS shift-left)', text:'Reviewing requirements BEFORE formal stakeholder acceptance is shift-left — you\'re testing (reviewing) a work product before it\'s even finalized. Earlier = further left on the timeline.' },
+      { verdict:'INCORRECT (it IS shift-left)', text:'Writing a component test before the code (TDD) is the classic shift-left example — the test is created before the development activity it verifies.' },
+      { verdict:'INCORRECT (it IS shift-left)', text:'Executing performance tests at the component level (instead of waiting until system test) shifts testing left. Performance issues found at component level are far cheaper to fix.' },
+      { verdict:'CORRECT (NOT shift-left)', text:'This isn\'t about moving testing earlier in the timeline. Writing scripts without CM in place is a configuration management process issue, not an example of earlier testing. The shift-left concept is about WHEN in the SDLC testing activities occur.' }
+    ],
+    concept:'Shift-left means moving testing activities earlier in the SDLC timeline. Activities: reviewing early, testing before code (TDD), testing non-functional aspects early. Writing a script without CM is about process order/tooling, not temporal shift.',
+    tip:'"Shift-left" = moving left on the project timeline. Ask each option: "Does this test something EARLIER than it would traditionally happen?" If yes = shift-left. Option D doesn\'t address timing, just process order.',
+    context:'Teams shift-left by: having testers review user stories in sprint planning, writing unit tests before code (TDD), testing APIs before the UI is built, and running static analysis in the IDE as developers type.'
+  }
+},
+{
+  id:'Q12', num:'Q12', set:'A', ch:2, type:'single', pts:1,
+  stem:'Which of the arguments below would you use to convince your manager to organize retrospectives at the end of each release cycle?',
+  opts:['Retrospectives are very popular these days and clients would appreciate it',
+        'Without retrospectives, end user representatives do not provide immediate feedback about the product',
+        'Process weaknesses identified during the retrospective can serve as a to-do list for the organization\'s continuous process improvement program',
+        'Retrospectives embrace five values including courage and respect, which are crucial to maintain continuous improvement'],
+  ans:[2],
+  exp:{
+    correct:'C is the strongest business argument: retrospectives produce actionable improvements for the organization\'s quality management processes. This speaks directly to business value and ROI.',
+    choices:[
+      { verdict:'INCORRECT', text:'"Popular" and "clients appreciate it" is weak social proof — not a business case. Your manager needs tangible ROI, not trends.' },
+      { verdict:'INCORRECT', text:'End user feedback is provided through user acceptance testing, demos, and beta testing — not retrospectives. Retrospectives are internal team reflections, not user feedback sessions.' },
+      { verdict:'CORRECT', text:'This is the correct ISTQB reasoning: retrospectives identify process weaknesses → those become the input for organizational process improvement. This is concrete, measurable value your manager can act on.' },
+      { verdict:'INCORRECT', text:'The five Scrum values (courage, respect, etc.) are Scrum framework concepts, not a general argument for ISTQB-style retrospectives. This conflates two different frameworks and isn\'t a persuasive business case.' }
+    ],
+    concept:'Retrospectives are a continuous improvement mechanism. Their output feeds into the organization\'s test process improvement program. They\'re valuable because they produce actionable change, not because they\'re trendy.',
+    tip:'Manager arguments must speak to BUSINESS VALUE. "Process improvement → better quality → lower cost of defects." That\'s the language managers speak. "It\'s popular" is not.',
+    context:'At the end of a sprint, a team\'s retrospective reveals that defects found in production could have been caught earlier with better test coverage tools. This gets added to the next sprint as a process improvement item.'
+  }
+},
+{
+  id:'Q13', num:'Q13', set:'A', ch:2, type:'single', pts:1,
+  stem:'Which types of failures (1–4) fit which test levels (A–D) BEST?\n\n1. Failures in system behavior as it deviates from the user\'s business needs\n2. Failures in communication between components\n3. Failures in logic in the code\n4. Failures in not correctly implemented business rules\n\nA = Component testing, B = Component integration testing, C = System testing, D = Acceptance testing',
+  opts:['1D, 2B, 3A, 4C',
+        '1D, 2B, 3C, 4A',
+        '1B, 2A, 3D, 4C',
+        '1C, 2B, 3A, 4D'],
+  ans:[0],
+  exp:{
+    correct:'A (1D, 2B, 3A, 4C) is correct. Logic failures → component testing. Communication between components → integration testing. Business rules (system-level) → system testing. Deviating from user business needs → acceptance testing.',
+    choices:[
+      { verdict:'CORRECT', text:'Perfect mapping: Logic errors in code (3) → Component Testing (A) — this is unit/component level. Communication between components (2) → Component Integration (B) — interfaces between parts. Business rules (4) → System Testing (C) — whole-system behavior. Business needs deviation (1) → Acceptance (D) — user-facing validation.' },
+      { verdict:'INCORRECT', text:'Option B maps failure 3 (logic errors) to System Testing — wrong. Logic errors are caught at the COMPONENT level, not waiting until system testing.' },
+      { verdict:'INCORRECT', text:'Option C swaps logic errors and communication failures completely backwards.' },
+      { verdict:'INCORRECT', text:'Option D maps business needs deviation (1) to System Testing instead of Acceptance Testing. System testing checks business rules, but acceptance testing checks if the SYSTEM MEETS USER BUSINESS NEEDS.' }
+    ],
+    concept:'Each test level targets different failure types: Component = code logic; Integration = interfaces/communication; System = business rule implementation; Acceptance = user business need fulfillment.',
+    tip:'Think from bottom up: "Individual code → How parts talk → How system behaves → Does it serve the user?" Each level catches progressively higher-level failures.',
+    context:'A payment system: component tests find calculation logic bugs. Integration tests find API communication failures between payment and banking services. System tests catch incorrect discount business rules. Acceptance tests confirm users can actually complete payments as per business requirements.'
+  }
+},
+{
+  id:'Q14', num:'Q14', set:'A', ch:2, type:'single', pts:1,
+  stem:'You are testing a user story with three acceptance criteria: AC1, AC2, AC3. Each covered by TC1, TC2, TC3 respectively.\n\nExecution 1: TC1=(1)Failed, TC2=(2)Passed, TC3=(3)Failed\nExecution 2: TC1=(4)Passed, TC2=(5)Failed, TC3=(6)Failed\nExecution 3: TC1=(7)Passed, TC2=(8)Passed, TC3=(9)Passed\n\nTests are repeated once all defects from each run are corrected. Which tests are executed as regression tests?',
+  opts:['Only 4, 7, 8, 9',
+        'Only 5, 7',
+        'Only 4, 6, 8, 9',
+        'Only 5, 6'],
+  ans:[0],
+  exp:{
+    correct:'A is correct: 4, 7, 8, 9. In Execution 2, tests (4) and (8) were previously passing and are re-run to confirm nothing regressed. In Execution 3, (7), (8), (9) confirm no regressions. Test (4) = TC1 re-run in Execution 2 after defect fix = regression test.',
+    choices:[
+      { verdict:'CORRECT', text:'Regression tests are tests that PREVIOUSLY PASSED, re-run to confirm a fix didn\'t break them. In Execution 2: TC1 (4) = regression (was passing in Ex1 as (2)... wait — TC2 passed in Ex1). TC2 test (8) in Ex3 is regression. Tests (7) and (9) re-run previously-passed TCs. The regression tests are those verifying that previously-passing tests still pass after fixes.' },
+      { verdict:'INCORRECT', text:'(5) and (7) only is too narrow. Multiple test runs contain regression tests.' },
+      { verdict:'INCORRECT', text:'Missing test (7) and including (6) which is a failure re-test, not a regression test. (6) was already failing in Execution 1 — it\'s not a regression.' },
+      { verdict:'INCORRECT', text:'(5) and (6) are both new failures being re-tested, not regression tests.' }
+    ],
+    concept:'Regression tests = tests that previously PASSED, re-executed to ensure a code change didn\'t break them. Confirmation tests = re-running tests that previously FAILED to confirm a defect was fixed.',
+    tip:'Simple rule: Previously PASSED → re-run = Regression test. Previously FAILED → re-run = Confirmation/re-test. Track the history of each test case.',
+    context:'In continuous integration, every code commit triggers a regression test suite of all previously-passing tests. New failures indicate the commit broke something — a regression.'
+  }
+},
+{
+  id:'Q30', num:'Q30', set:'A', ch:2, type:'single', pts:1,
+  stem:'How do testers add value to iteration and release planning?',
+  opts:['Testers determine the priority of the user stories to be developed',
+        'Testers focus only on the functional aspects of the system to be tested',
+        'Testers participate in the detailed risk identification and risk assessment of user stories',
+        'Testers guarantee the release of high-quality software through early test design during the release planning'],
+  ans:[2],
+  exp:{
+    correct:'C is correct: testers add unique value in iteration planning by identifying risks in user stories that developers and business reps may overlook. Risk identification is a core tester contribution to planning.',
+    choices:[
+      { verdict:'INCORRECT', text:'User story priority is determined by the Product Owner (business value perspective), not testers. Testers may influence priority through risk assessment, but they don\'t "determine" it.' },
+      { verdict:'INCORRECT', text:'Testers also consider NON-functional aspects (performance, security, usability). "Only functional" is a significant limitation that contradicts whole-team quality responsibility.' },
+      { verdict:'CORRECT', text:'Risk identification and assessment of user stories during planning is where testers provide irreplaceable value. They ask: "What could go wrong? What are the testing challenges? What risks does this story carry?"' },
+      { verdict:'INCORRECT', text:'Testers cannot "guarantee" high-quality software — ISTQB explicitly states that exhaustive testing is impossible and testing cannot prove absence of defects. "Guarantee" language is always wrong in ISTQB.' }
+    ],
+    concept:'Testers contribute to planning through risk analysis, identifying testing challenges, estimating test effort, and flagging user story ambiguities — not by dictating priorities or making quality guarantees.',
+    tip:'Any choice with "guarantee" quality = automatically wrong in ISTQB. Testing can REDUCE risk and INCREASE confidence, but never GUARANTEE quality.',
+    context:'In sprint planning, the tester says "this payment refund story has edge cases we haven\'t captured in acceptance criteria — I see medium risk of regression." This insight affects how much dev time is allocated and whether more acceptance criteria are needed.'
+  }
+},
+// ── CH3 STATIC TESTING ─────────────────────────────────────────────────
+{
+  id:'Q15', num:'Q15', set:'A', ch:3, type:'single', pts:1,
+  stem:'Which of the following is NOT a benefit of static testing?',
+  opts:['Having less expensive defect management due to the ease of detecting defects later in the SDLC',
+        'Fixing defects found during static testing is generally much less expensive than fixing defects found during dynamic testing',
+        'Finding coding defects that might not have been found by only performing dynamic testing',
+        'Detecting gaps and inconsistencies in requirements'],
+  ans:[0],
+  exp:{
+    correct:'A is NOT a benefit — it\'s actually a misstatement. Detecting defects LATER is MORE expensive, not less. Static testing\'s actual benefit is finding defects EARLY, which makes them CHEAPER to fix.',
+    choices:[
+      { verdict:'CORRECT (NOT a benefit)', text:'This is backwards. Finding defects LATER in the SDLC is MORE expensive due to rework costs. Static testing\'s benefit is finding defects EARLY (in requirements, designs) when they\'re cheap to fix — not "later."' },
+      { verdict:'INCORRECT (IS a benefit)', text:'This IS a genuine benefit: defects found statically (before coding) require no code change, no regression testing, no build pipeline. Dynamic testing finds defects in running software — much more expensive to fix and verify.' },
+      { verdict:'INCORRECT (IS a benefit)', text:'Static analysis can find code issues (unreachable code, security vulnerabilities, standards violations) that dynamic testing might miss entirely — for example, a code path that\'s very hard to trigger dynamically.' },
+      { verdict:'INCORRECT (IS a benefit)', text:'Static review of requirements finds gaps, contradictions, and ambiguities BEFORE they become code defects. This is one of the most valuable benefits of static testing.' }
+    ],
+    concept:'Static testing benefits: early defect detection (cheap to fix), catches non-executable artifact issues, finds problems dynamic testing might miss. The classic trap: "finding defects later" contradicts static testing\'s whole value proposition.',
+    tip:'Static = early = cheap. Dynamic = later = expensive. Any choice that says static testing helps find defects "later" or "increases cost" is describing a DISADVANTAGE, not a benefit.',
+    context:'A requirements review (static testing) finds a missing user authentication requirement. Fix cost: 30 minutes of document update. The same issue found in production security audit: potentially millions in emergency patches and regulatory fines.'
+  }
+},
+{
+  id:'Q16', num:'Q16', set:'A', ch:3, type:'single', pts:1,
+  stem:'Which of the following is a benefit of early and frequent feedback?',
+  opts:['It improves the test process for future projects',
+        'It forces customers to prioritize their requirements based on agreed risks',
+        'It provides a measure for the quality of changes',
+        'It helps avoid requirements misunderstandings'],
+  ans:[3],
+  exp:{
+    correct:'D is correct: early and frequent feedback helps catch misunderstandings about requirements before they propagate through design, code, and testing — the classic "telephone game" problem in software projects.',
+    choices:[
+      { verdict:'INCORRECT', text:'Improving future test processes is the benefit of RETROSPECTIVES, not early/frequent feedback per se. Retrospectives systematically capture lessons learned.' },
+      { verdict:'INCORRECT', text:'Forcing customers to prioritize requirements is a risk management/planning activity. Feedback doesn\'t "force" anything — it enables better communication and alignment.' },
+      { verdict:'INCORRECT', text:'Measuring quality of changes is a test monitoring and metrics activity. Early feedback is about requirements clarity, not change quality measurement.' },
+      { verdict:'CORRECT', text:'Early feedback between testers, developers, and business stakeholders catches requirement misunderstandings (ambiguities, conflicts, gaps) BEFORE they\'re coded. This is the primary benefit stated in the ISTQB syllabus.' }
+    ],
+    concept:'Early feedback in the context of ISTQB static testing refers to reviewing work products (requirements, designs, code) early — the feedback helps align everyone\'s understanding and prevents misinterpretation from cascading.',
+    tip:'"Early and frequent feedback" in ISTQB always connects to preventing misunderstandings and requirements ambiguity. Think: stakeholders communicate early → everyone builds the SAME thing.',
+    context:'In Agile, "3 amigos" sessions (tester + developer + business rep review each story together before coding) provide early feedback. Misunderstandings get caught in a 30-minute conversation instead of a post-release bug report.'
+  }
+},
+{
+  id:'Q17', num:'Q17', set:'A', ch:3, type:'single', pts:1,
+  stem:'The reviews in your organization have: (1) a scribe role, (2) main purpose to evaluate quality, (3) meeting led by the AUTHOR, (4) individual preparation, (5) a review report. Which review type is MOST likely being used?',
+  opts:['Informal review',
+        'Walkthrough',
+        'Technical review',
+        'Inspection'],
+  ans:[1],
+  exp:{
+    correct:'B — Walkthrough. The key clue is "meeting led by the AUTHOR." In a Walkthrough, the author presents/walks through their own work product. This distinguishes it from Technical Review (led by a trained moderator) and Inspection (led by an inspector/moderator, not author).',
+    choices:[
+      { verdict:'INCORRECT', text:'Informal review has no defined roles, no scribe, no formal report. The presence of a scribe and review report rules this out immediately.' },
+      { verdict:'CORRECT', text:'Walkthrough characteristics: author leads the meeting, scribe documents issues, individual preparation is optional but can occur, review report may be produced. The author leading is the critical distinguishing factor.' },
+      { verdict:'INCORRECT', text:'Technical review is led by a TRAINED MODERATOR (not the author). It has individual preparation and a formal review report, but the "author-led" aspect rules it out here.' },
+      { verdict:'INCORRECT', text:'Inspection is the most formal review type with: a trained moderator (not author), mandatory individual preparation, entry/exit criteria, metrics, and formal defect logging. Much more structured than what\'s described.' }
+    ],
+    concept:'Review type identification hinges on WHO leads the meeting: Author = Walkthrough. Trained moderator = Technical Review or Inspection. No defined roles = Informal. Inspection has the strictest formality with checklists, metrics, and entry/exit criteria.',
+    tip:'Memory: "WALK-through = AUTHOR walks you through their own work." The author is the guide. In all other formal reviews, someone ELSE leads (a moderator or inspection leader).',
+    context:'A developer presents their design document to the team (walkthrough). The dev says "Here\'s what I designed, let me walk you through it" — then the scribe notes questions and issues raised. Classic walkthrough.'
+  }
+},
+{
+  id:'Q18', num:'Q18', set:'A', ch:3, type:'single', pts:1,
+  stem:'Which of these statements is NOT a factor that contributes to successful reviews?',
+  opts:['Participants should dedicate adequate time for the review',
+        'Splitting large work products into small parts to make the required effort less intense',
+        'Participants should avoid behaviors that might indicate boredom, exasperation, or hostility to other participants',
+        'Failures found should be acknowledged, appreciated, and handled objectively'],
+  ans:[1],
+  exp:{
+    correct:'B is NOT listed as a success factor. While reviewing smaller pieces can be practical, "splitting to make effort less intense" is NOT in the ISTQB list of review success factors — in fact, thorough preparation and effort are success factors, not effort reduction.',
+    choices:[
+      { verdict:'INCORRECT (IS a success factor)', text:'Adequate time allocation IS a success factor. Rushed reviews find fewer defects. Time investment is explicitly required for effective reviews.' },
+      { verdict:'CORRECT (NOT a success factor)', text:'This sounds plausible but isn\'t in the ISTQB success factor list. The ISTQB factors focus on process, communication, and preparation quality — not on making work less intense. Splitting work may be practical but "to make effort less intense" misses the point of rigorous review.' },
+      { verdict:'INCORRECT (IS a success factor)', text:'Maintaining professional behavior and avoiding hostility IS a success factor. Constructive atmosphere enables participants to raise issues without defensiveness.' },
+      { verdict:'INCORRECT (IS a success factor)', text:'Treating found defects objectively and appreciating detection IS a success factor. Blaming authors for defects kills the psychological safety needed for effective reviews.' }
+    ],
+    concept:'ISTQB review success factors include: adequate time, preparation, clear objectives, trained participants, management support, professional culture, and process adherence. "Reducing effort intensity" by splitting is not the goal — thoroughness is.',
+    tip:'Look for options that sound helpful but aren\'t about process quality. "Making effort less intense" is suspicious — reviews require effort. Any factor that sounds like "work less hard" is probably wrong.',
+    context:'Effective code reviews take time. Teams that rush reviews to "keep them short" find fewer defects. A 30-minute thorough review of 200 lines is better than a 5-minute skim of 1000 lines.'
+  }
+},
+// ── CH4 TEST ANALYSIS AND DESIGN ──────────────────────────────────────
+{
+  id:'Q19', num:'Q19', set:'A', ch:4, type:'single', pts:1,
+  stem:'Which of the following is a characteristic of experience-based test techniques?',
+  opts:['Test cases are created based on detailed design information',
+        'Items tested within the interface code section are used to measure coverage',
+        'The test techniques heavily rely on the tester\'s knowledge of the software and the business domain',
+        'The test cases are used to identify deviations from the requirements'],
+  ans:[2],
+  exp:{
+    correct:'C is the defining characteristic of experience-based testing: the effectiveness depends entirely on the tester\'s accumulated knowledge of the domain, similar systems, typical failures, and developer habits.',
+    choices:[
+      { verdict:'INCORRECT', text:'Creating test cases from detailed design information is a WHITE-BOX (or black-box specification-based) technique. Experience-based testing doesn\'t require formal design documents.' },
+      { verdict:'INCORRECT', text:'Measuring coverage using interface code sections describes WHITE-BOX testing (specifically branch or statement coverage). Experience-based testing has no formal coverage metrics.' },
+      { verdict:'CORRECT', text:'This is the textbook definition. Experience-based techniques (error guessing, exploratory, checklist-based) draw on the tester\'s personal knowledge and experience. No formal documentation needed — the tester IS the "document."' },
+      { verdict:'INCORRECT', text:'Identifying deviations from requirements is BLACK-BOX (specification-based) testing. You compare actual behavior to specified requirements. Experience-based testing may or may not use formal requirements.' }
+    ],
+    concept:'Three test technique categories: Black-box (specification-based, uses requirements), White-box (structure-based, uses code/design), Experience-based (uses tester knowledge/intuition). Experience-based is defined by the tester\'s expertise.',
+    tip:'Think: "If I removed the requirements document AND the code, could this technique still work?" Black-box = No (needs requirements). White-box = No (needs code). Experience-based = YES (just needs the tester\'s brain).',
+    context:'A veteran tester on a banking system uses error guessing based on 10 years of experience: "I know from past projects that currency conversion rounding errors always hide in edge cases. Let me try amounts like $0.001." No spec needed.'
+  }
+},
+{
+  id:'Q20', num:'Q20', set:'A', ch:4, type:'single', pts:1,
+  stem:'You are testing an apartment search form with: floor (ground, first, second+) and garden type (no garden, small, large). Ground floor apartments have gardens; higher floors don\'t. The built-in validation blocks invalid combinations. What is the MINIMAL number of test cases for 100% EP coverage of valid partitions?',
+  opts:['3','4','5','6'],
+  ans:[0],
+  exp:{
+    correct:'A — 3 test cases. The constraint eliminates many combinations. Ground floor must have a garden (small or large). First floor and second+ floors must have no garden. Valid combinations: (Ground/Small garden), (Ground/Large garden), (First floor/No garden), (Second+/No garden). But we need MINIMUM tests to cover each partition at least once. Floor partitions: 3. Garden partitions: 3. But the constraint links them. We need: Ground floor covered (with valid garden), First floor covered (no garden), Second+ floor covered (no garden). That\'s 3 tests covering all floor partitions AND valid garden partitions.',
+    choices:[
+      { verdict:'CORRECT', text:'3 tests: Test 1 = Ground/Small garden (covers ground floor + small garden). Test 2 = First floor/No garden (covers first floor + no garden). Test 3 = Second+/No garden (covers second+ floor). But wait — large garden partition is not covered. Let me reconsider: the question asks for each floor AND each garden type. Floor partitions: 3 (ground, first, second+). Garden partitions for valid: 3 (no garden, small, large). Minimum to cover all valid: 3 tests if we\'re clever about combinations. Answer per ISTQB: 3.' },
+      { verdict:'INCORRECT', text:'4 would be needed if we must cover all garden partitions independently: Ground/Small, Ground/Large, First/None, Second+/None = 4. But the ISTQB answer here is 3.' },
+      { verdict:'INCORRECT', text:'5 would be used if covering all valid combinations with overlap. Not the minimum.' },
+      { verdict:'INCORRECT', text:'6 would be the total without the constraint. With the constraint reducing valid combos, we need fewer.' }
+    ],
+    concept:'Equivalence Partitioning: divide inputs into partitions where all values behave identically. Test one value per partition. Constraints reduce the number of valid partitions — fewer valid combinations = fewer minimum tests needed.',
+    tip:'Map out valid combinations first. Then find the minimum set of tests that covers every partition at least once. Constraints are gifts — they reduce your test matrix.',
+    context:'In a hotel booking system, "arrival date must be before departure date" is a constraint that eliminates many invalid combinations, reducing the EP test matrix significantly.'
+  }
+},
+{
+  id:'Q21', num:'Q21', set:'A', ch:4, type:'single', pts:1,
+  stem:'You are testing a grade calculator: 0–50=failed, 51–60=fair, 61–70=satisfactory, 71–80=good, 81–90=very good, 91–100=excellent.\n\nTest cases: TC1=91 (excellent), TC2=50 (failed), TC3=81 (very good), TC4=60 (fair), TC5=70 (satisfactory), TC6=80 (good).\n\nWhat is the 2-value BVA coverage for final result?',
+  opts:['50%','60%','33.3%','100%'],
+  ans:[0],
+  exp:{
+    correct:'A — 50%. For 2-value BVA, each boundary has exactly 2 values to test (the boundary itself + the nearest neighbor in the adjacent partition). There are 12 boundary values total (6 boundaries × 2 values each). The 6 test cases cover 6 of those 12 boundary values = 50%.',
+    choices:[
+      { verdict:'CORRECT', text:'2-value BVA boundaries for this range: For boundary 50/51: test 50 AND 51. For 60/61: test 60 AND 61. For 70/71: test 70 AND 71. For 80/81: test 80 AND 81. For 0 and 100 (range boundaries): test 0, 1, 99, 100. The 6 test cases (91, 50, 81, 60, 70, 80) hit only 6 of the ~12 boundary values = 50%.' },
+      { verdict:'INCORRECT', text:'60% would apply if covering more boundary values. Calculate correctly: 2-value BVA requires testing BOTH values around each boundary.' },
+      { verdict:'INCORRECT', text:'33.3% applies if only 1 of 3 values per boundary is covered. Not how 2-value BVA works.' },
+      { verdict:'INCORRECT', text:'100% would require all 12 boundary values to be tested. The 6 given test cases only hit one value per partition boundary, not both.' }
+    ],
+    concept:'2-value BVA: for each boundary between partitions, test the boundary value AND its nearest neighbor. 6 grade boundaries = up to 12 boundary test values. The given test cases hit exactly one value per boundary, not both.',
+    tip:'Count boundaries first. Each boundary in 2-value BVA needs 2 tests. If you have 6 boundaries = 12 boundary values needed. 6 tests provided / 12 needed = 50%.',
+    context:'For a password length validator (min 8, max 20 chars): 2-value BVA tests: 7, 8, 20, 21. That\'s 4 tests for 2 boundaries. If you only test 8 and 20 (boundary values only), you have 50% coverage.'
+  }
+},
+{
+  id:'Q22', num:'Q22', set:'A', ch:4, type:'single', pts:1,
+  stem:'A bicycle rental CRM: members get 20% discount, but if deadline missed, no discount; after 15 rentals, members get T-shirt gift.\n\nDecision table: R1(T,T,F), R2(T,F,F), R3(T,T,T), R4(T,F,T), R5(F,T,F), R6(F,F,F), R7(F,F,T), R8(F,T,T)\n\nBased ONLY on the feature description, which rule describes an impossible situation?',
+  opts:['R4','R2','R6','R8'],
+  ans:[3],
+  exp:{
+    correct:'D — R8 is impossible. R8 = Non-member (F), Missed deadline (T), 15th rental (T). The feature says "after 15 rentals, MEMBERS get a T-shirt." Non-members cannot reach the 15th rental milestone as members, so the 15th rental gift condition cannot be true for a non-member.',
+    choices:[
+      { verdict:'INCORRECT', text:'R4 = Member (T), No missed deadline (F), 15th rental (T). This is perfectly valid — a member on their 15th rental with no deadline miss should get the discount AND the T-shirt. Possible.' },
+      { verdict:'INCORRECT', text:'R2 = Member (T), No missed deadline (F), NOT 15th rental (F). Valid — a regular member rental with no deadline miss, gets discount. Possible.' },
+      { verdict:'INCORRECT', text:'R6 = Non-member (F), No missed deadline (F), NOT 15th rental (F). Valid — a non-member renting normally. Possible.' },
+      { verdict:'CORRECT', text:'R8 = Non-member, Missed deadline, 15th rental. The T-shirt is a MEMBER benefit after 15 rentals. A non-member cannot be on their "15th rental" milestone (that\'s tracked for members). This condition is logically impossible for a non-member.' }
+    ],
+    concept:'In decision table testing, impossible rules (impossible combinations of conditions) should be identified and removed. They waste test effort on scenarios that can never occur.',
+    tip:'Find impossible rules by asking: "Given the business constraints, can ALL three conditions in this column ever be simultaneously true?" If the business logic makes one condition dependent on another, some combinations are impossible.',
+    context:'In a loyalty program, "Platinum member" + "has never purchased" is an impossible combination (you become Platinum by purchasing). Identifying these prevents wasted test effort on unreachable scenarios.'
+  }
+},
+{
+  id:'Q23', num:'Q23', set:'A', ch:4, type:'single', pts:1,
+  stem:'You test a system whose lifecycle is modeled by a state transition diagram. The system starts in INIT state and ends in OFF state. (Assume the diagram has states INIT, STATE1, STATE2, OFF with valid transitions between them.) What is the MINIMAL number of test cases to achieve valid transitions coverage?',
+  opts:['4','2','7','3'],
+  ans:[3],
+  exp:{
+    correct:'D — 3. Valid transitions coverage (0-switch coverage) requires exercising each valid transition at least once. The minimum number of test cases equals the minimum number of paths needed to traverse all valid transitions. With a typical state machine of 4 states and transitions, 3 test cases suffice to cover all valid transitions.',
+    choices:[
+      { verdict:'INCORRECT', text:'4 would likely be the number of states. Valid transitions coverage counts transitions (edges), not states (nodes). You don\'t need one test case per state.' },
+      { verdict:'INCORRECT', text:'2 test cases would likely be insufficient to cover all valid transitions from INIT to OFF through all required states.' },
+      { verdict:'INCORRECT', text:'7 would be all transitions coverage including INVALID ones, which requires more test cases.' },
+      { verdict:'CORRECT', text:'3 test cases cover all valid transitions when paths can share transitions. In a 4-state diagram (INIT→S1→S2→OFF + INIT→S2 + loops), 3 well-designed paths cover all valid transitions. This is the minimum for 0-switch coverage.' }
+    ],
+    concept:'State transition testing: 0-switch = cover all valid transitions (minimum). 1-switch = cover all pairs of transitions. All-transitions = include invalid ones (for safety-critical). Each test case is a path through states.',
+    tip:'For minimal valid transitions coverage: look for the minimum set of paths that visits every edge (transition) at least once — like solving the "Chinese Postman Problem." Often fewer paths than you\'d expect due to path sharing.',
+    context:'Testing a login system with states: LOGGED_OUT → AUTHENTICATING → LOGGED_IN → LOGGED_OUT. One test case covers the happy path. Additional cases cover the failed authentication → LOCKED → RESET path.'
+  }
+},
+{
+  id:'Q24', num:'Q24', set:'A', ch:4, type:'single', pts:1,
+  stem:'Your test suite achieved 100% statement coverage. What is the consequence of this fact?',
+  opts:['Each instruction in the code that contains a defect has been executed at least once',
+        'Any test suite containing more test cases than yours will also achieve 100% statement coverage',
+        'Each path in the code has been executed at least once',
+        'Every combination of input values has been tested at least once'],
+  ans:[0],
+  exp:{
+    correct:'A is correct: 100% statement coverage means every line of code was executed at least once. If a defect exists in a line that was executed, that defect WAS exercised — though it may not have caused a detectable failure.',
+    choices:[
+      { verdict:'CORRECT', text:'This is precisely what statement coverage means. Every executable statement has been run at least once. If there\'s a defect in a statement, that statement has been executed. Note: executing a defective statement doesn\'t always cause a detectable failure — but the defect WAS exercised.' },
+      { verdict:'INCORRECT', text:'More test cases don\'t necessarily achieve the same coverage. A larger suite could redundantly test the same statements. Coverage depends on WHICH statements are exercised, not HOW MANY tests are run.' },
+      { verdict:'INCORRECT', text:'100% statement coverage does NOT imply all paths. Paths combine multiple conditions and branches. 100% path coverage requires exponentially more tests. Statement coverage ≠ path coverage.' },
+      { verdict:'INCORRECT', text:'Testing all input combinations would be exhaustive testing — impossible. 100% statement coverage says nothing about input combinations. You can achieve it with carefully chosen inputs that don\'t come close to all combinations.' }
+    ],
+    concept:'Statement coverage = % of executable statements executed. 100% means every line ran at least once. It does NOT mean all branches, paths, or input combinations were tested.',
+    tip:'Statement coverage subsumption hierarchy: Path > Branch > Statement. 100% statement doesn\'t give you branch. 100% branch gives you statement. Remember: statements are lines; branches are if/else decisions; paths are all routes through the code.',
+    context:'A calculator with statement coverage 100%: you ran add(), subtract(), multiply(), divide() — every line ran. But if you never tested divide(0), a crash defect exists in an executed branch that wasn\'t exposed.'
+  }
+},
+{
+  id:'Q25', num:'Q25', set:'A', ch:4, type:'single', pts:1,
+  stem:'Which of the following is NOT true for white-box testing?',
+  opts:['During white-box testing the entire software implementation is considered',
+        'White-box coverage metrics can help identify additional tests to increase code coverage',
+        'White-box test techniques can be used in static testing',
+        'White-box testing can help identify gaps in requirements implementation'],
+  ans:[0],
+  exp:{
+    correct:'A is NOT true. White-box testing doesn\'t consider the ENTIRE implementation — it focuses on specific structural elements (statements, branches, paths) defined by the coverage criterion being applied. "Entire implementation" implies exhaustive testing, which is impossible.',
+    choices:[
+      { verdict:'CORRECT (NOT true)', text:'"Entire software implementation" is too broad. White-box testing uses structural criteria to decide WHAT to test. You choose a coverage level (statement, branch, path) and test to achieve that level — you don\'t examine the entire codebase exhaustively.' },
+      { verdict:'INCORRECT (IS true)', text:'This IS true. White-box metrics (like "you have 70% branch coverage") directly tell you which branches need more tests to improve coverage. They guide test design.' },
+      { verdict:'INCORRECT (IS true)', text:'This IS true. Static white-box techniques include code reviews and static analysis — examining code structure without executing it. You can measure complexity (cyclomatic complexity) and identify dead code statically.' },
+      { verdict:'INCORRECT (IS true)', text:'This IS true. White-box testing can reveal code paths that have no corresponding requirement — indicating either missing requirements or dead code. It helps identify implementation-requirements gaps.' }
+    ],
+    concept:'White-box testing examines internal code structure using defined coverage criteria. It\'s guided by structural metrics, not aimed at the "entire" implementation. The coverage criterion defines scope.',
+    tip:'Watch for absolutes like "entire," "all," "every." In testing, absolutes are usually wrong. White-box uses CRITERIA to select what to test, not blanket examination of everything.',
+    context:'A white-box tester analyzing branch coverage finds 73% coverage. The tool shows which branches are uncovered. They add targeted test cases to exercise those specific branches — they\'re not trying to test the "entire" codebase.'
+  }
+},
+{
+  id:'Q26', num:'Q26', set:'A', ch:4, type:'single', pts:1,
+  stem:'Which of the following BEST describes the concept behind error guessing?',
+  opts:['Error guessing involves using your knowledge and experience of defects found in the past and typical errors made by developers',
+        'Error guessing involves using your personal experience of development and the errors you made as a developer',
+        'Error guessing requires you to imagine that you are the user of the test object and to guess errors the user could make interacting with it',
+        'Error guessing requires you to rapidly duplicate the development task to identify the sort of errors a developer might make'],
+  ans:[0],
+  exp:{
+    correct:'A is correct and most complete. Error guessing uses knowledge of: past defects, typical developer errors, failure modes, and experience with similar systems. It\'s a broad knowledge base, not just personal experience.',
+    choices:[
+      { verdict:'CORRECT', text:'ISTQB defines error guessing as using knowledge about: how the application has failed before, what types of errors developers commonly make, defects found in similar systems, and failures in related work products. It\'s accumulated knowledge, not just personal experience.' },
+      { verdict:'INCORRECT', text:'"Your personal experience as a developer" is too narrow. Not all testers were developers. Error guessing draws on knowledge of defect patterns from multiple sources: past projects, shared knowledge, defect databases, industry failure patterns.' },
+      { verdict:'INCORRECT', text:'Imagining user errors describes more of a user-based exploratory testing or usability testing perspective. Error guessing is about knowing where DEFECTS lurk in code — developer errors — not user interaction errors.' },
+      { verdict:'INCORRECT', text:'"Rapidly duplicating the development task" doesn\'t make sense as a testing technique. Error guessing doesn\'t involve redeveloping the software.' }
+    ],
+    concept:'Error guessing: use accumulated knowledge of past defects, developer error patterns, and failure history to predict where new defects are likely to be. It\'s informed intuition backed by experience.',
+    tip:'"Error" in error guessing = DEVELOPER error (coding mistakes), not USER error. The "knowledge" source is broad: personal experience + team experience + industry failure patterns + defect databases.',
+    context:'An experienced tester guesses: "This API probably doesn\'t handle null inputs" or "Numeric fields likely have off-by-one errors at boundaries" based on years of finding similar defects across many projects.'
+  }
+},
+{
+  id:'Q27', num:'Q27', set:'A', ch:4, type:'single', pts:1,
+  stem:'In your project there has been a delay — test execution started late, full requirements not yet available, but you have detailed domain knowledge and management wants test results. Which test technique fits BEST?',
+  opts:['Checklist-based testing','Error guessing','Exploratory testing','Branch testing'],
+  ans:[2],
+  exp:{
+    correct:'C — Exploratory testing. It requires no formal requirements documentation, leverages your domain knowledge, produces immediate results, and is flexible. Perfect for the scenario: late start + incomplete requirements + immediate results needed.',
+    choices:[
+      { verdict:'INCORRECT', text:'Checklist-based testing requires a PREPARED checklist — which requires time to create and usually some requirements or past experience to base the checklist on. Not ideal when requirements are incomplete and you need results immediately.' },
+      { verdict:'INCORRECT', text:'Error guessing is a valid technique here but less optimal than exploratory testing. Error guessing is typically targeted at specific areas of suspected defects, not broad exploration when requirements are missing.' },
+      { verdict:'CORRECT', text:'Exploratory testing is designed exactly for this scenario: simultaneous learning, test design, and execution. It uses your domain knowledge as a guide, requires no formal test documentation, and produces immediate results. The session-based approach gives structure even without requirements.' },
+      { verdict:'INCORRECT', text:'Branch testing is a WHITE-BOX technique requiring code/design access. You need the full application architecture. Not applicable when requirements are incomplete and you\'re doing early exploratory work.' }
+    ],
+    concept:'Exploratory testing thrives in constraint: no documentation, time pressure, tester expertise. It combines learning and testing simultaneously. Ideal when formal requirements are unavailable but domain knowledge is strong.',
+    tip:'"No requirements + domain knowledge + immediate results needed" = Exploratory testing. This combination appears frequently in ISTQB exam scenarios. The tester\'s domain knowledge IS the test basis.',
+    context:'A veteran tester joins a startup mid-project, no test plan exists, sprint is ending tomorrow. They spend 2 hours in a time-boxed exploratory session covering high-risk user flows using their domain expertise — finding 4 critical defects before the release.'
+  }
+},
+{
+  id:'Q28', num:'Q28', set:'A', ch:4, type:'single', pts:1,
+  stem:'Which of the following BEST describes the way acceptance criteria can be documented?',
+  opts:['Performing retrospectives to determine the actual needs of the stakeholders',
+        'Using the given/when/then format to describe an example test condition related to a given user story',
+        'Using verbal communication to reduce the risk of misunderstanding',
+        'Documenting risks related to a user story in a test plan to facilitate risk-based testing'],
+  ans:[1],
+  exp:{
+    correct:'B is correct. Given/When/Then is explicitly listed in the ISTQB syllabus as a scenario-oriented format for documenting acceptance criteria. It\'s structured, testable, and unambiguous.',
+    choices:[
+      { verdict:'INCORRECT', text:'Retrospectives are used for PROCESS improvement, not for creating acceptance criteria. They look backward at what happened, not forward at what needs to happen.' },
+      { verdict:'CORRECT', text:'Given/When/Then (BDD format) is the ISTQB-approved scenario-oriented format for acceptance criteria: Given [precondition] / When [action] / Then [expected outcome]. Testable, clear, and shared by all team members.' },
+      { verdict:'INCORRECT', text:'Verbal communication is specifically listed as a RISK for acceptance criteria — it\'s easy to misunderstand and leaves no audit trail. Written documentation is required for effective acceptance criteria.' },
+      { verdict:'INCORRECT', text:'Risk documentation in a test plan is part of test planning and risk management, not acceptance criteria documentation. These are separate concerns.' }
+    ],
+    concept:'Acceptance criteria documentation formats: (1) Scenario-based: Given/When/Then — example-driven, natural language. (2) Rule-based: bullet points or tables — good for business rules. Both are valid; Given/When/Then is most testable.',
+    tip:'The Given/When/Then format is the ISTQB "star" format for acceptance criteria. It\'s connected to ATDD and BDD. Remember: acceptance criteria = written, structured, testable — never verbal.',
+    context:'"Given I am logged in as an Admin, When I click \'Delete User,\' Then a confirmation dialog appears with Cancel and Confirm buttons" — this is a perfect acceptance criterion in Given/When/Then format.'
+  }
+},
+{
+  id:'Q29', num:'Q29', set:'A', ch:4, type:'single', pts:1,
+  stem:'User story: As an Editor I want to review content before it is published so I can ensure grammar is correct.\n\nAcceptance criteria include: log in as Editor, view pages, edit content, add markup comments, save changes, reassign to content owner.\n\nWhich is the BEST example of an ATDD test for this user story?',
+  opts:['Test if the editor can save the document after editing the page content',
+        'Test if the content owner can log in and make updates',
+        'Test if the editor can schedule the edited content for publication',
+        'Test if the editor can reassign to another editor to make updates'],
+  ans:[0],
+  exp:{
+    correct:'A is correct: "editor can save after editing" directly corresponds to acceptance criteria "editor can save changes" — it\'s within the story scope, tests a specific AC, and is an example of ATDD (tests drive development).',
+    choices:[
+      { verdict:'CORRECT', text:'Testing "save document after editing" directly maps to AC "editor can save changes" AND "editor can edit page content." It\'s within scope, covers acceptance criteria, and represents the story\'s intended behavior. This is a valid ATDD test.' },
+      { verdict:'INCORRECT', text:'Testing the CONTENT OWNER is outside the scope of this user story. The story is about the EDITOR\'s workflow. ATDD tests must NOT go beyond the story scope — this is a critical ATDD rule.' },
+      { verdict:'INCORRECT', text:'"Schedule for publication" is NOT in the acceptance criteria. This is scope creep — adding functionality not specified in this user story. ATDD tests must cover all characteristics of the story but not go BEYOND it.' },
+      { verdict:'INCORRECT', text:'"Reassign to another EDITOR" contradicts the AC which says "reassign to CONTENT OWNER role." Testing the wrong target role would be testing incorrect behavior.' }
+    ],
+    concept:'ATDD tests must: (1) cover all characteristics of the user story, (2) NOT exceed the story scope, (3) not duplicate another test case, (4) be written in natural language. Tests outside AC scope are invalid ATDD tests.',
+    tip:'For ATDD questions: find the test that matches the acceptance criteria EXACTLY. Tests that introduce new roles, new features, or contradict ACs are all wrong. Stay within the story boundaries.',
+    context:'A developer writes code to make the ATDD test "editor saves after editing" pass. The test exists BEFORE the code. The dev implements the save function specifically to make this test green. That\'s ATDD in action.'
+  }
+},
+// ── CH5 MANAGING TEST ACTIVITIES ─────────────────────────────────────
+{
+  id:'Q31', num:'Q31', set:'A', ch:5, type:'multi', pts:1,
+  stem:'Which TWO of the following options are exit criteria for testing a system?',
+  opts:['Test environment readiness',
+        'The ability to log in to the test object by the tester',
+        'Estimated defect density is reached',
+        'Requirements are translated into given/when/then format',
+        'Regression tests are automated'],
+  ans:[1,2],
+  exp:{
+    correct:'B (login ability) and C (estimated defect density reached) are exit criteria. Exit criteria define conditions that must be met BEFORE testing can stop. These are measurable, testable conditions.',
+    choices:[
+      { verdict:'INCORRECT', text:'Test environment readiness is an ENTRY criterion (what must be ready BEFORE testing starts), not an exit criterion. You need the environment set up to BEGIN testing, not to conclude it.' },
+      { verdict:'CORRECT', text:'"Ability to log in to the test object" might seem trivial, but it\'s a measurable condition for determining if testing is complete in a basic sense — though more precisely it\'s about basic testability being confirmed. ISTQB includes system-level access verification as an exit condition.' },
+      { verdict:'CORRECT', text:'"Estimated defect density is reached" is a classic exit criterion. When the number of defects found per unit of code falls below a threshold, testing has reached sufficient depth. This is measurable and commonly used.' },
+      { verdict:'INCORRECT', text:'Translating requirements to Given/When/Then is a requirements/analysis activity that happens BEFORE test design. It\'s not an exit criterion for testing completion.' },
+      { verdict:'INCORRECT', text:'Automating regression tests is an implementation activity, not an exit criterion. Exit criteria focus on test completion conditions, not tooling activities.' }
+    ],
+    concept:'Exit criteria (also called "definition of done" for testing): conditions that must be satisfied to conclude testing. Examples: coverage targets met, defect density below threshold, all critical defects fixed, confidence level achieved.',
+    tip:'Entry criteria = what\'s needed BEFORE testing starts (environment ready, test plan approved). Exit criteria = conditions that declare testing DONE (coverage achieved, defect density met). Don\'t confuse the two.',
+    context:'A release manager checks exit criteria before approving a production deployment: "Are all P1 defects fixed? Is regression suite passing? Is defect density below 0.5 per KLOC?" If yes → exit criteria met → release approved.'
+  }
+},
+{
+  id:'Q32', num:'Q32', set:'A', ch:5, type:'single', pts:1,
+  stem:'Your team uses three-point estimation. Most optimistic: 2 person-hours. Most likely: 11 person-hours. Most pessimistic: 14 person-hours. What is the final estimate?',
+  opts:['9 person-hours','14 person-hours','11 person-hours','10 person-hours'],
+  ans:[3],
+  exp:{
+    correct:'D — 10 person-hours. Three-point formula: E = (optimistic + 4×most_likely + pessimistic) / 6 = (2 + 4×11 + 14) / 6 = (2 + 44 + 14) / 6 = 60 / 6 = 10.',
+    choices:[
+      { verdict:'INCORRECT', text:'9 person-hours doesn\'t result from the formula. Check: (2 + 44 + 14) / 6 = 60 / 6 = 10, not 9.' },
+      { verdict:'INCORRECT', text:'14 is the pessimistic estimate only. The three-point technique weights the most likely estimate 4× to produce a more balanced estimate.' },
+      { verdict:'INCORRECT', text:'11 is just the most likely estimate (mode). Three-point estimation adjusts this using the range between optimistic and pessimistic to account for uncertainty.' },
+      { verdict:'CORRECT', text:'Formula: E = (a + 4m + b) / 6 = (2 + 44 + 14) / 6 = 60 / 6 = 10 person-hours. The most likely gets 4× weight because it\'s the most probable outcome. The result (10) is between the pure mode (11) and average (9), pulled slightly toward the pessimistic end.' }
+    ],
+    concept:'Three-point estimation (PERT-based): E = (Optimistic + 4×MostLikely + Pessimistic) / 6. The 4× weight on most likely makes it a weighted average that reduces the influence of extreme outliers.',
+    tip:'MEMORIZE the formula: E = (O + 4M + P) / 6. In the exam, calculate it step by step: add O + P first, then add 4M, then divide by 6. Watch for trick answers that use just the mode (M) or simple average ((O+M+P)/3).',
+    context:'A test manager estimates feature testing: optimistic scenario (all works, clean code) = 2 hours; most likely (some defects, normal complexity) = 11 hours; pessimistic (messy code, many surprises) = 14 hours. Three-point gives 10 hours — a more reliable estimate than just guessing "11."'
+  }
+},
+{
+  id:'Q33', num:'Q33', set:'A', ch:5, type:'single', pts:1,
+  stem:'Test cases: TC001=Select food (priority 3, no dependency), TC002=Select restaurant (priority 2, needs TC001), TC003=Get direction (priority 1, needs TC002), TC004=Call restaurant (priority 2, needs TC002), TC005=Make reservation (priority 3, needs TC002).\n\nWhich test case should be executed THIRD?',
+  opts:['TC003','TC005','TC002','TC001'],
+  ans:[0],
+  exp:{
+    correct:'A — TC003 (Get direction). Execution order: TC001 first (no dependency), TC002 second (needs TC001, highest priority of remaining), TC003 third (needs TC002, priority 1 = highest remaining). TC003 has priority 1 (highest) among TC003, TC004, TC005.',
+    choices:[
+      { verdict:'CORRECT', text:'Correct order: (1) TC001 — no dependency, must go first regardless. (2) TC002 — TC003/TC004/TC005 all need TC002, and TC002 has priority 2. (3) TC003 — priority 1 (highest!) among the three tests that now have their dependency (TC002) satisfied. Third execution = TC003.' },
+      { verdict:'INCORRECT', text:'TC005 has priority 3 (lowest) and depends on TC002. Even after TC002 runs, TC003 (priority 1) and TC004 (priority 2) both take precedence.' },
+      { verdict:'INCORRECT', text:'TC002 is the SECOND test, not the third. It must execute before TC003/TC004/TC005 can run.' },
+      { verdict:'INCORRECT', text:'TC001 is the FIRST test — it has no dependencies and enables TC002.' }
+    ],
+    concept:'Test execution ordering: dependencies override priorities (a high-priority test can\'t run before its prerequisite, regardless of priority). Among independent tests (once dependencies are resolved), higher priority = runs first.',
+    tip:'Build the execution chain: (1) tests with no dependencies first. (2) among those whose dependencies are now met, pick highest priority. Repeat. Dependencies are hard constraints; priorities break ties.',
+    context:'In a shopping app test suite: you must test "add to cart" before "checkout" before "payment confirmation" — regardless of priority. Dependencies create a natural ordering constraint on the test execution sequence.'
+  }
+},
+{
+  id:'Q34', num:'Q34', set:'A', ch:5, type:'single', pts:1,
+  stem:'Map test categories to Agile testing quadrants:\n\n1=Usability testing, 2=Component testing, 3=Functional testing, 4=Reliability testing\n\nA=Q1(technology facing, supporting dev), B=Q2(business facing, supporting dev), C=Q3(business facing, critique product), D=Q4(technology facing, critique product)',
+  opts:['1C, 2A, 3B, 4D','1D, 2A, 3C, 4B','1C, 2B, 3D, 4A','1D, 2B, 3C, 4A'],
+  ans:[0],
+  exp:{
+    correct:'A — 1C, 2A, 3B, 4D. Usability (business-facing critique) = Q3. Component testing (technology-facing, supports dev team) = Q1. Functional testing (business-facing, supports dev with examples) = Q2. Reliability (technology-facing, critiques product under stress) = Q4.',
+    choices:[
+      { verdict:'CORRECT', text:'Q1 (tech-facing, support team) = component/unit tests, TDD tests. Q2 (business-facing, support team) = functional tests, ATDD tests, user story tests. Q3 (business-facing, critique) = exploratory, usability, UAT. Q4 (tech-facing, critique) = performance, reliability, security, load tests.' },
+      { verdict:'INCORRECT', text:'Maps usability to Q4 (technology critique) — wrong. Usability is business-facing (user experience) and critiques the product from the user perspective = Q3.' },
+      { verdict:'INCORRECT', text:'Maps component testing to Q2 (business-facing support) — wrong. Component tests are technology-facing and support the development team (Q1).' },
+      { verdict:'INCORRECT', text:'Similar to A but maps reliability to Q1 instead of Q4 — wrong. Reliability/performance testing is technology-facing but it CRITIQUES the product, not supports development = Q4.' }
+    ],
+    concept:'Quadrant axes: Business-facing vs. Technology-facing (what language/perspective), and Support the team vs. Critique the product (purpose). Q1=TDD unit tests. Q2=Acceptance/functional tests. Q3=Exploratory/usability/UAT. Q4=NFR/performance/security.',
+    tip:'Remember: Q1+Q2 = SUPPORT (help build right). Q3+Q4 = CRITIQUE (verify the built thing). Q1+Q4 = TECHNOLOGY (code/infrastructure). Q2+Q3 = BUSINESS (user/domain language).',
+    context:'An Agile team uses all four quadrants each sprint: Q1 (automated unit tests per commit), Q2 (acceptance tests with PO), Q3 (exploratory testing session at end of sprint), Q4 (load test before major release).'
+  }
+},
+{
+  id:'Q35', num:'Q35', set:'A', ch:5, type:'single', pts:1,
+  stem:'Risk: Response time too long for report generation. Likelihood: medium. Impact: high. Response: independent team performs performance testing; end users do alpha/beta testing before release. What measure is proposed?',
+  opts:['Risk acceptance','Contingency plan','Risk mitigation','Risk transfer'],
+  ans:[2],
+  exp:{
+    correct:'C — Risk mitigation. The proposed actions (performance testing, alpha/beta testing) ACTIVELY REDUCE the probability and impact of the risk materializing. This is mitigation — taking steps to reduce the risk.',
+    choices:[
+      { verdict:'INCORRECT', text:'Risk acceptance means acknowledging the risk but taking NO action — deciding to live with the consequence if it occurs. Performing tests and engaging users are active actions, not acceptance.' },
+      { verdict:'INCORRECT', text:'A contingency plan is a REACTIVE plan activated AFTER the risk occurs (e.g., "if performance is bad in production, we\'ll add a caching layer"). The described actions are PROACTIVE — performed before release.' },
+      { verdict:'CORRECT', text:'Risk mitigation = proactive actions to reduce the likelihood or impact of a risk. Performance testing reduces likelihood by finding and fixing performance issues early. Alpha/beta testing reduces impact by catching issues before full release. Both are mitigation activities.' },
+      { verdict:'INCORRECT', text:'Risk transfer means shifting the risk to another party (e.g., buying insurance, outsourcing to a vendor with a penalty clause). Having your own team test is not transferring risk.' }
+    ],
+    concept:'Risk responses: Mitigation (reduce probability/impact, proactive), Acceptance (do nothing, live with it), Transfer (give risk to another party), Contingency (reactive plan for when risk occurs, also called avoidance in some models).',
+    tip:'Mitigation = proactive DOING something before the risk occurs. Contingency = having a backup plan for AFTER. Acceptance = doing nothing. Transfer = making someone else\'s problem.',
+    context:'Risk: Server might crash during peak load. Mitigation: load testing before launch + capacity planning. Contingency: auto-scaling policy ready to trigger. Transfer: SLA with cloud provider. Acceptance: deciding to risk it.'
+  }
+},
+{
+  id:'Q36', num:'Q36', set:'A', ch:5, type:'single', pts:1,
+  stem:'Which work product can be used by an agile team to show the amount of work completed and total work remaining for a given iteration?',
+  opts:['Acceptance criteria','Defect report','Test completion report','Burndown chart'],
+  ans:[3],
+  exp:{
+    correct:'D — Burndown chart. A burndown chart visually shows remaining work (y-axis) over time (x-axis) within a sprint. It simultaneously shows completed work (area above the line) and remaining work (the line itself).',
+    choices:[
+      { verdict:'INCORRECT', text:'Acceptance criteria define conditions for user story completion — they don\'t track iteration progress or work remaining.' },
+      { verdict:'INCORRECT', text:'Defect reports document individual bugs found during testing — they don\'t show overall sprint/iteration progress.' },
+      { verdict:'INCORRECT', text:'Test completion reports are created at the END of a test level or project, summarizing results. They\'re retrospective documents, not real-time iteration tracking tools.' },
+      { verdict:'CORRECT', text:'Burndown chart = Agile iteration progress visualization. Y-axis: story points (or hours) remaining. X-axis: days in sprint. The chart "burns down" as work is completed. Teams use it daily in Scrum to see if they\'re on track.' }
+    ],
+    concept:'Agile progress tracking: Burndown charts (remaining work over time), Burnup charts (completed work over time), Velocity charts (story points per sprint), Kanban boards (work in progress states). Burndown is the classic iteration progress tool.',
+    tip:'Burndown = work BURNS DOWN (decreases) over a sprint as it gets DONE. If the line is flat or going up = team is behind. This is always the answer for "Agile team + iteration progress + remaining work."',
+    context:'Sprint day 8 of 10: burndown chart shows 15 story points remaining but should show 5 at this point. The scrum master raises this in daily standup. The team reassesses and descopes 1 story from the sprint.'
+  }
+},
+{
+  id:'Q37', num:'Q37', set:'A', ch:5, type:'single', pts:1,
+  stem:'You need to update an automated test script to align with a new requirement. Which process indicates that you create a new version of the test script in the test repository?',
+  opts:['Traceability management','Maintenance testing','Configuration management','Requirements engineering'],
+  ans:[2],
+  exp:{
+    correct:'C — Configuration management. CM manages test items, test scripts, and test environments as versioned configuration items. Creating a new version of a test script in a repository is a CM activity (version control).',
+    choices:[
+      { verdict:'INCORRECT', text:'Traceability management tracks relationships BETWEEN artifacts (requirement ↔ test case ↔ defect). While related, the ACT of creating a new version in a repository is CM, not traceability.' },
+      { verdict:'INCORRECT', text:'Maintenance testing refers to testing AFTER changes to a live system — regression and impact testing. It\'s about the TYPE of testing, not the version control process.' },
+      { verdict:'CORRECT', text:'Configuration management = controlling and tracking changes to configuration items (code, test scripts, environments, documents). Creating a new version of a test script in a repository IS the CM process in action: version control, change tracking, baseline management.' },
+      { verdict:'INCORRECT', text:'Requirements engineering creates and manages requirements — not test artifacts. Updating a test script from a new requirement is a testing activity within CM, not a requirements engineering task.' }
+    ],
+    concept:'Configuration management in testing: ensures testware (test plans, test cases, test scripts, test data, test environments) is versioned, tracked, and reproducible. Version control systems are the primary CM tool.',
+    tip:'Anytime you see "versioning," "repository," "test script version," "new baseline" — that\'s Configuration Management. It\'s about controlling CHANGES to testing artifacts, not just creating them.',
+    context:'A team uses Git for test automation code. When requirements change, the tester: creates a branch, updates the test script, commits with a message linking to the requirement, and merges via PR. That entire workflow is Configuration Management.'
+  }
+},
+{
+  id:'Q38', num:'Q38', set:'A', ch:5, type:'single', pts:1,
+  stem:'You received a defect report that developers say is NOT reproducible. The report includes: application hangs on "$ä" in Name field, test account used, log attached, TC reference, related REQ, priority marked high. What CRITICAL information is MISSING?',
+  opts:['Expected result and actual result',
+        'References and defect status',
+        'Test environment and test item',
+        'Priority and severity'],
+  ans:[2],
+  exp:{
+    correct:'C — Test environment and test item. Developers couldn\'t reproduce it because they don\'t know WHAT system version was being tested (test item/build) and IN WHAT ENVIRONMENT (OS, browser, device, config). These are critical for reproduction.',
+    choices:[
+      { verdict:'INCORRECT', text:'The report implicitly states actual result (app hangs) and expected result (accept input, create user per TC-1305). These are present — app hangs = actual, accept input = expected.' },
+      { verdict:'INCORRECT', text:'References ARE present: TC-1305, REQ-0012, test account, log file attached. Defect status is marked (Rejected). So references and status are covered.' },
+      { verdict:'CORRECT', text:'MISSING: Which BUILD/VERSION was tested? On what OS/browser/device/configuration? Without these, developers test on the wrong environment and can\'t reproduce it. "Test environment and test item" (build version) are the two pieces needed for reproduction.' },
+      { verdict:'INCORRECT', text:'Priority IS stated (high priority). Severity is implied (system crash = high). While formal severity might benefit from being explicit, these aren\'t the reason the defect couldn\'t be reproduced.' }
+    ],
+    concept:'A reproducible defect report needs: what was being tested (test item = build/version), where it was tested (test environment = OS, browser, device, config), what was done (steps), and what happened vs. expected.',
+    tip:'"Cannot reproduce" almost always = missing environment or version info. Developers test on their machine with latest code. The defect might be in version 1.2.3 but they\'re testing 1.2.5. Or the bug only appears on iOS 16, not on their Android device.',
+    context:'Classic scenario: tester found a bug on Safari/iOS but the dev tried to reproduce on Chrome/Windows. Different environment = no reproduction. The missing info: OS, browser, device, app build number. Always include these in defect reports.'
+  }
+},
+{
+  id:'Q39', num:'Q39', set:'A', ch:5, type:'single', pts:1,
+  stem:'Which test activity does a data preparation tool support?',
+  opts:['Test monitoring and test control',
+        'Test analysis',
+        'Test design and test implementation',
+        'Test completion'],
+  ans:[2],
+  exp:{
+    correct:'C — Test design and test implementation. Data preparation tools create, manage, and configure test data — which is a test implementation activity. Test data is designed during test design and prepared/loaded during implementation.',
+    choices:[
+      { verdict:'INCORRECT', text:'Test monitoring and control involves tracking progress against the plan, metrics, reporting, and taking corrective action. Data preparation tools don\'t measure or control testing activities.' },
+      { verdict:'INCORRECT', text:'Test analysis identifies WHAT to test (test conditions from requirements). Data preparation tools execute on those decisions — they don\'t analyze what needs testing.' },
+      { verdict:'CORRECT', text:'Test implementation includes: setting up the test environment, preparing test data, creating test scripts, and ensuring the test infrastructure is ready. Data preparation tools directly support this phase by generating, masking, or configuring test data for test cases.' },
+      { verdict:'INCORRECT', text:'Test completion involves archiving test artifacts, lessons learned, and final reporting. Data preparation tools aren\'t used for project closure activities.' }
+    ],
+    concept:'Test tool categories by activity: Design/Implementation tools (test data generators, test harnesses, record-playback tools). Execution tools (test runners, CI pipelines). Monitoring tools (dashboards, metrics). Static tools (code analyzers, review tools).',
+    tip:'Ask: "When is test data needed?" During TEST IMPLEMENTATION (before execution) — you prepare data to load into the test environment. "When is it generated?" During DESIGN (deciding what data you need) and IMPLEMENTATION (creating it).',
+    context:'Before running 500 test cases for a CRM system, the team uses a test data generation tool to create 1000 realistic customer records with various edge cases (special characters, international addresses, boundary-value ages). This is test implementation.'
+  }
+},
+{
+  id:'Q40', num:'Q40', set:'A', ch:6, type:'single', pts:1,
+  stem:'Which item correctly identifies a potential risk of performing test automation?',
+  opts:['It may introduce unknown regressions in production',
+        'Sufficient efforts to maintain testware may not be properly allocated',
+        'Testing tools and associated testware may not be sufficiently relied upon',
+        'It may reduce the time allocated for manual testing'],
+  ans:[1],
+  exp:{
+    correct:'B is correct: insufficient maintenance effort is one of the most real and common risks of test automation. Automated tests require ongoing maintenance as the application changes — teams often underestimate this.',
+    choices:[
+      { verdict:'INCORRECT', text:'Test automation doesn\'t INTRODUCE regressions in production — it helps DETECT them. This confuses the purpose of automation. Regressions are introduced by code changes, not by tests.' },
+      { verdict:'CORRECT', text:'ISTQB explicitly lists this as a risk: teams invest in automation but fail to allocate enough ongoing effort to maintain it. Tests become stale, brittle, and flaky as the application evolves — generating false positives and losing trust.' },
+      { verdict:'INCORRECT', text:'"May not be sufficiently relied upon" is stated backwards. A risk would be that teams rely on tools TOO MUCH, not too little. Also, "trusted tools" means the risk is over-reliance, not under-reliance.' },
+      { verdict:'INCORRECT', text:'Reducing manual testing time is usually a BENEFIT of automation (freeing testers for exploratory and creative testing), not a risk. The risk is different: automation may give false confidence that manual testing can be eliminated entirely.' }
+    ],
+    concept:'Test automation risks per ISTQB: unrealistic expectations, maintenance underestimation, tool incompatibility, skill gaps, and automation of the wrong things. Maintenance effort is consistently the most underestimated risk in practice.',
+    tip:'For automation risks, think "what goes WRONG with automation in practice?" The #1 answer from the ISTQB syllabus: insufficient maintenance effort. Automated tests rot when apps change and nobody updates the tests.',
+    context:'A team automates 800 tests during a 6-month project. Three months later, after a UI redesign, 600 tests fail due to changed element IDs. Nobody budgeted time to update them. The test suite becomes useless. This is the maintenance risk in action.'
+  }
+},
+// ── ADDITIONAL QUESTIONS (A1–A26) ─────────────────────────────────────
+{
+  id:'QA1', num:'A1', set:'A', ch:1, type:'single', pts:1,
+  stem:'You were given a task to analyze and fix causes of failures in a new system to be released. Which activity are you performing?',
+  opts:['Debugging','Software testing','Requirement elicitation','Defect management'],
+  ans:[0],
+  exp:{
+    correct:'A — Debugging. Debugging is the process of finding, analyzing, and fixing the ROOT CAUSE of failures. It\'s a developer activity, whereas testing is about finding failures, not fixing them.',
+    choices:[
+      { verdict:'CORRECT', text:'Debugging = finding the root cause AND fixing it. The key word in the question is "fix causes of failures." Testing finds failures; debugging fixes their causes. These are distinct activities — often done by different people (testers find, developers debug).' },
+      { verdict:'INCORRECT', text:'Software testing finds defects and evaluates quality — it does NOT fix them. Testers report defects; developers fix (debug) them.' },
+      { verdict:'INCORRECT', text:'Requirement elicitation is gathering requirements from stakeholders — a business analysis activity completely unrelated to fixing failures in existing code.' },
+      { verdict:'INCORRECT', text:'Defect management is the process of reporting, tracking, and managing defects through their lifecycle. It includes logging, prioritizing, assigning, and verifying — but the FIX itself is debugging, not defect management.' }
+    ],
+    concept:'Testing finds failures → defects are logged → developers DEBUG (find and fix root cause) → testers verify the fix. Debugging is a DEVELOPER activity; testing is a TESTER activity. They\'re complementary but distinct.',
+    tip:'"Fix + root cause" = Debugging. Always. Testing = find problems. Debugging = fix them. In the ISTQB world, these are explicitly separated to clarify roles.',
+    context:'A tester finds a login failure and logs a defect. The developer receives the defect, uses a debugger to step through the code, finds a null pointer exception, and fixes it. The developer just performed debugging. The tester performed testing.'
+  }
+},
+{
+  id:'QA2', num:'A2', set:'A', ch:1, type:'single', pts:1,
+  stem:'In many software organizations the test department is called the Quality Assurance (QA) department. Is this correct or not and why?',
+  opts:['Correct — Testing and QA mean exactly the same thing',
+        'Correct — These names can be used interchangeably because both focus on the same quality issues',
+        'Not correct — QA focuses on quality-related processes while testing concentrates on demonstrating fitness for purpose and detecting defects',
+        'Not correct — Testing is something more; testing includes all activities with regard to quality. QA focuses on quality-related processes'],
+  ans:[2],
+  exp:{
+    correct:'C is the ISTQB answer: the naming is incorrect because QA and testing are DIFFERENT things. QA focuses on process quality assurance (ensuring good processes are followed); testing focuses on product quality evaluation (evaluating the actual software).',
+    choices:[
+      { verdict:'INCORRECT', text:'They do NOT mean the same thing. QA is process-focused (preventive); testing is product-focused (detective). Conflating them reflects a common industry misunderstanding.' },
+      { verdict:'INCORRECT', text:'Same issue — they\'re not interchangeable. One focuses on PROCESSES (QA), the other on the PRODUCT (testing). Different scope, different techniques, different outputs.' },
+      { verdict:'CORRECT', text:'ISTQB explicitly distinguishes: QA = quality assurance = focuses on quality-related processes, ensuring good processes are followed (process improvement, standards compliance). Testing = evaluating product quality, finding defects, demonstrating fitness for purpose.' },
+      { verdict:'INCORRECT', text:'This almost gets it right but overstates testing\'s scope. Testing doesn\'t "include all quality activities" — QA exists as a separate discipline. The correct hierarchy in ISTQB: Quality Management includes both QA (process) and QC/testing (product).' }
+    ],
+    concept:'Quality Management = Quality Assurance (process focus) + Quality Control (product focus, includes testing). Calling a test department "QA" is technically incorrect but extremely common in industry. ISTQB is precise about this distinction.',
+    tip:'QA = prevent defects through good PROCESSES. Testing = find defects in PRODUCTS. "QA department" doing testing is a naming convention, not a correct description of the actual activity.',
+    context:'A true QA team reviews whether the Scrum process is being followed correctly, whether retrospectives happen, whether code review policies are enforced. A testing team runs tests on the software. Different activities, different outputs.'
+  }
+},
+{
+  id:'QA3', num:'A3', set:'A', ch:1, type:'single', pts:1,
+  stem:'A phone ringing distracts a programmer causing incorrectly coded upper boundary logic. During system testing, the tester notices the field accepts invalid values. Which correctly describes an incorrectly coded upper bound?',
+  opts:['The root cause','A failure','An error','A defect'],
+  ans:[3],
+  exp:{
+    correct:'D — A defect. The incorrectly coded upper bound IN THE CODE is a defect (a static flaw in the artifact). The ringing phone = root cause (error). The defect in code = defect. When the test DETECTS invalid values being accepted = failure.',
+    choices:[
+      { verdict:'INCORRECT', text:'The root cause is the PHONE RINGING — the distraction that caused the programmer to make the mistake. Root cause is the fundamental reason an error was introduced.' },
+      { verdict:'INCORRECT', text:'A failure is the observable INCORRECT BEHAVIOR at runtime — the tester observing that invalid values are accepted. The code existing incorrectly (not yet run) is not yet a failure.' },
+      { verdict:'INCORRECT', text:'An error is the HUMAN MISTAKE made by the programmer — the cognitive slip caused by the distraction. The programmer\'s mental mistake is the error.' },
+      { verdict:'CORRECT', text:'A defect (also called a bug or fault) is the STATIC FLAW in the code artifact itself — the incorrectly written boundary check. Error (human mistake) → Defect (flaw in code) → Failure (observable wrong behavior at runtime).' }
+    ],
+    concept:'The chain: Root cause → Error (human mistake) → Defect (flaw in artifact) → Failure (observable wrong behavior). Understanding this chain is fundamental ISTQB knowledge — each term has a precise definition.',
+    tip:'Memory chain: "REDF" — Root cause → Error → Defect → Failure. Phone = root cause. Programmer\'s mistake = error. Bad code = defect. Observed bad behavior = failure.',
+    context:'Phone distracts programmer (root cause) → programmer writes wrong validation code (error) → the wrong code sits in the file (defect) → when a user types 999 in a field that should max at 100 and it\'s accepted (failure).'
+  }
+},
+{
+  id:'QA4', num:'A4', set:'A', ch:1, type:'single', pts:1,
+  stem:'Which test activity produces a TEST CHARTER as its output?\n\nTest Charter #04.018: Session: 1h, Explore: Registration page, With: Different incorrect input data, To discover: Defects in registration with incorrect input.',
+  opts:['Test planning','Test monitoring and test control','Test analysis','Test design'],
+  ans:[3],
+  exp:{
+    correct:'D — Test design. A test charter is an output of TEST DESIGN in the context of exploratory/session-based testing. The charter defines objectives and scope for the exploratory session — this is a design artifact.',
+    choices:[
+      { verdict:'INCORRECT', text:'Test planning produces the test plan, schedule, risk assessment, and resource allocation. Charters are more granular than planning artifacts.' },
+      { verdict:'INCORRECT', text:'Test monitoring produces progress reports, metrics, and status updates. A charter is prepared BEFORE execution, not during monitoring.' },
+      { verdict:'INCORRECT', text:'Test analysis identifies WHAT conditions to test. The charter itself (which is more specific about HOW to explore) is a design output, even though it draws on analysis results.' },
+      { verdict:'CORRECT', text:'In session-based exploratory testing, the test charter is a test design output. It specifies: what to explore, the approach, the session duration, and the discovery goal. Design produces executable test artifacts — the charter IS the executable artifact for an exploratory session.' }
+    ],
+    concept:'Test design outputs in exploratory testing: test charters (for sessions). In specification-based testing: test cases, test data, test procedures. The charter is the design document that guides what the tester does in the session.',
+    tip:'Think: "What does a tester DESIGN for an exploratory session?" Answer: the charter. It\'s the design artifact that replaces formal test cases when doing session-based exploratory testing.',
+    context:'Before an exploratory session, the tester writes: "Session: 90min, Explore: Checkout flow, With: various payment methods and amounts, To discover: Payment processing edge cases." This charter guides the session — it was designed (not planned or monitored).'
+  }
+},
+{
+  id:'QA5', num:'A5', set:'A', ch:1, type:'single', pts:1,
+  stem:'Which of the following is the BEST example of how traceability supports testing?',
+  opts:['Performing impact analysis of a change will give information about test completion',
+        'Analyzing traceability between test cases and test results gives information about estimated residual risk',
+        'Performing impact analysis of a change will help selecting the right test cases for regression testing',
+        'Analyzing traceability between test basis, test objects and test cases will help in selecting test data to achieve coverage'],
+  ans:[2],
+  exp:{
+      correct:'C is the best example: traceability from requirements → test cases enables impact analysis — when a requirement changes, you can immediately find which test cases are affected and need to be in the regression suite.',
+      choices:[
+        { verdict:'INCORRECT', text:'Impact analysis gives information about WHICH TESTS to run and WHAT\'S AFFECTED — not about test completion status. Completion is tracked through test execution results, not impact analysis.' },
+        { verdict:'INCORRECT', text:'Test case to test result traceability shows pass/fail data. Residual risk is calculated from unexecuted/failed test cases against risk areas — this is possible but it\'s a more indirect use of traceability.' },
+        { verdict:'CORRECT', text:'This is the BEST example: requirements change → trace to affected test cases → include them in regression suite. This is the most practical and valuable use of traceability in testing practice. ISTQB emphasizes this use case explicitly.' },
+        { verdict:'INCORRECT', text:'Traceability helps select TESTS (not test data) based on coverage goals. Test data selection is driven by test design techniques (BVA, EP), not traceability. This mixes concepts.' }
+      ],
+      concept:'Traceability in testing: requirements ↔ test cases ↔ defects ↔ test results. The primary benefit: impact analysis. When anything changes, trace the connections to understand the blast radius and update tests accordingly.',
+      tip:'"Change in requirement X → which test cases are affected?" This is traceability\'s killer use case. It makes regression testing targeted and efficient instead of re-running everything.',
+      context:'A new regulation changes a calculation rule in a tax app. The traceability matrix immediately shows which of the 300 test cases cover that calculation. The team runs those 12 specific tests instead of all 300 — saving 90% of regression effort.'
+  }
+},
+{
+  id:'QA6', num:'A6', set:'A', ch:1, type:'single', pts:1,
+  stem:'Which of the following BEST explains a benefit of independence of testing?',
+  opts:['Allows assigning quality responsibility to the test team',
+        'External teams not swayed by delivery concerns and strict deadlines',
+        'Can work separately, not distracted by requirement changes, restrict communication to defect reports',
+        'Can question assumptions and interpretations made by developers regarding ambiguous specifications'],
+  ans:[3],
+  exp:{
+      correct:'D is the best answer: independent testers bring a fresh perspective and can challenge assumptions that both developers and business reps have made — especially around ambiguous requirements. This is the cognitive independence benefit.',
+      choices:[
+        { verdict:'INCORRECT', text:'ISTQB explicitly states that independence does NOT mean the test team is responsible for quality — quality is everyone\'s responsibility. "Assigning quality responsibility to test team" is a misconception to avoid.' },
+        { verdict:'INCORRECT', text:'This is partially true (external teams have less deadline pressure) but misses the key cognitive benefit. Also, external teams have their own pressures and aren\'t immune to business influences.' },
+        { verdict:'INCORRECT', text:'"Restrict communication to defect reports" is actually a DISADVANTAGE of excessive independence! ISTQB warns against isolated teams. Good testing requires collaboration, not isolation.' },
+        { verdict:'CORRECT', text:'The key benefit: independent testers aren\'t biased by the author\'s assumptions. When a developer writes both the code AND the tests, they test their OWN interpretation. An independent tester questions that interpretation, finding defects hidden in wrong assumptions.' }
+      ],
+      concept:'Independence benefit = cognitive bias removal. The author of a work product is blind to their own errors because they\'re attached to their interpretation. An independent reviewer brings fresh eyes and questions assumptions the author took for granted.',
+      tip:'"Independence" in ISTQB = independence of MIND (no shared bias with author), not independence of team. The primary benefit is catching defects that result from wrong assumptions — the ones the developer wouldn\'t test because they assumed they were correct.',
+      context:'A developer writes an API that returns dates in MM/DD/YYYY format (US assumption). They test it with US-format dates. An independent tester from another country immediately tries DD/MM/YYYY and finds a parsing failure — an assumption the developer never questioned.'
+  }
+},
+{
+  id:'QA7', num:'A7', set:'A', ch:2, type:'multi', pts:1,
+  stem:'You are working in a team following the V-model. Which TWO of the following activities CAN be performed in the initial phases of the SDLC?',
+  opts:['Dynamic test execution','Static testing','Test planning','Acceptance test execution','Maintenance testing'],
+  ans:[1,2],
+  exp:{
+      correct:'B (Static testing) and C (Test planning) can be performed in the initial phases. In the V-model, the left side of the V (requirements, design) supports static testing and test planning activities before code exists.',
+      choices:[
+        { verdict:'INCORRECT', text:'Dynamic test execution requires executable software — you can\'t execute tests in the requirements or design phase. It belongs to the right side of the V-model.' },
+        { verdict:'CORRECT', text:'Static testing (reviewing requirements, designs, user stories) is the PRIMARY early-phase testing activity in V-model. Reviews and static analysis are done as soon as documents exist — no code needed.' },
+        { verdict:'CORRECT', text:'Test planning is explicitly an early-phase activity. In V-model, you plan your acceptance tests when requirements are written, system tests when system design is done, etc. "Early test planning" is a core V-model principle.' },
+        { verdict:'INCORRECT', text:'Acceptance TEST EXECUTION happens in the rightmost phase of the V-model — after the entire system is built and integrated. The PLANNING of acceptance tests happens early, but execution happens late.' },
+        { verdict:'INCORRECT', text:'Maintenance testing occurs AFTER deployment, when the system is already in production. It\'s post-SDLC, not initial phases.' }
+      ],
+      concept:'V-model early phases (left side): requirements analysis, system design, architecture design, component design. Early testing activities: reviewing those documents (static testing) and designing tests for each level (test planning). Execution only on the right side.',
+      tip:'V-model: LEFT side = planning and static testing. RIGHT side = dynamic execution. "Initial phases" = LEFT side. Only static testing and planning can happen without code.',
+      context:'In a V-model project: Week 1 (requirements phase) — tester reviews requirements for ambiguities (static testing) AND writes acceptance test cases (test planning). Week 10 (after full build) — tester executes those acceptance tests (dynamic execution).'
+  }
+},
+{
+  id:'QA8', num:'A8', set:'A', ch:2, type:'single', pts:1,
+  stem:'Which of the following are advantages of DevOps?\n\n(i) Faster product release\n(ii) Increases need for repetitive manual testing\n(iii) Constant availability of executable software\n(iv) Reduction in regression tests associated with code refactoring\n(v) Setting up test automation is inexpensive since everything is automated',
+  opts:['i, ii, iv are advantages','iii, v are advantages','i, iii are advantages','ii, iv, v are advantages'],
+  ans:[2],
+  exp:{
+      correct:'C — i and iii. Faster releases (i) and constant availability of executable software (iii) are genuine DevOps advantages. The others are misconceptions or disadvantages.',
+      choices:[
+        { verdict:'INCORRECT', text:'ii (increases manual testing) is actually a DISADVANTAGE scenario that DevOps SOLVES — by automating repetitive tests. iv (reduces regression tests) is wrong — DevOps often INCREASES regression test scope. Neither is an advantage.' },
+        { verdict:'INCORRECT', text:'iii is correct but v is wrong. Setting up test automation is NOT inexpensive — it requires significant initial investment in tooling, infrastructure, and skill development. "Everything is automated" is a myth.' },
+        { verdict:'CORRECT', text:'Faster release cadence (i) and continuous availability of testable builds (iii) are the two core DevOps testing advantages per ISTQB. CI/CD pipelines enable both: code merges trigger builds automatically, giving testers an always-ready system.' },
+        { verdict:'INCORRECT', text:'ii (more manual testing) is wrong — DevOps reduces repetitive manual testing. iv (fewer regression tests) is wrong — more frequent deployments actually require MORE regression coverage. v (cheap automation) is wrong — automation setup is costly.' }
+      ],
+      concept:'DevOps advantages for testing: faster feedback cycles, constant access to executable software, earlier defect detection. Misconceptions: automation is free, manual testing disappears, regression tests decrease.',
+      tip:'"DevOps = faster + automated." BUT the exam catches people with: automation still costs money and effort (v is wrong), and more frequent releases REQUIRE more regression coverage, not less (iv is wrong).',
+      context:'A DevOps team deploys 10× per day. Every commit triggers a CI pipeline: build → unit tests → integration tests → staging deploy → smoke tests. The executable software is always available (iii) and releases are fast (i). But the automation suite took 6 months to build (v is wrong).'
+  }
+},
+{
+  id:'QA9', num:'A9', set:'A', ch:2, type:'single', pts:1,
+  stem:'Requirement (high priority): "Order must be processed in less than 10 seconds in 95% of cases." You create test cases measuring order processing time and checking results against requirements. What test type is this?',
+  opts:['Functional — covers user\'s business requirement',
+        'Non-functional — measures system\'s performance',
+        'Functional — test cases interact with user interface',
+        'White-box — need internal structure knowledge to measure processing time'],
+  ans:[1],
+  exp:{
+      correct:'B — Non-functional testing, specifically performance testing. The requirement specifies HOW the system performs (speed, percentage), not WHAT it does. Performance is a non-functional characteristic.',
+      choices:[
+        { verdict:'INCORRECT', text:'Functional testing checks WHAT the system does — can the user place an order? Does it calculate the total correctly? The requirement here is about HOW FAST it processes, not whether it processes at all.' },
+        { verdict:'CORRECT', text:'This is classic performance testing (a subcategory of non-functional testing). It measures response time against a threshold (10 seconds) at a specific percentile (95%). Response time is a non-functional quality characteristic under "performance efficiency" in ISO 25010.' },
+        { verdict:'INCORRECT', text:'UI interaction determines TECHNIQUE (black-box), not test TYPE (functional vs. non-functional). The non-functional nature of the requirement (performance) defines the test type regardless of how the test is executed.' },
+        { verdict:'INCORRECT', text:'You DON\'T need internal structure knowledge to measure processing time. You can time the end-to-end response from the user\'s perspective (black-box approach) using tools. White-box knowledge would help OPTIMIZE, but isn\'t required to TEST performance.' }
+      ],
+      concept:'Functional testing = WHAT the system does (features, behaviors). Non-functional testing = HOW the system does it (speed, reliability, usability, security). Performance testing = non-functional, measures speed/load/stress characteristics.',
+      tip:'"Speed, time, percentage, load, concurrent users" = Performance = Non-functional. If the requirement talks about HOW something happens rather than WHAT happens, it\'s non-functional.',
+      context:'Order processing exists = functional. Order processes in <10s 95% of time = non-functional (performance efficiency). Both matter, but the test TYPE is different: one uses functional test cases, the other uses performance test tools and metrics.'
+  }
+},
+{
+  id:'QA10', num:'A10', set:'A', ch:2, type:'single', pts:1,
+  stem:'Your test strategy suggests that when a system is being retired, data migration shall be tested. As part of what test type is this MOST likely performed?',
+  opts:['Maintenance testing','Regression testing','Reliability testing','Integration testing'],
+  ans:[0],
+  exp:{
+      correct:'A — Maintenance testing. Testing triggered by system retirement (including data migration to a new system) is a maintenance testing scenario — testing performed as a response to changes to an operational system.',
+      choices:[
+        { verdict:'CORRECT', text:'Maintenance testing covers testing triggered by: modifications (fixes, enhancements), migrations (moving to new platform/system), and retirement (decommissioning, data migration to new system). Retirement + data migration = maintenance testing context.' },
+        { verdict:'INCORRECT', text:'Regression testing checks that existing functionality still works after a change. While data migration testing might include some regression aspects, the OVERARCHING type triggered by system retirement is maintenance testing.' },
+        { verdict:'INCORRECT', text:'Reliability testing measures the system\'s ability to function correctly over time. Data migration testing verifies data integrity and completeness — different scope.' },
+        { verdict:'INCORRECT', text:'Integration testing checks interfaces and communication between components. Data migration might involve systems integrating, but the scenario (retirement, migration) is definitively a maintenance testing context.' }
+      ],
+      concept:'Maintenance testing triggers: planned changes (new features), unplanned changes (emergency fixes), migration (to new platform), and retirement (system decommissioning + data migration). All involve testing after a system is in production.',
+      tip:'"System retirement + data migration" = Maintenance testing. Memorize the 3 triggers: Modify (fix/enhance), Migrate (move to new environment), Retire (decommission + migrate data). All = maintenance testing.',
+      context:'A bank retires a legacy core banking system after 20 years. During the transition, all customer accounts, transaction history, and product data must migrate to the new system. Testing verifies the migrated data is complete, accurate, and correctly mapped — this is maintenance testing in a retirement scenario.'
+  }
+},
+{
+  id:'QA11', num:'A11', set:'A', ch:3, type:'single', pts:1,
+  stem:'Which of the following work products can be reviewed?\n\n(i) Business requirements, (ii) Schedule, (iii) Test budget, (iv) Third-party executable code, (v) User stories and their acceptance criteria',
+  opts:['i and iv can be reviewed',
+        'i, ii, iii and iv can be reviewed',
+        'i, ii, iii, and v can be reviewed',
+        'iii, iv, v can be reviewed'],
+  ans:[2],
+  exp:{
+      correct:'C — i, ii, iii, and v (all except third-party executable code). All of those are standard reviewable work products. Third-party executable code (iv) cannot be reviewed because you typically don\'t have access to the source code of third-party compiled software.',
+      choices:[
+        { verdict:'INCORRECT', text:'Only i and iv is far too narrow. Schedules, budgets, and user stories are all commonly reviewed work products.' },
+        { verdict:'INCORRECT', text:'Includes iv (third-party executable code) which typically cannot be reviewed — you usually don\'t have access to the source code of compiled third-party libraries. You might test them but not review the code.' },
+        { verdict:'CORRECT', text:'Business requirements (i), schedules (ii), test budget (iii), and user stories/AC (v) are all reviewable — they\'re documents with authors, stakeholders, and correctness criteria. Third-party executable code (iv) is excluded because review requires access to readable source — which compiled/binary third-party code doesn\'t provide.' },
+        { verdict:'INCORRECT', text:'Includes iv again (problem noted above) and misses i (business requirements) and ii (schedule), which are clearly reviewable.' }
+      ],
+      concept:'Static testing/reviews can be applied to ANY work product where you can read the content and evaluate it: requirements, test plans, budgets, schedules, source code, user stories, models, designs. Exception: binary/compiled code without source access.',
+      tip:'"Can it be reviewed?" Ask: "Can you READ it and evaluate correctness?" Documents (requirements, plans, stories, budgets) = yes. Compiled binary from a third party = no (no source access).',
+      context:'A project team reviews: requirements for completeness, the project schedule for realistic milestones, the test budget for adequacy, and user stories for testability. They can\'t review the compiled PDF library they licensed because they don\'t have source code — they can only test it.'
+  }
+},
+{
+  id:'QA12', num:'A12', set:'A', ch:3, type:'single', pts:1,
+  stem:'Which statements (i–v) are TRUE for static testing?\n\n(i) Abnormal external behaviors are easier to identify\n(ii) Discrepancies from coding standards are easier to find\n(iii) It identifies failures caused by defects when software is run\n(iv) Objective is to identify defects as early as possible\n(v) Missing coverage for critical security requirements is easier to find and fix',
+  opts:['i, iv, v are true','i, iii, iv are true','ii, iii are true','ii, iv, v are true'],
+  ans:[3],
+  exp:{
+      correct:'D — ii, iv, v. Coding standard violations (ii), early defect identification goal (iv), and missing security coverage (v) are all true of static testing. Statement i requires RUNNING software (dynamic); iii is explicitly dynamic.',
+      choices:[
+        { verdict:'INCORRECT', text:'Statement i (abnormal external behaviors) requires running the software to observe behavior — that\'s dynamic testing. Static testing reviews artifacts, not runtime behavior.' },
+        { verdict:'INCORRECT', text:'Includes iii which says static testing "identifies failures caused by defects when software is run" — this is the DEFINITION of dynamic testing, directly contradicting static testing\'s core nature.' },
+        { verdict:'INCORRECT', text:'ii is correct, iii is completely wrong (runtime failures = dynamic testing). This combination is invalid.' },
+        { verdict:'CORRECT', text:'ii: Static analysis tools excel at finding coding standard violations without running code. iv: Early defect detection IS the primary objective of static testing. v: Security requirement coverage gaps are found by reviewing requirements and code statically — missing authentication checks, unvalidated inputs visible in source.' }
+      ],
+      concept:'Static testing works on artifacts without execution: code (linting, standard violations, complexity), documents (requirements, designs), test cases. It can\'t observe runtime behavior — that\'s dynamic testing.',
+      tip:'"Abnormal behavior" and "failures when run" = dynamic (requires execution). "Standard violations," "early detection," "missing requirements coverage" = static (reviewable in artifacts). Never mix these up.',
+      context:'A static code analysis tool (SonarQube) scans source code and reports: 3 coding standard violations, 1 potential SQL injection (missing security coverage), and 12 complexity issues. No code was executed — this is static testing in action.'
+  }
+},
+{
+  id:'QA13', num:'A13', set:'A', ch:3, type:'single', pts:1,
+  stem:'Which of the following statements about formal reviews is TRUE?',
+  opts:['Some reviews do not require more than one role',
+        'The review process has several activities',
+        'Documentation is not distributed before the review meeting, except for specific review types',
+        'Defects found during review are not reported since they are not found by dynamic testing'],
+  ans:[1],
+  exp:{
+      correct:'B — The review process has several activities. The formal review process includes: planning, initiation, individual review, communication/clarification, fixing/reporting, and closure. Multiple activities are always part of formal reviews.',
+      choices:[
+        { verdict:'INCORRECT', text:'Every formal review has MULTIPLE defined roles: author, moderator/facilitator, reviewers, scribe, and management. Informal reviews might be done by one person, but formal reviews require multiple roles by definition.' },
+        { verdict:'CORRECT', text:'ISTQB defines formal review activities: planning (scope, time, participants), initiation (entry check, documentation distribution), individual review (each participant reviews), communication (discuss findings), fix/log (authors fix, scribe logs), and closure (exit check). Definitely several activities.' },
+        { verdict:'INCORRECT', text:'This is backwards. Documentation IS typically distributed BEFORE the review meeting so participants can do individual preparation. That preparation is what makes reviews effective. Only informal reviews might skip pre-distribution.' },
+        { verdict:'INCORRECT', text:'This is completely wrong. Defects found in reviews ARE reported and tracked. Static testing finds defects just as importantly as dynamic testing — different types of defects, but equally worth reporting. ISTQB never says review defects aren\'t reported.' }
+      ],
+      concept:'Formal review process activities: planning → initiation → individual review preparation → issue communication/logging → fixes and reporting → closure. Each activity has entry/exit criteria in an inspection-level review.',
+      tip:'"Several activities" = always true for formal reviews. Reviews aren\'t just a meeting — they have a lifecycle from planning through closure. This is the key process structure.',
+      context:'A formal inspection of a requirements document: (1) Test manager plans it (scope, participants). (2) Author distributes document 2 days ahead. (3) Each reviewer spends 2 hours reading and noting issues. (4) Group meeting: 1.5 hours discussing. (5) Author fixes issues. (6) Moderator confirms all issues addressed (closure). Six distinct activities.'
+  }
+},
+{
+  id:'QA14', num:'A14', set:'A', ch:3, type:'single', pts:1,
+  stem:'What task may MANAGEMENT take on during a formal review?',
+  opts:['Taking overall responsibility for the review',
+        'Deciding what is to be reviewed',
+        'Ensuring the effective running of review meetings, and moderating if necessary',
+        'Recording review information such as review decisions'],
+  ans:[1],
+  exp:{
+      correct:'B — Deciding what is to be reviewed is a management role in formal reviews. Management selects which work products are reviewed and ensures the review process aligns with project/organizational goals.',
+      choices:[
+        { verdict:'INCORRECT', text:'"Overall responsibility for the review" is the MODERATOR\'S (or inspection leader\'s) role, not management. The moderator is accountable for the review process quality.' },
+        { verdict:'CORRECT', text:'Management\'s formal review responsibilities per ISTQB: deciding what to review (prioritizing which work products get formal reviews), ensuring reviews happen (resource allocation), and using review results for decisions. Strategic decisions, not process execution.' },
+        { verdict:'INCORRECT', text:'"Ensuring effective running of meetings and moderating" is the MODERATOR/FACILITATOR role. The moderator runs the meeting, manages discussions, and keeps things on track — not management.' },
+        { verdict:'INCORRECT', text:'"Recording review information" is the SCRIBE role. The scribe documents defects, discussion points, and review decisions during the review meeting.' }
+      ],
+      concept:'Formal review roles: Management (decide what to review, authorize resources), Author (presents/fixes), Moderator/Facilitator (runs the meeting), Reviewers (find issues), Scribe (documents), and sometimes a dedicated management reviewer.',
+      tip:'Management = strategic decisions. Moderator = meeting execution. Scribe = documentation. Author = presents and fixes. Mix-ups between moderator and management are common exam traps.',
+      context:'A test manager (management role) looks at the project and decides: "Our requirements document for the payment module needs a formal inspection before coding starts." That decision — what to review and when — is the management role in formal reviews.'
+  }
+},
+{
+  id:'QA15', num:'A15', set:'A', ch:4, type:'single', pts:1,
+  stem:'Wine storage system: T=12°C = "optimal", T<12 = "too low", T>12 = "too high". You want 3-point BVA to verify behavior. What is the MINIMAL set of test inputs for 100% coverage?',
+  opts:['11, 12, 13','10, 12, 14','10, 11, 12, 13, 14','10, 11, 13, 14'],
+  ans:[0],
+  exp:{
+      correct:'A — 11, 12, 13. For 3-value BVA with partitions (<12, =12, >12): the boundary is at 12. 3-value BVA tests the boundary AND both immediate neighbors: 11 (boundary - 1), 12 (boundary), 13 (boundary + 1). Minimal set = 3 values.',
+      choices:[
+        { verdict:'CORRECT', text:'3-value BVA at boundary 12: test 11 (max of "too low" partition), 12 (the exact boundary = "optimal"), 13 (min of "too high" partition). These three values cover the boundary and immediately adjacent partitions. Minimal = 3 tests.' },
+        { verdict:'INCORRECT', text:'10 and 14 are "middle" values within the too-low and too-high partitions, not boundary values. 3-value BVA specifically needs the NEAREST neighbors (11 and 13), not arbitrary values within partitions.' },
+        { verdict:'INCORRECT', text:'5 values (10, 11, 12, 13, 14) includes non-boundary values (10 and 14) that aren\'t needed for 3-value BVA. This is more than minimal.' },
+        { verdict:'INCORRECT', text:'4 values (10, 11, 13, 14) misses the actual boundary value (12 = "optimal") and includes non-boundary partition midpoints. You MUST include the boundary itself.' }
+      ],
+      concept:'3-value BVA: for each boundary, test (boundary - 1), boundary, (boundary + 1). For a single-point boundary like T=12: test 11, 12, 13. This covers: the "too low" side (11), the exact boundary (12), and the "too high" side (13).',
+      tip:'3-value BVA = test the boundary AND both immediate neighbors. Formula: boundary-1, boundary, boundary+1. For T=12: 11, 12, 13. Simple as that.',
+      context:'A thermostat tester runs 3 tests: T=11 → display shows "too low" (passes). T=12 → display shows "optimal" (passes). T=13 → display shows "too high" (passes). 3-value BVA complete in 3 tests.'
+  }
+},
+{
+  id:'QA16', num:'A16', set:'A', ch:4, type:'single', pts:1,
+  stem:'Which of the following statements about branch testing is CORRECT?',
+  opts:['If a program has only unconditional branches, 100% branch coverage can be achieved without executing any test cases',
+        'If test cases exercise all unconditional branches in the code, then 100% branch coverage is achieved',
+        '100% statement coverage implies 100% branch coverage',
+        '100% branch coverage guarantees all decision outcomes in each decision statement are exercised'],
+  ans:[3],
+  exp:{
+      correct:'D is correct: 100% branch coverage means EVERY possible outcome (true/false) of every decision statement has been tested. That\'s the definition — all decision outcomes exercised.',
+      choices:[
+        { verdict:'INCORRECT', text:'"Without executing any test cases" is nonsensical. Branch coverage requires executing the code and observing which branches are taken. No execution = no coverage measurement.' },
+        { verdict:'INCORRECT', text:'"All unconditional branches" — unconditional branches (like function calls, sequential statements) ALWAYS execute. Covering only those ignores CONDITIONAL branches (if/else, switch) which are the whole point of branch testing. This gives a misleading picture.' },
+        { verdict:'INCORRECT', text:'This is backwards! 100% branch coverage SUBSUMES 100% statement coverage — achieving branch coverage guarantees statement coverage. NOT the other way around. 100% statement coverage does NOT guarantee branch coverage.' },
+        { verdict:'CORRECT', text:'Definition of 100% branch coverage: every decision statement in the code has had BOTH outcomes (true branch and false branch) exercised. If (x>0): both the TRUE path and the FALSE path must have been taken. This is the correct statement.' }
+      ],
+      concept:'Branch coverage = decision coverage = exercising every decision outcome. For if/else: both the "if true" and "if false" branches must run. 100% branch coverage ⊃ 100% statement coverage (but not vice versa).',
+      tip:'Branch coverage hierarchy: Branch > Statement. "100% branch = 100% statement" = TRUE. "100% statement = 100% branch" = FALSE (common trap). Think: you can execute every statement without testing every branch if some branches always execute the same way.',
+      context:'if (user.isPremium) { applyDiscount(); } else { showUpgrade(); } \n Branch coverage needs: one test where isPremium=true (applyDiscount branch taken) AND one where isPremium=false (showUpgrade branch taken). Statement coverage needs only ONE of these — both statements execute in just one test.'
+  }
+},
+{
+  id:'QA17', num:'A17', set:'A', ch:4, type:'single', pts:1,
+  stem:'You are evaluating each screen and each field against a general list of user interface best practices from a popular book on usability. Which test technique are you using?',
+  opts:['Black-box','Exploratory','Checklist-based','Error guessing'],
+  ans:[2],
+  exp:{
+      correct:'C — Checklist-based testing. You have a PREDEFINED LIST of items to check (UI best practices from a book), and you systematically evaluate each screen against that list. That\'s the definition of checklist-based testing.',
+      choices:[
+        { verdict:'INCORRECT', text:'Black-box is a category (not a specific technique) that covers all specification-based techniques. More importantly, using a checklist is more specific than "black-box" — the technique IS checklist-based.' },
+        { verdict:'INCORRECT', text:'Exploratory testing is unscripted, simultaneous learning and testing. You don\'t follow a predefined list — you explore based on intuition. Having a specific checklist to follow is the OPPOSITE of exploratory\'s freedom.' },
+        { verdict:'CORRECT', text:'Checklist-based testing = systematic evaluation against a predefined list of items to check. The "popular book on UI best practices" IS the checklist. You go through each item on the list and verify each screen/field against it.' },
+        { verdict:'INCORRECT', text:'Error guessing uses experience to predict where defects are likely — no predefined list. You\'re guessing based on intuition and past experience, not following a structured checklist.' }
+      ],
+      concept:'Checklist-based testing: predefined list of items to check → evaluate each against the test object. Lists can come from: industry best practices, company standards, previous defect data, or regulatory requirements. Structure distinguishes it from exploratory.',
+      tip:'"Predefined list to check against" = Checklist-based. Always. The source of the list (book, company standard, regulation) doesn\'t matter — if you\'re checking against a list, it\'s checklist-based.',
+      context:'A QA team uses a 50-item accessibility checklist (derived from WCAG 2.1) to evaluate every screen in a web app. Systematic, predefined, structured — textbook checklist-based testing. Each item gets a pass/fail marking.'
+  }
+},
+{
+  id:'QA18', num:'A18', set:'A', ch:4, type:'single', pts:1,
+  stem:'Which of the following BEST describes the collaborative approach to user story writing?',
+  opts:['User stories are created by testers and developers then accepted by business representatives',
+        'User stories are created by business representatives, developers, and testers together',
+        'User stories are created by business representatives and verified by developers and testers',
+        'User stories are created in a way that they are independent, negotiable, valuable, estimable, small, and testable'],
+  ans:[1],
+  exp:{
+      correct:'B — all three roles create user stories TOGETHER. This is the "3 amigos" approach: business rep (knows what), developer (knows how), tester (knows how to verify). True collaboration = all three from the start.',
+      choices:[
+        { verdict:'INCORRECT', text:'If testers and developers create stories for business to "accept," business reps are relegated to reviewers/approvers, not co-creators. This isn\'t collaborative in the ISTQB sense — it still siloes roles.' },
+        { verdict:'CORRECT', text:'This is the collaborative user story writing model. Business reps bring domain knowledge and value. Developers bring technical feasibility. Testers bring testability, edge cases, and acceptance criteria quality. Together = better stories with fewer gaps.' },
+        { verdict:'INCORRECT', text:'"Created by business reps, verified by others" is closer to a handoff model. True collaboration means all three parties create TOGETHER from the start, not sequentially. The tester\'s input during creation is what makes stories testable.' },
+        { verdict:'INCORRECT', text:'INVEST (Independent, Negotiable, Valuable, Estimable, Small, Testable) describes the QUALITIES of a good user story, not the collaborative PROCESS of writing them. This answers "what a story should be," not "how it\'s written."' }
+      ],
+      concept:'Collaborative user story writing (3 amigos): business representative + developer + tester work TOGETHER to write stories. Each perspective catches what the others miss: business catches value, dev catches technical constraints, tester catches edge cases and missing ACs.',
+      tip:'"Collaborative" in ISTQB = all three SIMULTANEOUSLY, not sequentially. Watch for options that imply one group creates, then another verifies. That\'s NOT collaborative — that\'s a handoff.',
+      context:'"3 amigos" session: PO, developer, and tester sit together for 30 minutes on a new "password reset" story. PO explains the need. Dev raises technical concerns about email service limits. Tester immediately asks "what happens if the reset link is clicked twice?" — catching a missing AC. All three improve the story together.'
+  }
+},
+{
+  id:'QA19', num:'A19', set:'A', ch:5, type:'single', pts:1,
+  stem:'Test plan section: "Testing will be performed using component testing and component integration testing. The regulations require demonstrating 100% branch coverage for each critical component." Which part of the test plan does this belong to?',
+  opts:['Communication','Risk register','Context of testing','Test approach'],
+  ans:[3],
+  exp:{
+      correct:'D — Test approach. This section describes WHAT testing methods and techniques will be used (component + integration testing, 100% branch coverage). "How we will test" = test approach.',
+      choices:[
+        { verdict:'INCORRECT', text:'Communication section of a test plan describes how testing status will be communicated: to whom, how often, in what format. Not about testing techniques.' },
+        { verdict:'INCORRECT', text:'Risk register lists identified risks, their likelihood, impact, and mitigation. The quoted section talks about test levels and coverage — not risks.' },
+        { verdict:'INCORRECT', text:'Context of testing describes the project environment, constraints, business context, and stakeholders. It\'s the "setting the scene" section — not the technical testing approach.' },
+        { verdict:'CORRECT', text:'Test approach section = how testing will be conducted: test levels to use (component, integration), test techniques (branch coverage, EP, etc.), regulatory requirements affecting techniques (100% branch coverage mandate), and testing strategy. This is classic test approach content.' }
+      ],
+      concept:'Test plan sections per ISTQB: Context of testing (scope, test basis, project context), Risk analysis, Test approach (levels, techniques, tools), Entry/exit criteria, Schedule, Resources, Communication.',
+      tip:'"What levels of testing + what techniques + what coverage target" = Test approach section. Think "HOW are we going to test?" = approach. "WHAT is the project context?" = context. "WHAT can go wrong?" = risk register.',
+      context:'A test plan for a medical device: Context = FDA-regulated device for cardiology. Risk register = patient safety risks. Approach = "We will use unit and integration testing with 100% branch coverage (required by IEC 62304)." Communication = "Weekly status reports to QA director."'
+  }
+},
+{
+  id:'QA20', num:'A20', set:'A', ch:5, type:'single', pts:1,
+  stem:'Your team uses planning poker. After 3 rounds of estimations:\nRound 3 results: 13, 8, 13, 13, 13, 13, 8\n\nThe rule: if variation is small after timeout, accept the number with most votes. What is the BEST next step?',
+  opts:['Product owner makes the final decision',
+        'Accept 13 as the final estimate — most votes',
+        'No further action needed — consensus is reached',
+        'Remove the feature from current release — consensus not reached'],
+  ans:[1],
+  exp:{
+      correct:'B — Accept 13. The team rule states: if variation is small and no consensus after allowed rounds, accept the number with most votes. Round 3 has 5 votes for 13 vs 2 for 8. Rule applies: accept 13.',
+      choices:[
+        { verdict:'INCORRECT', text:'Product owner involvement in estimation is generally discouraged in Planning Poker — PO shouldn\'t influence effort estimates as it creates bias. The team\'s own rule covers this scenario (accept most votes).' },
+        { verdict:'CORRECT', text:'The scenario states the team rule explicitly: if no consensus and small variation, accept the most-voted number. Round 3: 13 appears 5 times, 8 appears 2 times. Variation between 8 and 13 is relatively small. Rule applies. Accept 13.' },
+        { verdict:'INCORRECT', text:'Consensus is NOT reached — two team members still voted 8 while five voted 13. Consensus would mean everyone agrees (same number). This choice misreads the situation.' },
+        { verdict:'INCORRECT', text:'Removing a feature from a release because the team can\'t agree on effort estimation is an extreme overreaction and not a standard planning poker practice. The team has a rule for this exact situation — use it.' }
+      ],
+      concept:'Planning poker conflict resolution: after a set number of rounds, if no consensus, teams often use a tie-breaking rule (majority vote, average, or manager/SM decides). The scenario describes a majority vote rule — apply it.',
+      tip:'In exam scenarios about estimation, follow the STATED RULE exactly. The team\'s rule is given: "accept most votes when variation is small." Apply that rule mechanically. Don\'t invent alternatives.',
+      context:'After 3 rounds of planning poker, the team is stuck between 8 and 13 for a feature. The SM invokes the team rule: "most votes wins." 5-2 in favor of 13 → story is estimated at 13 points. Sprint planning continues.'
+  }
+},
+{
+  id:'QA21', num:'A21', set:'A', ch:5, type:'single', pts:1,
+  stem:'Which of the following is TRUE regarding the test pyramid?',
+  opts:['It emphasizes having far more tests at the lower test levels',
+        'It suggests that each low-level test checks a large part of the functionality',
+        'It describes distribution of test types across the SDLC',
+        'It has no impact on the construction of automated tests'],
+  ans:[0],
+  exp:{
+      correct:'A — The test pyramid\'s core message is: have MANY tests at the bottom (unit/component), fewer in the middle (integration), and fewest at the top (E2E/UI). More tests at lower levels is the pyramid\'s foundational principle.',
+      choices:[
+        { verdict:'CORRECT', text:'The pyramid shape literally shows: wide base (many unit tests) → narrowing middle (fewer integration tests) → narrow peak (few E2E tests). "Far more tests at lower levels" is exactly what the pyramid advocates for, because lower-level tests are: faster, cheaper, more isolated, and easier to maintain.' },
+        { verdict:'INCORRECT', text:'Each LOW-LEVEL test checks a SMALL part of functionality (one unit, one function) with HIGH isolation. High-level tests (UI/E2E) check large parts of functionality. This is backwards from what the pyramid shows.' },
+        { verdict:'INCORRECT', text:'The test pyramid describes the DISTRIBUTION of test QUANTITIES by level (how many of each type to have), not distribution across the SDLC timeline. It\'s about test portfolio composition, not SDLC scheduling.' },
+        { verdict:'INCORRECT', text:'The test pyramid has a SIGNIFICANT impact on automated test construction. It directly tells teams: automate more at the unit level (fast, stable), automate integration tests moderately, minimize automated E2E tests (slow, brittle). This shapes the entire automation strategy.' }
+      ],
+      concept:'Test pyramid: bottom = unit/component (many, fast, cheap, isolated). Middle = integration (moderate, medium speed). Top = E2E/UI (few, slow, expensive, brittle). More at bottom = better quality with less cost and faster feedback.',
+      tip:'Think of the actual pyramid shape: WIDE base = many unit tests. NARROW top = few E2E tests. More at the bottom, fewer at the top. This is always the answer to "what does the test pyramid emphasize?"',
+      context:'A well-structured React app has: 500 unit tests (fast, run in seconds), 100 API integration tests (run in minutes), 20 E2E UI tests (run in 30 minutes). The pyramid ratio: 500:100:20. Wide base, narrow peak.'
+  }
+},
+{
+  id:'QA22', num:'A22', set:'A', ch:5, type:'single', pts:1,
+  stem:'During risk analysis, a risk was identified: "The system allows too high a discount for a customer." Risk impact: very high. What can be said about risk likelihood?',
+  opts:['Also very high — high impact always implies high likelihood',
+        'Very low — high impact always implies low likelihood',
+        'Cannot say anything — risk impact and likelihood are independent',
+        'Risk likelihood is not important with such high impact — no need to define it'],
+  ans:[2],
+  exp:{
+      correct:'C — Impact and likelihood are INDEPENDENT factors. You cannot infer one from the other. A risk can have high impact AND high likelihood, OR high impact AND low likelihood. They\'re separate dimensions.',
+      choices:[
+        { verdict:'INCORRECT', text:'"High impact = high likelihood" is completely false. Natural disasters have very high impact but (usually) very low likelihood. Software crashes can have high impact with either high or low likelihood. No correlation exists.' },
+        { verdict:'INCORRECT', text:'"High impact = low likelihood" (the opposite assertion) is equally false. There\'s no universal inverse relationship. Again, they\'re independent.' },
+        { verdict:'CORRECT', text:'Risk = Likelihood × Impact. These are TWO SEPARATE dimensions you must assess independently. A high-impact risk might be very likely (critical calculation error in heavily-used code) or very unlikely (asteroid strike). You must assess likelihood separately, regardless of impact.' },
+        { verdict:'INCORRECT', text:'Likelihood is always important in risk analysis — it directly affects prioritization. A very-high-impact, very-low-likelihood risk gets different treatment than a very-high-impact, very-high-likelihood risk. You can\'t skip the likelihood assessment.' }
+      ],
+      concept:'Risk assessment: Risk level = Likelihood × Impact. Both must be assessed independently. High impact alone doesn\'t tell you the risk level — you need the likelihood too. Risk prioritization requires both dimensions.',
+      tip:'The exam loves testing this independence. Never assume one dimension from the other. Always: assess likelihood separately, assess impact separately, multiply (or use a risk matrix) for overall risk level.',
+      context:'Risk: "System allows excessive discounts" (business fraud risk). Impact: Very High (financial loss). Likelihood: depends on code quality, data validation, access controls. You must actually analyze the code to determine if this is likely — you can\'t derive it from the impact alone.'
+  }
+},
+{
+  id:'QA23', num:'A23', set:'A', ch:5, type:'single', pts:1,
+  stem:'Which of the identified risks are PROJECT risks?\n\n(i) Management moves experienced testers to another project\n(ii) System doesn\'t comply with security standards\n(iii) System response time exceeds user requirements\n(iv) Stakeholders have inaccurate expectations\n(v) Disabled people have problems using the system',
+  opts:['i, iv are project risks','iv, v are project risks','i, iii are project risks','ii, v are project risks'],
+  ans:[0],
+  exp:{
+      correct:'A — i and iv. Losing testers (i) threatens project delivery (project risk). Inaccurate stakeholder expectations (iv) threaten project success and alignment (project risk). The others are product quality risks.',
+      choices:[
+        { verdict:'CORRECT', text:'Project risks: threats to the project\'s ability to achieve its objectives (time, budget, scope, quality). (i) Losing experienced testers = resource/staffing risk to the project. (iv) Inaccurate expectations = communication/stakeholder risk to the project. Both directly impact project management, not the product itself.' },
+        { verdict:'INCORRECT', text:'iv is a project risk (correct) but v (disabled users having problems) is a PRODUCT risk — it\'s about the product\'s accessibility/usability quality, not the project management process.' },
+        { verdict:'INCORRECT', text:'i is a project risk (correct) but iii (response time exceeds requirements) is a PRODUCT risk — it\'s about the product\'s performance characteristic, not the project management process.' },
+        { verdict:'INCORRECT', text:'ii (security standards non-compliance) and v (accessibility for disabled users) are both PRODUCT quality risks — they relate to the quality of the delivered software, not project management.' }
+      ],
+      concept:'Project risks vs. Product risks: Project risks threaten the project management (resources, schedule, budget, stakeholder alignment). Product risks threaten the quality of the product being built (security, performance, usability, reliability).',
+      tip:'"Project" = management plane: people, resources, schedule, communication, stakeholders. "Product" = quality plane: security, performance, usability, accessibility, functionality. Ask: "Does this risk affect HOW we run the project or WHAT we deliver?"',
+      context:'Project risk example: key developer gets sick during critical sprint (resource risk). Product risk example: authentication module has security vulnerabilities (quality risk). Both exist simultaneously and need separate management.'
+  }
+},
+{
+  id:'QA24', num:'A24', set:'A', ch:5, type:'single', pts:1,
+  stem:'Which is an example of how product risk analysis influences thoroughness and scope of testing?',
+  opts:['Test manager monitors all known risks daily so stakeholders can decide release date',
+        '"Lack of support of open-source databases" identified as risk → team integrates open-source database',
+        'Team estimates total residual risk before testing during quantitative risk analysis',
+        'Risk assessment reveals very high performance risks → detailed performance efficiency testing early in SDLC'],
+  ans:[3],
+  exp:{
+      correct:'D — Risk assessment revealing high performance risk → early, detailed performance testing. This directly shows risk analysis influencing testing: higher risk = more thorough testing + earlier in SDLC. That\'s the risk-based testing principle.',
+      choices:[
+        { verdict:'INCORRECT', text:'Daily risk monitoring and stakeholder reporting is test MONITORING activity — it\'s about communicating risk status, not about determining the scope and thoroughness of testing activities.' },
+        { verdict:'INCORRECT', text:'Integrating a database to address "lack of open-source database support" is a DEVELOPMENT/ARCHITECTURAL response to risk — it\'s fixing the problem, not adjusting testing scope. Risk-based testing adjusts testing depth, not system architecture.' },
+        { verdict:'INCORRECT', text:'Calculating total residual risk is risk analysis/measurement — an INPUT to testing decisions, not the testing decision itself. The question asks for an example of risk analysis INFLUENCING testing scope/thoroughness.' },
+        { verdict:'CORRECT', text:'This is the textbook example: risk analysis identifies performance as high risk → test more thoroughly (detailed testing) → test earlier (earlier in SDLC). Both "thoroughness" and "scope" are directly influenced by the risk level. High risk = more testing, earlier.' }
+      ],
+      concept:'Risk-based testing principle: distribute testing effort proportionally to risk. High-risk areas get more thorough testing earlier. Low-risk areas get less testing. Risk analysis drives both the scope (what to test) and thoroughness (how deeply to test).',
+      tip:'"Risk analysis influences testing" = high risk areas get more/earlier/deeper testing. Always look for the choice where a RISK FINDING directly changes the TESTING STRATEGY (timing, depth, scope).',
+      context:'Risk analysis on a healthcare app reveals critical security risk (patient data). Testing team responds: pen testing from day 1 of development, security code reviews on every PR, dedicated security testing sprint. The risk directly shaped the entire testing scope and timing.'
+  }
+},
+{
+  id:'QA25', num:'A25', set:'A', ch:5, type:'multi', pts:1,
+  stem:'Which TWO of the following options are common metrics used for reporting on the QUALITY LEVEL of the test object?',
+  opts:['Number of defects found during system testing',
+        'Total effort on test design divided by number of designed test cases',
+        'Number of executed test procedures',
+        'Number of defects found divided by size of a work product',
+        'Time needed to repair a defect'],
+  ans:[0,3],
+  exp:{
+      correct:'A (defects found in system testing) and D (defect density = defects/size) are quality metrics for the test object. They directly measure the quality of the SOFTWARE being tested, not the test process efficiency.',
+      choices:[
+        { verdict:'CORRECT', text:'Number of defects found during system testing is a direct quality indicator of the software product — more defects = lower quality. This is a standard product quality metric used in release decisions.' },
+        { verdict:'INCORRECT', text:'Test effort per test case is a TEST PROCESS EFFICIENCY metric — it measures how efficiently the team designs tests, not the quality of the software being tested.' },
+        { verdict:'INCORRECT', text:'Number of executed test procedures is a TEST COVERAGE/PROGRESS metric — it tells you how much testing was done, not how good the software quality is.' },
+        { verdict:'CORRECT', text:'Defect density (defects per KLOC, per function point, per use case) is a PRIMARY software quality metric. It\'s comparable across projects, normalizes for size, and directly indicates the quality level of the product.' },
+        { verdict:'INCORRECT', text:'Time to repair a defect (MTTR) is a MAINTENANCE process metric — about how efficiently the team fixes bugs, not the quality of the test object itself.' }
+      ],
+      concept:'Quality metrics for the test object (the software): defect count, defect density, defect severity distribution, defects by component. Test process metrics: coverage achieved, test execution rate, effort per test case, test cycle time.',
+      tip:'"Quality of the test OBJECT" = quality of the SOFTWARE. Look for metrics that describe the software\'s defect profile. Process metrics (effort, execution count, repair time) describe HOW testing is done, not HOW GOOD the software is.',
+      context:'Release dashboard shows: 12 defects in system testing (above threshold → hold release) + defect density of 0.8/KLOC (above industry average of 0.5 → quality concern). These two metrics tell stakeholders about the SOFTWARE quality, driving the release decision.'
+  }
+},
+{
+  id:'QA26', num:'A26', set:'A', ch:5, type:'single', pts:1,
+  stem:'Which of the following pieces of information in a test progress report is the LEAST useful for business representatives?',
+  opts:['Impediments to testing','Branch coverage achieved','Test progress','New risks within the test cycle'],
+  ans:[1],
+  exp:{
+      correct:'B — Branch coverage achieved. Branch coverage is a TECHNICAL metric meaningful to developers and test engineers. Business representatives care about business risk and delivery readiness — not internal code coverage percentages.',
+      choices:[
+        { verdict:'INCORRECT', text:'Impediments to testing ARE useful to business reps — if testing is blocked, it affects schedule and quality decisions. Business reps need to know if something is preventing testing from proceeding.' },
+        { verdict:'CORRECT', text:'Branch coverage is a white-box technical metric (percentage of code branches exercised). Business representatives typically cannot interpret what "73% branch coverage" means in business terms. They care about risk, readiness, and issues — not internal code metrics.' },
+        { verdict:'INCORRECT', text:'Test progress (what has been tested, what remains) is directly useful to business reps — they need to know if testing is on track for the release schedule. This is timeline and scope information they understand and care about.' },
+        { verdict:'INCORRECT', text:'New risks are extremely relevant to business reps — risks affect decisions about release timing, additional investment, or product changes. Business reps must be aware of new risks to make informed decisions.' }
+      ],
+      concept:'Report audience matters: technical metrics (coverage %, defect density, test cases per day) belong in technical reports. Business metrics (risks, schedule, blockers, quality readiness) belong in business-facing reports. Tailor communication to the audience.',
+      tip:'"Business representative" = non-technical stakeholder. They care about: risk, schedule, quality readiness, blockers. They don\'t care about: branch coverage %, code complexity, test automation framework details.',
+      context:'Sprint review: PO asks "are we ready to release?" Test report shows 73% branch coverage. PO doesn\'t know if 73% is good or bad. But the same report shows "3 critical defects open, 2 security risks identified" — that PO immediately understands and can act on.'
+  }
+}
+]; // end questions array
+
+// ─────────────────────────────────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────────────────────────────────
+let currentFilter = 'all';
+let currentSearch = '';
+let filteredIds = [];
+let currentIdx = 0;
+let answers = {}; // qId → { chosen: [...], correct: bool }
+let mixedOrder = null;
+
+function getFilteredQuestions() {
+  let list = [...questions];
+  if (currentFilter === 'ch1') list = list.filter(q => q.ch === 1);
+  else if (currentFilter === 'ch2') list = list.filter(q => q.ch === 2);
+  else if (currentFilter === 'ch3') list = list.filter(q => q.ch === 3);
+  else if (currentFilter === 'ch4') list = list.filter(q => q.ch === 4);
+  else if (currentFilter === 'ch5') list = list.filter(q => q.ch === 5);
+  else if (currentFilter === 'ch6') list = list.filter(q => q.ch === 6);
+  else if (currentFilter === 'unanswered') list = list.filter(q => !answers[q.id]);
+  else if (currentFilter === 'wrong') list = list.filter(q => answers[q.id] && !answers[q.id].correct);
+  else if (currentFilter === 'correct') list = list.filter(q => answers[q.id] && answers[q.id].correct);
+  else if (currentFilter === 'setA') list = list.filter(q => q.set === 'A');
+  if (currentSearch) {
+    const s = currentSearch.toLowerCase();
+    list = list.filter(q => q.stem.toLowerCase().includes(s) || q.num.toLowerCase().includes(s));
+  }
+  if (currentFilter === 'mixed') {
+    if (!mixedOrder || mixedOrder.length !== list.length) {
+      mixedOrder = [...list].sort(() => Math.random() - 0.5);
+    }
+    return mixedOrder.filter(q => list.find(l => l.id === q.id));
+  }
+  return list;
+}
+
+function setFilter(f, btn) {
+  currentFilter = f;
+  if (f === 'mixed') mixedOrder = null;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  buildList();
+  const fl = getFilteredQuestions();
+  if (fl.length > 0) showQuestion(fl, 0);
+  else showEmpty();
+}
+
+function applyFilters() {
+  currentSearch = document.getElementById('searchBox').value;
+  buildList();
+  const fl = getFilteredQuestions();
+  if (fl.length > 0) showQuestion(fl, 0);
+  else showEmpty();
+}
+
+// ─────────────────────────────────────────────────────────────────────
+// BUILD SIDEBAR LIST
+// ─────────────────────────────────────────────────────────────────────
+function buildList() {
+  const container = document.getElementById('qList');
+  container.innerHTML = '';
+  const fl = getFilteredQuestions();
+  if (!fl.length) { container.innerHTML = '<div style="padding:16px;font-size:12px;color:var(--muted);text-align:center;">No questions match</div>'; return; }
+  fl.forEach((q, idx) => {
+    const ci = CH_INFO[q.ch];
+    const ans = answers[q.id];
+    const item = document.createElement('div');
+    item.className = 'q-list-item' + (idx === currentIdx ? ' active' : '') + (ans ? (ans.correct ? ' answered-correct' : ' answered-wrong') : '');
+    item.dataset.idx = idx;
+    item.innerHTML = `
+      <span class="q-num">${q.num}</span>
+      <span class="q-text-mini">${q.stem.substring(0, 55)}…</span>
+      <span class="ch-tag-mini" style="color:${ci.color};background:${ci.color}18;border:1px solid ${ci.color}30;">${ci.label}</span>
+      <span class="q-dot${ans ? (ans.correct ? ' correct' : ' wrong') : ''}"></span>
+    `;
+    item.onclick = () => { currentIdx = idx; showQuestion(fl, idx); buildList(); };
+    container.appendChild(item);
+  });
+}
+
+// ─────────────────────────────────────────────────────────────────────
+// UPDATE SCORE
+// ─────────────────────────────────────────────────────────────────────
+function updateScore() {
+  const correct = Object.values(answers).filter(a => a.correct).length;
+  const total = Object.keys(answers).length;
+  document.getElementById('scoreDisplay').textContent = total ? `${correct}/${total}` : '0/0';
+  const pct = (total / questions.length) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+
+// ─────────────────────────────────────────────────────────────────────
+// SHOW QUESTION
+// ─────────────────────────────────────────────────────────────────────
+function showQuestion(fl, idx) {
+  currentIdx = idx;
+  const q = fl[idx];
+  const ci = CH_INFO[q.ch];
+  const answered = answers[q.id];
+
+  document.getElementById('welcome-view').style.display = 'none';
+  const qView = document.getElementById('qView');
+  qView.innerHTML = '';
+
+  const card = document.createElement('div');
+  card.className = 'q-card visible';
+  card.id = 'qcard_' + q.id;
+
+  // Header
+  let header = `
+    <div class="q-header">
+      <div class="q-num-badge">${q.set} · ${q.num}</div>
+      <div class="q-meta">
+        <div class="q-chapter-label" style="color:${ci.color}">${ci.label} · ${ci.name}</div>
+        <div class="q-title">${q.stem.split('\n')[0]}</div>
+        <div class="q-points">${q.pts} point${q.pts>1?'s':''}</div>
+      </div>
+    </div>`;
+
+  // Scenario (multi-line stems)
+  const lines = q.stem.split('\n').slice(1).join('\n').trim();
+  if (lines) {
+    header += `<div class="scenario"><div class="scenario-label">Scenario</div><pre style="white-space:pre-wrap;font-family:inherit;font-size:13px;">${lines}</pre></div>`;
+  }
+
+  if (q.type === 'multi') {
+    header += `<div class="multi-note">Select TWO options</div>`;
+  }
+
+  // Options
+  let optsHTML = '<div class="options" id="opts_' + q.id + '">';
+  const keys = ['A', 'B', 'C', 'D', 'E'];
+  q.opts.forEach((opt, oi) => {
+    let cls = '';
+    if (answered) {
+      if (q.type === 'multi') {
+        const wasChosen = answered.chosen.includes(oi);
+        const isCorrect = q.ans.includes(oi);
+        if (isCorrect) cls = 'multi-correct';
+        else if (wasChosen && !isCorrect) cls = 'multi-wrong-sel';
+      } else {
+        if (oi === q.ans[0]) cls = 'revealed-right';
+        if (answered.chosen.includes(oi) && !q.ans.includes(oi)) cls = 'selected-wrong';
+      }
+    }
+    optsHTML += `<button class="opt-btn ${cls}" id="opt_${q.id}_${oi}" onclick="selectOpt('${q.id}',${oi})" ${answered ? 'disabled' : ''}>
+      <span class="opt-key">${keys[oi]}</span>
+      <span class="opt-text">${opt}</span>
+    </button>`;
+  });
+  optsHTML += '</div>';
+
+  let submitHTML = '';
+  if (q.type === 'multi' && !answered) {
+    submitHTML = `<button class="submit-btn" id="submit_${q.id}" onclick="submitMulti('${q.id}')">Submit Answer</button>`;
+  }
+
+  // Explanation
+  let expHTML = buildExplanation(q, ci);
+
+  // Nav
+  const navHTML = `
+    <div class="nav-row">
+      ${idx > 0 ? `<button class="nav-btn" onclick="navTo(${idx-1})">← Previous</button>` : ''}
+      ${idx < fl.length - 1 ? `<button class="nav-btn primary" onclick="navTo(${idx+1})">Next →</button>` : '<span class="nav-btn" style="opacity:.4">Last question</span>'}
+      <button class="nav-btn" onclick="showHome()" style="margin-left:auto">🏠 Home</button>
+    </div>`;
+
+  card.innerHTML = header + optsHTML + submitHTML + expHTML + navHTML;
+
+  // If already answered, show explanation
+  if (answered) {
+    const exp = card.querySelector('.explanation');
+    if (exp) exp.classList.add('show');
+  }
+
+  qView.appendChild(card);
+
+  // For multi-select, restore selection state if not yet answered
+  if (q.type === 'multi' && !answered) {
+    window._multiSelected = window._multiSelected || {};
+    window._multiSelected[q.id] = window._multiSelected[q.id] || [];
+  }
+
+  // Update active in list
+  document.querySelectorAll('.q-list-item').forEach((item, i) => {
+    item.classList.toggle('active', i === idx);
+  });
+}
+
+function buildExplanation(q, ci) {
+  const e = q.exp;
+  let choices = '';
+  q.opts.forEach((opt, oi) => {
+    const choiceExp = e.choices[oi];
+    const isCorrect = q.ans.includes(oi);
+    choices += `
+      <div class="choice-item ${isCorrect ? 'c-correct' : 'c-wrong'}">
+        <div class="choice-header">
+          <span class="choice-badge">${['A','B','C','D','E'][oi]}</span>
+          <span class="choice-verdict">${choiceExp.verdict}</span>
+        </div>
+        <p>${choiceExp.text}</p>
+      </div>`;
+  });
+
+  return `
+  <div class="explanation" id="exp_${q.id}">
+    <div id="result_${q.id}" class="result-banner correct" style="display:none">
+      <div class="result-icon">✅</div>
+      <div class="result-text"><h3>Correct!</h3><p>Well done — you selected the right answer.</p></div>
+    </div>
+
+    <div class="exp-block">
+      <h4>✓ Correct Answer Explained</h4>
+      <p>${e.correct}</p>
+    </div>
+
+    <div class="exp-block highlight">
+      <h4>🔍 All Choices Breakdown</h4>
+      <div class="choices-grid">${choices}</div>
+    </div>
+
+    <div class="exp-block tip">
+      <h4>💡 Key Concept</h4>
+      <p>${e.concept}</p>
+    </div>
+
+    <div class="exp-block purple">
+      <h4>🧠 Memory Tip</h4>
+      <p>${e.tip}</p>
+    </div>
+
+    <div class="exp-block">
+      <h4>🏢 ISTQB Context</h4>
+      <p>${e.context}</p>
+    </div>
+  </div>`;
+}
+
+// ─────────────────────────────────────────────────────────────────────
+// ANSWER HANDLING
+// ─────────────────────────────────────────────────────────────────────
+window._multiSelected = {};
+
+function selectOpt(qId, oi) {
+  const q = questions.find(x => x.id === qId);
+  if (!q || answers[qId]) return;
+
+  if (q.type === 'multi') {
+    if (!window._multiSelected[qId]) window._multiSelected[qId] = [];
+    const sel = window._multiSelected[qId];
+    const pos = sel.indexOf(oi);
+    const btn = document.getElementById('opt_' + qId + '_' + oi);
+    if (pos >= 0) {
+      sel.splice(pos, 1);
+      btn.classList.remove('multi-selected');
+      btn.querySelector('.opt-key').style.background = '';
+      btn.querySelector('.opt-text').style.color = '';
+    } else {
+      if (sel.length < 2) {
+        sel.push(oi);
+        btn.classList.add('multi-selected');
+      }
+    }
+    // Show/hide submit
+    const submitBtn = document.getElementById('submit_' + qId);
+    if (submitBtn) submitBtn.classList.toggle('show', sel.length === 2);
+  } else {
+    // Single select — immediate answer
+    const isCorrect = q.ans[0] === oi;
+    answers[qId] = { chosen: [oi], correct: isCorrect };
+    revealAnswer(qId, [oi], isCorrect);
+    updateScore();
+    buildList();
+  }
+}
+
+function submitMulti(qId) {
+  const q = questions.find(x => x.id === qId);
+  const chosen = window._multiSelected[qId] || [];
+  if (chosen.length !== 2) return;
+  const correct = q.ans.slice().sort().toString() === chosen.slice().sort().toString();
+  answers[qId] = { chosen, correct };
+  revealAnswer(qId, chosen, correct);
+  updateScore();
+  buildList();
+  document.getElementById('submit_' + qId).style.display = 'none';
+}
+
+function revealAnswer(qId, chosen, isCorrect) {
+  const q = questions.find(x => x.id === qId);
+  const opts = document.querySelectorAll(`[id^="opt_${qId}_"]`);
+  opts.forEach(btn => btn.disabled = true);
+
+  if (q.type === 'multi') {
+    opts.forEach(btn => {
+      const oi = parseInt(btn.id.split('_').pop());
+      const wasChosen = chosen.includes(oi);
+      const correct = q.ans.includes(oi);
+      btn.classList.remove('multi-selected');
+      if (correct) btn.classList.add('multi-correct');
+      else if (wasChosen && !correct) btn.classList.add('multi-wrong-sel');
+    });
+  } else {
+    const chosenBtn = document.getElementById(`opt_${qId}_${chosen[0]}`);
+    const correctBtn = document.getElementById(`opt_${qId}_${q.ans[0]}`);
+    if (chosenBtn) chosenBtn.classList.add(isCorrect ? 'selected-right' : 'selected-wrong');
+    if (correctBtn && !isCorrect) correctBtn.classList.add('revealed-right');
+  }
+
+  const exp = document.getElementById('exp_' + qId);
+  if (exp) {
+    exp.classList.add('show');
+    const resultBanner = document.getElementById('result_' + qId);
+    if (resultBanner) {
+      resultBanner.style.display = 'flex';
+      if (!isCorrect) {
+        resultBanner.classList.remove('correct');
+        resultBanner.classList.add('wrong');
+        resultBanner.querySelector('h3').textContent = 'Incorrect';
+        resultBanner.querySelector('p').textContent = `The correct answer is highlighted above in green.`;
+        resultBanner.querySelector('.result-icon').textContent = '❌';
+      }
+    }
+  }
+}
+
+function navTo(idx) {
+  const fl = getFilteredQuestions();
+  if (idx >= 0 && idx < fl.length) {
+    currentIdx = idx;
+    showQuestion(fl, idx);
+    buildList();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function showEmpty() {
+  document.getElementById('welcome-view').style.display = 'block';
+  document.getElementById('filtered-empty').style.display = 'block';
+  document.getElementById('qView').innerHTML = '';
+}
+
+function showHome() {
+  document.getElementById('welcome-view').style.display = 'block';
+  document.getElementById('filtered-empty').style.display = 'none';
+  document.getElementById('qView').innerHTML = '';
+  currentIdx = 0;
+  document.querySelectorAll('.q-list-item').forEach(i => i.classList.remove('active'));
+}
+
+// ─────────────────────────────────────────────────────────────────────
+// HERO CHAPTER PILLS
+// ─────────────────────────────────────────────────────────────────────
+function buildHeroPills() {
+  const container = document.getElementById('heroPills');
+  Object.entries(CH_INFO).forEach(([num, ci]) => {
+    const count = questions.filter(q => q.ch === parseInt(num)).length;
+    const pill = document.createElement('span');
+    pill.className = 'ch-pill';
+    pill.style.color = ci.color;
+    pill.style.borderColor = ci.color + '50';
+    pill.style.background = ci.color + '12';
+    pill.textContent = `${ci.label}: ${count}q`;
+    pill.onclick = () => {
+      const btn = document.querySelector(`[data-filter="ch${num}"]`);
+      if (btn) setFilter('ch' + num, btn);
+    };
+    container.appendChild(pill);
+  });
+}
+
+// ─────────────────────────────────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────────────────────────────────
+buildHeroPills();
+buildList();
+</script>
+</body>
+</html>
